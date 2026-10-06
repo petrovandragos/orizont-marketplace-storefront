@@ -128,7 +128,7 @@ const ProductCard = ({ product, region }: ProductCardProps) => {
             </div>
             <div className="pt-1">
               <LocalizedClientLink
-                href={`/cerere-oferta?produs=${product.handle}`}
+                href={`/products/${product.handle}?oferta=1#cere-oferta`}
                 className="w-full flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold border-2 border-[#F27A1A] text-[#F27A1A] hover:bg-[#F27A1A] hover:text-white transition-colors duration-150"
               >
                 Cere Ofertă

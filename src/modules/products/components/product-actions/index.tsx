@@ -168,7 +168,7 @@ export default function ProductActions({
           <div className="flex flex-col gap-y-3 mt-2">
             <p className="text-sm text-gray-500">Contactă-ne pentru un preț personalizat pentru acest produs.</p>
             <LocalizedClientLink
-              href={`/cerere-oferta?produs=${product.handle}`}
+              href={`/products/${product.handle}?oferta=1#cere-oferta`}
               className="w-full flex items-center justify-center gap-x-2 px-4 py-3 rounded-lg text-sm font-semibold bg-[#F27A1A] text-white hover:bg-[#e06a10] transition-colors duration-150"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

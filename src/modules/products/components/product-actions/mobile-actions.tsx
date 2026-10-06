@@ -121,7 +121,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
               </Button>}
               {priceOnRequest ? (
                 <LocalizedClientLink
-                  href={`/cerere-oferta?produs=${product.handle}`}
+                  href={`/products/${product.handle}?oferta=1#cere-oferta`}
                   className="w-full flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-[#F27A1A] text-white hover:bg-[#e06a10] transition-colors duration-150"
                 >
                   Cere Ofertă

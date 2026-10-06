@@ -11,17 +11,28 @@ type PopularProductsProps = {
 const PopularProducts = async ({ region }: PopularProductsProps) => {
   const collection = await getCollectionByHandle("produse-populare").catch(() => null)
 
-  const {
-    response: { products },
-  } = await listProducts({
-    regionId: region.id,
-    queryParams: {
-      limit: 8,
-      fields:
-        "*variants.calculated_price,+variants.inventory_quantity,+metadata",
-      ...(collection ? { collection_id: collection.id } : {}),
-    },
-  }).catch(() => ({ response: { products: [] as HttpTypes.StoreProduct[], count: 0 } }))
+  const fetchProducts = (collectionId?: string) =>
+    listProducts({
+      regionId: region.id,
+      queryParams: {
+        limit: 8,
+        fields:
+          "*variants.calculated_price,+variants.inventory_quantity,+metadata",
+        ...(collectionId ? { collection_id: collectionId } : {}),
+        // fără colecție: cele mai noi produse
+        ...(!collectionId ? { order: "-created_at" } : {}),
+      },
+    })
+      .then(({ response }) => response.products)
+      .catch(() => [] as HttpTypes.StoreProduct[])
+
+  // Produsele din colecția „produse-populare” (se aleg din admin). Dacă
+  // colecția lipsește sau e goală, arătăm cele mai noi produse, ca secțiunea
+  // să nu rămână niciodată goală.
+  let products = collection ? await fetchProducts(collection.id) : []
+  if (products.length === 0) {
+    products = await fetchProducts()
+  }
 
   return (
     <section className="content-container py-12 md:py-16">

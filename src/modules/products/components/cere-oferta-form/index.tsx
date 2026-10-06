@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { HttpTypes } from "@medusajs/types"
 import { submitQuoteRequest } from "@lib/data/quote-requests"
 import { Turnstile } from "@marsidev/react-turnstile"
@@ -26,6 +26,18 @@ export default function CereOfertaForm({ product, selectedVariantId }: Props) {
   const [error, setError] = useState<string | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<any>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // Butonul „Cere Ofertă” din listele de produse trimite aici cu ?oferta=1:
+  // deschidem formularul și îl aducem în ecran.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("oferta") === "1") {
+      setOpen(true)
+      setTimeout(() => {
+        containerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+      }, 100)
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -80,7 +92,7 @@ export default function CereOfertaForm({ product, selectedVariantId }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-y-2">
+    <div id="cere-oferta" ref={containerRef} className="flex flex-col gap-y-2 scroll-mt-28">
       {/* Toggle button */}
       <button
         type="button"
