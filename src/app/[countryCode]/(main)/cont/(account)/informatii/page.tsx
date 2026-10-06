@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import ContProfileForm from "@modules/account/components/cont-profile-form"
 
 export const metadata: Metadata = {
-  title: "Informații personale | Orizont",
+  title: "Informații personale",
 }
 
 export default async function InformatiiPage() {

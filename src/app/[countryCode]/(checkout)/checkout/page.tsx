@@ -6,7 +6,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
-  title: "Finalizare comandă | Orizont",
+  title: "Finalizare comandă",
   description: "Finalizează comanda ta de materiale de construcții.",
 }
 

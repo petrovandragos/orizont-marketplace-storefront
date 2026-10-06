@@ -4,6 +4,7 @@ import { listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
 import { HttpTypes } from "@medusajs/types"
+import { toMetaDescription } from "@lib/util/meta-description"
 
 export const dynamic = 'force-dynamic'
 
@@ -74,13 +75,18 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     notFound()
   }
 
-  const description =
-    (product as any).description ??
-    `Cumpără ${product.title} de la Orizont — materiale de construcții.`
+  const description = toMetaDescription(
+    product.description,
+    `${product.title} la Orizont Sighetu Marmației, depozit de materiale de construcții. Comandă online sau cere ofertă.`
+  )
 
   return {
-    title: `${product.title} | Orizont`,
+    // " | Orizont" se adaugă automat din layout
+    title: product.title,
     description,
+    alternates: {
+      canonical: `/products/${handle}`,
+    },
     openGraph: {
       title: `${product.title} | Orizont`,
       description,

@@ -6,7 +6,7 @@ import { getOrderStatusDisplay, formatRon, formatDate } from "@modules/account/c
 import { HttpTypes } from "@medusajs/types"
 
 export const metadata: Metadata = {
-  title: "Detalii comandă | Orizont",
+  title: "Detalii comandă",
 }
 
 type Props = {

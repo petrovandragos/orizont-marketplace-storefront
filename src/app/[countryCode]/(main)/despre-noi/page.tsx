@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Despre noi | Orizont",
+  title: "Despre noi",
   description: "Află mai multe despre Orizont — depozit de materiale de construcții din Sighetu Marmației.",
 }
 

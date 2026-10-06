@@ -5,6 +5,7 @@ import { getCategoryByHandle, listCategories } from "@lib/data/categories"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import CategoryTemplate from "@modules/categories/templates"
+import { toMetaDescription } from "@lib/util/meta-description"
 
 type Props = {
   params: Promise<{ category: string[]; countryCode: string }>
@@ -52,15 +53,19 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
     const title = productCategory.name
 
-    const description =
-      productCategory.description ??
-      `Cumpără ${title} de calitate de la Orizont — materiale de construcții.`
+    // Descrierile categoriilor sunt goale ("") în Medusa, deci folosim
+    // textul de rezervă și când descrierea e un șir gol.
+    const description = toMetaDescription(
+      productCategory.description,
+      `${title} la Orizont Sighetu Marmației: materiale de construcții la prețuri de depozit, cu livrare. Comandă online sau cere ofertă.`
+    )
 
     return {
-      title: `${title} | Orizont`,
+      // " | Orizont" se adaugă automat din layout
+      title,
       description,
       alternates: {
-        canonical: `${params.category.join("/")}`,
+        canonical: `/categories/${params.category.join("/")}`,
       },
     }
   } catch (error) {

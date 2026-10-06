@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import Image from "next/image"
 
 export const metadata: Metadata = {
-  title: "Certificări | Orizont",
+  title: "Certificări",
   description: "Certificările de calitate ale companiei Orizont.",
 }
 

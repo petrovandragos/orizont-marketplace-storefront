@@ -4,7 +4,7 @@ import { retrieveCart, initiatePaymentSession, placeOrder } from "@lib/data/cart
 import { getEuplatescOrderId } from "@lib/data/euplatesc"
 
 export const metadata: Metadata = {
-  title: "Procesare plată | Orizont",
+  title: "Procesare plată",
 }
 
 /**

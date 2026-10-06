@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import AvailabilityBadge from "@modules/layout/components/availability-badge"
 
 export const metadata: Metadata = {
-  title: "Serviciu Clienți | Orizont",
+  title: "Serviciu Clienți",
   description: "Suntem aici să te ajutăm. Contactează echipa noastră de suport pentru orice întrebare legată de comenzi, livrare sau produse.",
 }
 

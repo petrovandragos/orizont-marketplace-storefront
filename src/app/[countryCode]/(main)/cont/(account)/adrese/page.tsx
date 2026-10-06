@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import ContAddressBook from "@modules/account/components/cont-address-book"
 
 export const metadata: Metadata = {
-  title: "Adresele mele | Orizont",
+  title: "Adresele mele",
 }
 
 export default async function AdresePage() {

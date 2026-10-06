@@ -6,7 +6,7 @@ import { notFound } from "next/navigation"
 import { getOrderStatusDisplay, formatRon, formatDate } from "@modules/account/components/cont-shared/utils"
 
 export const metadata: Metadata = {
-  title: "Comenzile mele | Orizont",
+  title: "Comenzile mele",
 }
 
 type Props = {

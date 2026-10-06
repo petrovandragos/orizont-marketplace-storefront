@@ -12,11 +12,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
   title: {
-    default: "Orizont — Materiale de construcții",
+    default: "Orizont Sighetu Marmației — Depozit materiale de construcții",
     template: "%s | Orizont",
   },
   description:
-    "Depozit de materiale de construcții. Ciment, cărămizi, izolații, acoperiș, oțel și multe altele. Livrare rapidă, prețuri competitive.",
+    "Depozit de materiale de construcții în Sighetu Marmației, Maramureș: ciment, cărămidă Porotherm, izolații, acoperișuri, oțel beton. Livrare la șantier. Tel. 0730 076 606.",
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {

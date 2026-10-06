@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Termeni și condiții | Orizont",
+  title: "Termeni și condiții",
   description: "Termenii și condițiile de utilizare ale platformei Orizont.",
 }
 

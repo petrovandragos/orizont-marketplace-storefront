@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Politica de retur | Orizont",
+  title: "Politica de retur",
   description: "Politica de retur și dreptul de retragere — Orizont, materiale de construcții.",
 }
 

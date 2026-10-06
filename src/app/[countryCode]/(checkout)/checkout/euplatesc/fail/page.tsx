@@ -3,7 +3,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import CheckoutProgress from "@modules/checkout/components/checkout-progress"
 
 export const metadata: Metadata = {
-  title: "Plată eșuată | Orizont",
+  title: "Plată eșuată",
 }
 
 type Props = {

@@ -4,7 +4,7 @@ import { retrieveCustomer } from "@lib/data/customer"
 import RegisterCard from "@modules/account/components/register-card"
 
 export const metadata: Metadata = {
-  title: "Înregistrare | Orizont",
+  title: "Înregistrare",
   description: "Creează un cont Orizont pentru o experiență completă de cumpărături.",
 }
 

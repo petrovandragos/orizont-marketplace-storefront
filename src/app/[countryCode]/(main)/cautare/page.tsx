@@ -15,7 +15,7 @@ type Props = {
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const { q } = await searchParams
   return {
-    title: q ? `Rezultate pentru „${q}" | Orizont` : "Căutare | Orizont",
+    title: q ? `Rezultate pentru „${q}"` : "Căutare",
   }
 }
 

@@ -2,15 +2,18 @@ import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
 
 export const listCategories = async (query?: Record<string, any>) => {
-  const limit = query?.limit || 100
+  const limit = query?.limit || 200
 
   return sdk.client
     .fetch<{ product_categories: HttpTypes.StoreProductCategory[] }>(
       "/store/product-categories",
       {
         query: {
+          // Fără *products: meniul și secțiunile de categorii folosesc doar
+          // numele, handle-ul și subcategoriile. Cu *products, fiecare pagină
+          // ajungea la ~14 MB pentru că toate produsele erau incluse în HTML.
           fields:
-            "*category_children, *products, *parent_category, *parent_category.parent_category",
+            "*category_children, *parent_category, *parent_category.parent_category",
           limit,
           ...query,
         },
@@ -28,7 +31,8 @@ export const getCategoryByHandle = async (categoryHandle: string[]) => {
       `/store/product-categories`,
       {
         query: {
-          fields: "*category_children, *products",
+          // Produsele categoriei se încarcă separat în template (listProducts).
+          fields: "*category_children",
           handle,
         },
         next: { revalidate: 60 },
