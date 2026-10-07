@@ -10,6 +10,7 @@ const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
 const STATIC_PATHS = [
   "",
   "/store",
+  "/cerere-oferta",
   "/contact",
   "/despre-noi",
   "/livrare",

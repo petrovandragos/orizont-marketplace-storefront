@@ -8,6 +8,7 @@ import CartMismatchBanner from "@modules/layout/components/cart-mismatch-banner"
 import CartDrawerWrapper from "@modules/layout/components/cart-drawer-wrapper"
 import Footer from "@modules/layout/templates/footer"
 import Nav from "@modules/layout/templates/nav"
+import MobileContactBar from "@modules/layout/components/mobile-contact-bar"
 import FreeShippingPriceNudge from "@modules/shipping/components/free-shipping-price-nudge"
 
 export const metadata: Metadata = {
@@ -47,6 +48,7 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
         </div>
 
         <Footer />
+        <MobileContactBar />
       </div>
     </CartDrawerWrapper>
   )
