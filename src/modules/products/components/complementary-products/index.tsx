@@ -89,7 +89,12 @@ export default async function ComplementaryProducts({ product, region }: Props) 
 
     // 2. Regula categoriei (sau a părintelui / bunicului)
     let fromRules = picked.length > 0
-    const own = product.categories ?? []
+    let own: { id: string }[] = product.categories ?? []
+    if (!own.length) {
+      // Siguranță: dacă pagina nu a primit categoriile, le cerem separat
+      const [withCats] = await fetchProducts({ id: [product.id], fields: "id,*categories", limit: 1 }, region.id)
+      own = (withCats?.categories as { id: string }[] | undefined) ?? []
+    }
     if (picked.length < MAX && own.length) {
       const cats = await fetchCategories()
       const byId = new Map(cats.map((c) => [c.id, c]))

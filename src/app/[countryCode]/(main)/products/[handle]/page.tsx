@@ -67,7 +67,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     countryCode: params.countryCode,
     queryParams: {
       handle,
-      fields: "+metadata,+categories",
+      fields: "+metadata,*categories",
     },
   }).then(({ response }) => response.products[0])
 
@@ -108,7 +108,7 @@ export default async function ProductPage(props: Props) {
     queryParams: {
       handle: params.handle,
       fields:
-        "*variants.calculated_price,+variants.inventory_quantity,+variants.manage_inventory,+variants.allow_backorder,+variants.metadata,+metadata,+tags,+categories",
+        "*variants.calculated_price,+variants.inventory_quantity,+variants.manage_inventory,+variants.allow_backorder,+variants.metadata,+metadata,+tags,*categories",
     },
   }).then(({ response }) => response.products[0])
 
