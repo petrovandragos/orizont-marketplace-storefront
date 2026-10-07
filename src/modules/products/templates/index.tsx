@@ -1,5 +1,8 @@
+import { Suspense } from "react"
 import { notFound } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
+import { productJsonLd } from "@lib/util/product-json-ld"
+import ComplementaryProducts from "@modules/products/components/complementary-products"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import PdpBody from "@modules/products/components/pdp-body"
@@ -59,6 +62,17 @@ const ProductTemplate = ({
 
       {/* ── Two-column layout + tabs (shares selected variant state) ── */}
       <PdpBody product={product} />
+
+      {/* ── Ai nevoie și de (alese automat după categorie) ── */}
+      <Suspense fallback={null}>
+        <ComplementaryProducts product={product} region={region} />
+      </Suspense>
+
+      {/* ── Date structurate pentru Google ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd(product)).replace(/</g, "\\u003c") }}
+      />
     </div>
   )
 }

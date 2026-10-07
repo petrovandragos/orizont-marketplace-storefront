@@ -87,7 +87,9 @@ Pentru exercitarea oricăruia dintre aceste drepturi, ne poți contacta la comen
     title: "7. Cookie-uri",
     content: `Platforma utilizează cookie-uri strict necesare pentru funcționarea corectă a serviciului (sesiune, coș de cumpărături, autentificare). Aceste cookie-uri nu necesită consimțământ, deoarece sunt esențiale pentru furnizarea serviciului solicitat.
 
-Nu utilizăm cookie-uri de publicitate comportamentală sau cookie-uri de urmărire terță parte fără acordul tău.`,
+Cookie-uri de statistică (Google Analytics): doar dacă alegi „Accept” în bannerul de cookie-uri, folosim Google Analytics (Google Ireland Limited) pentru a număra vizitele și a vedea ce pagini și produse sunt consultate. Datele sunt agregate, iar adresa IP este anonimizată. Dacă alegi „Refuz”, aceste cookie-uri nu se încarcă. Îți poți schimba oricând alegerea din linkul „Setări cookie-uri” din subsolul site-ului.
+
+Nu utilizăm cookie-uri de publicitate comportamentală.`,
   },
   {
     title: "8. Securitatea datelor",

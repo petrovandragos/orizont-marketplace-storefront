@@ -1,4 +1,5 @@
 import Image from "next/image"
+import CookieSettingsButton from "@modules/analytics/components/cookie-settings-button"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 const INFO_LINKS = [
@@ -159,6 +160,9 @@ export default function Footer() {
                     </LocalizedClientLink>
                   </li>
                 ))}
+                <li>
+                  <CookieSettingsButton className="text-sm text-gray-400 hover:text-white transition-colors duration-150 text-left" />
+                </li>
               </ul>
 
               <div className="pt-2 border-t border-gray-800 flex flex-col gap-y-4">

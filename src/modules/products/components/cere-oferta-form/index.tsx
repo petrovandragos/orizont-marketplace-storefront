@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { HttpTypes } from "@medusajs/types"
 import { submitQuoteRequest } from "@lib/data/quote-requests"
+import { track } from "@lib/util/analytics"
 import { Turnstile } from "@marsidev/react-turnstile"
 
 type Props = {
@@ -69,6 +70,7 @@ export default function CereOfertaForm({ product, selectedVariantId }: Props) {
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     } else {
+      track("cerere_oferta", { tip: "produs", produs: product.title ?? "" })
       setSuccess(true)
     }
     setSubmitting(false)

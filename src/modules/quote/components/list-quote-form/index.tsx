@@ -3,6 +3,7 @@
 import { useRef, useState } from "react"
 import { Turnstile } from "@marsidev/react-turnstile"
 import { submitQuoteRequest } from "@lib/data/quote-requests"
+import { track } from "@lib/util/analytics"
 
 const inputClass =
   "w-full h-11 px-3.5 rounded-lg border border-gray-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A]/30 focus:border-[#F27A1A] transition-colors"
@@ -58,6 +59,7 @@ export default function ListQuoteForm() {
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     } else {
+      track("cerere_oferta", { tip: "lista" })
       setSuccess(true)
       window.scrollTo({ top: 0, behavior: "smooth" })
     }
