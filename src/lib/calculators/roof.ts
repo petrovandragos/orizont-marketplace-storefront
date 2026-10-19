@@ -227,7 +227,7 @@ export function calculateRoof(
   const pieces = (m: number) => Math.ceil(m / rules.trimUsefulLength - 1e-9)
   const acc: AccessoryLine[] = []
   if (ridge + hips > 0) acc.push({ key: "coama", name: "Coamă", quantity: pieces(ridge + hips), unit: "buc", note: `${fmt(ridge + hips)} m de coamă${hips ? " și muchii" : ""}` })
-  if (ridge + hips > 0) acc.push({ key: "banda-coama", name: "Bandă de coamă (aerisire)", quantity: Math.ceil(ridge + hips), unit: "m" })
+  if (ridge + hips > 0) acc.push({ key: "banda-coama", name: "Bandă de coamă (aerisire)", quantity: Math.ceil((ridge + hips) / 5 - 1e-9), unit: "rolă", note: "role de 5 m" })
   if (gables > 0) acc.push({ key: "bordura", name: "Bordură laterală (fronton)", quantity: pieces(gables), unit: "buc", note: `${fmt(gables)} m` })
   if (wallTop > 0) acc.push({ key: "bordura-perete", name: "Bordură la perete (sus)", quantity: pieces(wallTop), unit: "buc", note: `${fmt(wallTop)} m` })
   acc.push({ key: "streasina", name: "Picurător streașină", quantity: pieces(eaves), unit: "buc", note: `${fmt(eaves)} m` })
