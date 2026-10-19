@@ -176,7 +176,7 @@ const Shipping: React.FC<ShippingProps> = ({
                 className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
                 data-testid="edit-delivery-button"
               >
-                Editează
+                Editați
               </button>
             </Text>
           )}
@@ -302,7 +302,7 @@ const Shipping: React.FC<ShippingProps> = ({
                   Magazin
                 </span>
                 <span className="mb-4 text-ui-fg-muted txt-medium">
-                  Alege un punct de ridicare
+                  Alegeți un punct de ridicare
                 </span>
               </div>
               <div data-testid="delivery-options-container">
@@ -376,7 +376,7 @@ const Shipping: React.FC<ShippingProps> = ({
               disabled={!cart.shipping_methods?.[0]}
               data-testid="submit-delivery-option-button"
             >
-              Continuă la plată
+              Continuați la plată
             </Button>
           </div>
         </>

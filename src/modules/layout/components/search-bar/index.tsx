@@ -124,14 +124,14 @@ const SearchBar = () => {
           onFocus={() => {
             if (results.length > 0) setIsOpen(true)
           }}
-          placeholder="Caută produse..."
+          placeholder="Căutați produse"
           autoComplete="off"
-          className="w-full h-10 pl-4 pr-11 rounded-full border border-gray-300 bg-[#F5F5F5] text-base md:text-sm text-[#333333] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition-colors duration-150"
+          className="w-full h-10 pl-11 pr-4 rounded-full border-0 bg-[#F0F0F3] text-base md:text-[15px] text-[#1D1D1F] placeholder-[#86868B] focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#F27A1A] transition-colors duration-150"
         />
         <button
           type="submit"
-          aria-label="Caută"
-          className="absolute right-0 top-0 h-10 w-10 flex items-center justify-center rounded-full text-gray-400 hover:text-[#F27A1A] transition-colors duration-150"
+          aria-label="Căutați"
+          className="absolute left-1 top-0 h-10 w-10 flex items-center justify-center rounded-full text-[#86868B] hover:text-[#1D1D1F] transition-colors duration-150"
         >
           {isLoading ? (
             <svg
@@ -174,7 +174,7 @@ const SearchBar = () => {
 
       {/* Autocomplete dropdown */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-gray-200 shadow-xl z-50 overflow-hidden">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border border-black/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.14)] z-50 overflow-hidden">
           {results.length > 0 ? (
             <>
               <ul className="divide-y divide-gray-50">
@@ -235,11 +235,11 @@ const SearchBar = () => {
                         {/* Info */}
                         <div className="flex-1 min-w-0">
                           {categoryName && (
-                            <p className="text-[10px] font-medium text-gray-400 uppercase tracking-wide truncate mb-0.5">
+                            <p className="text-xs text-[#6E6E73] truncate mb-0.5">
                               {categoryName}
                             </p>
                           )}
-                          <p className="text-sm font-medium text-[#1A1A1A] truncate">
+                          <p className="text-sm font-medium text-[#1D1D1F] truncate">
                             {product.title}
                           </p>
                           {priceDisplay && (
@@ -277,7 +277,7 @@ const SearchBar = () => {
                     e.preventDefault()
                     navigate(query.trim())
                   }}
-                  className="flex items-center justify-center gap-x-2 px-4 py-3 text-sm font-semibold text-[#F27A1A] hover:bg-[#FFF3E6] transition-colors"
+                  className="flex items-center justify-center gap-x-2 px-4 py-3 text-sm font-medium text-[#B9520A] hover:bg-[#F5F5F7] transition-colors"
                 >
                   <svg
                     className="w-4 h-4"
@@ -292,7 +292,7 @@ const SearchBar = () => {
                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
-                  Vezi toate rezultatele pentru „{query}"
+                  Vedeți toate rezultatele pentru „{query}"
                 </a>
               </div>
             </>

@@ -17,11 +17,11 @@ const sortOptions = [
   },
   {
     value: "price_asc",
-    label: "Preț: Mic -> Mare",
+    label: "Preț crescător",
   },
   {
     value: "price_desc",
-    label: "Preț: Mare -> Mic",
+    label: "Preț descrescător",
   },
 ]
 
@@ -36,7 +36,7 @@ const SortProducts = ({
 
   return (
     <FilterRadioGroup
-      title="Sortare după"
+      title="Ordonați după"
       items={sortOptions}
       value={sortBy}
       handleChange={handleChange}

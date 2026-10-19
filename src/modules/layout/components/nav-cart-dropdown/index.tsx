@@ -45,12 +45,11 @@ export default function NavCartDropdown({ cart, itemCount }: Props) {
         aria-label={`Coș de cumpărături${itemCount > 0 ? ` — ${itemCount} produse` : ""}`}
         data-testid="nav-cart-link"
         className={`relative flex items-center transition-colors duration-150 ${
-          open ? "text-[#F27A1A]" : "text-[#333333] hover:text-[#F27A1A]"
+          open ? "text-[#1D1D1F]" : "text-[#424245] hover:text-[#1D1D1F]"
         }`}
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75}
-            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        <svg className="w-[22px] h-[22px]" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 8h14l-1 12H6L5 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" />
         </svg>
         {itemCount > 0 && (
           <span
@@ -83,7 +82,7 @@ export default function NavCartDropdown({ cart, itemCount }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
-              <span className="text-sm font-bold text-[#1A1A1A]">Coșul tău</span>
+              <span className="text-sm font-semibold text-[#1D1D1F]">Coșul de cumpărături</span>
             </div>
             {itemCount > 0 && (
               <span className="text-xs font-medium text-gray-400">
@@ -105,7 +104,7 @@ export default function NavCartDropdown({ cart, itemCount }: Props) {
                 onClick={() => setOpen(false)}
                 className="mt-1 text-xs text-[#F27A1A] hover:text-[#D4600E] font-medium transition-colors"
               >
-                Explorează produsele →
+                Vedeți produsele →
               </LocalizedClientLink>
             </div>
           ) : (
@@ -129,11 +128,11 @@ export default function NavCartDropdown({ cart, itemCount }: Props) {
                     </div>
                     {/* Info */}
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-semibold text-[#1A1A1A] truncate">{item.product_title}</p>
+                      <p className="text-xs font-semibold text-[#1D1D1F] truncate">{item.product_title}</p>
                       <p className="text-xs text-gray-400">x{item.quantity}</p>
                     </div>
                     {/* Price */}
-                    <span className="text-xs font-bold text-[#1A1A1A] flex-shrink-0">
+                    <span className="text-xs font-bold text-[#1D1D1F] flex-shrink-0">
                       {formatRon(item.total)}
                     </span>
                   </li>
@@ -149,7 +148,7 @@ export default function NavCartDropdown({ cart, itemCount }: Props) {
               {/* Total */}
               <div className="flex items-center justify-between px-4 py-3 bg-gray-50 border-t border-gray-100">
                 <span className="text-sm font-medium text-gray-500">Subtotal</span>
-                <span className="text-sm font-bold text-[#1A1A1A]">
+                <span className="text-sm font-bold text-[#1D1D1F]">
                   {formatRon(cart?.subtotal)}
                 </span>
               </div>
@@ -164,12 +163,12 @@ export default function NavCartDropdown({ cart, itemCount }: Props) {
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-                  Finalizează comanda
+                  Finalizați comanda
                 </button>
               </LocalizedClientLink>
               <LocalizedClientLink href="/cart" onClick={() => setOpen(false)}>
-                <button className="w-full h-9 border border-gray-200 text-[#333333] hover:border-[#F27A1A] hover:text-[#F27A1A] text-sm font-medium rounded-xl transition-colors duration-150">
-                  Vezi coșul
+                <button className="w-full h-9 border border-gray-200 text-[#424245] hover:border-[#F27A1A] hover:text-[#F27A1A] text-sm font-medium rounded-xl transition-colors duration-150">
+                  Vedeți coșul
                 </button>
               </LocalizedClientLink>
             </div>

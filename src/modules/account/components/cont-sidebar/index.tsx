@@ -25,7 +25,7 @@ function NavItem({
       className={`flex items-center gap-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
         active
           ? "bg-[#FFF3E6] text-[#F27A1A]"
-          : "text-gray-600 hover:bg-gray-100 hover:text-[#1A1A1A]"
+          : "text-gray-600 hover:bg-gray-100 hover:text-[#1D1D1F]"
       }`}
     >
       <span className={active ? "text-[#F27A1A]" : "text-gray-400"}>{icon}</span>
@@ -64,7 +64,7 @@ export default function ContSidebar({
           </svg>
         </div>
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-[#1A1A1A] truncate">
+          <p className="text-sm font-semibold text-[#1D1D1F] truncate">
             {customer.first_name} {customer.last_name}
           </p>
           <p className="text-xs text-gray-400 truncate">{customer.email}</p>

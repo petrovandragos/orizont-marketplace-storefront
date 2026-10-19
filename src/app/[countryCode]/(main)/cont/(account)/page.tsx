@@ -27,11 +27,11 @@ export default async function ContDashboardPage({ params }: Props) {
     <div className="flex flex-col gap-y-8">
       {/* Welcome */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <h1 className="text-xl font-bold text-[#1A1A1A]">
+        <h1 className="text-xl font-bold text-[#1D1D1F]">
           Bună, {customer.first_name || customer.email?.split("@")[0]}!
         </h1>
         <p className="text-sm text-gray-500 mt-1">
-          Bun venit în contul tău Orizont.
+          Bun venit în contul Orizont.
         </p>
       </div>
 
@@ -41,7 +41,7 @@ export default async function ContDashboardPage({ params }: Props) {
           <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
             Comenzi totale
           </span>
-          <span className="text-3xl font-bold text-[#1A1A1A]">
+          <span className="text-3xl font-bold text-[#1D1D1F]">
             {orders.length}
           </span>
         </div>
@@ -50,7 +50,7 @@ export default async function ContDashboardPage({ params }: Props) {
           <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
             Ultima comandă
           </span>
-          <span className="text-sm font-semibold text-[#1A1A1A]">
+          <span className="text-sm font-semibold text-[#1D1D1F]">
             {lastOrder ? formatDate(lastOrder.created_at) : "—"}
           </span>
         </div>
@@ -59,7 +59,7 @@ export default async function ContDashboardPage({ params }: Props) {
           <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
             Adrese salvate
           </span>
-          <span className="text-3xl font-bold text-[#1A1A1A]">
+          <span className="text-3xl font-bold text-[#1D1D1F]">
             {customer.addresses?.length ?? 0}
           </span>
         </div>
@@ -68,12 +68,12 @@ export default async function ContDashboardPage({ params }: Props) {
       {/* Recent orders */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
         <div className="flex items-center justify-between p-5 border-b border-gray-100">
-          <h2 className="text-base font-bold text-[#1A1A1A]">Comenzi recente</h2>
+          <h2 className="text-base font-bold text-[#1D1D1F]">Comenzi recente</h2>
           <Link
             href={`/cont/comenzi`}
             className="text-sm text-[#F27A1A] hover:text-[#D4600E] font-medium transition-colors"
           >
-            Vezi toate →
+            Vedeți toate →
           </Link>
         </div>
 
@@ -83,7 +83,7 @@ export default async function ContDashboardPage({ params }: Props) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                 d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
-            <p className="text-sm text-gray-400">Nu ai plasate comenzi încă.</p>
+            <p className="text-sm text-gray-400">Nu ați plasat încă nicio comandă.</p>
             <Link
               href={`/store`}
               className="inline-block mt-3 text-sm font-medium text-[#F27A1A] hover:text-[#D4600E]"
@@ -102,7 +102,7 @@ export default async function ContDashboardPage({ params }: Props) {
                     className="flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
                   >
                     <div className="flex flex-col gap-y-0.5">
-                      <span className="text-sm font-semibold text-[#1A1A1A]">
+                      <span className="text-sm font-semibold text-[#1D1D1F]">
                         Comanda #{order.display_id}
                       </span>
                       <span className="text-xs text-gray-400">
@@ -115,7 +115,7 @@ export default async function ContDashboardPage({ params }: Props) {
                       <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${className}`}>
                         {label}
                       </span>
-                      <span className="text-sm font-bold text-[#1A1A1A]">
+                      <span className="text-sm font-bold text-[#1D1D1F]">
                         {formatRon(order.total)}
                       </span>
                       <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

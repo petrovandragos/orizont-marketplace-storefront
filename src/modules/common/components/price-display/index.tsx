@@ -79,7 +79,7 @@ const PriceDisplay = ({
       {/* Current price */}
       <span
         className={`font-bold ${
-          isSale ? "text-[#F27A1A]" : "text-[#1A1A1A]"
+          isSale ? "text-[#F27A1A]" : "text-[#1D1D1F]"
         } ${isLg ? "text-2xl" : "text-base"}`}
         data-testid="price"
       >

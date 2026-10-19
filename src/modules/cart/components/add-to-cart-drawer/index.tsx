@@ -97,14 +97,14 @@ export default function AddToCartDrawer() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-base font-bold text-[#1A1A1A]">
+            <h2 className="text-base font-bold text-[#1D1D1F]">
               Produsul a fost adăugat în coș
             </h2>
           </div>
           <button
             onClick={closeDrawer}
             aria-label="Închide"
-            className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-[#1A1A1A] hover:bg-gray-100 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-[#1D1D1F] hover:bg-gray-100 transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -133,7 +133,7 @@ export default function AddToCartDrawer() {
                 )}
               </div>
               <div className="flex-1 min-w-0 flex flex-col gap-y-1">
-                <p className="text-sm font-semibold text-[#1A1A1A] leading-snug line-clamp-2">
+                <p className="text-sm font-semibold text-[#1D1D1F] leading-snug line-clamp-2">
                   {item.title}
                 </p>
                 <p className="text-xs text-gray-400">Cantitate: {item.quantity}</p>
@@ -156,7 +156,7 @@ export default function AddToCartDrawer() {
                 </span>
               )}
             </span>
-            <span className="text-lg font-bold text-[#1A1A1A]">
+            <span className="text-lg font-bold text-[#1D1D1F]">
               {formatRon(cartTotal)}
             </span>
           </div>
@@ -164,7 +164,7 @@ export default function AddToCartDrawer() {
           {/* Recommendations */}
           <div className="flex flex-col gap-y-3">
             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-              Recomandate pentru tine
+              Recomandate pentru dumneavoastră
             </p>
 
             <div className="flex flex-col divide-y divide-gray-100">
@@ -208,7 +208,7 @@ export default function AddToCartDrawer() {
 
                         {/* Info */}
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-[#1A1A1A] line-clamp-2 leading-snug group-hover:text-[#F27A1A] transition-colors">
+                          <p className="text-sm font-medium text-[#1D1D1F] line-clamp-2 leading-snug group-hover:text-[#F27A1A] transition-colors">
                             {product.title}
                           </p>
                           {price != null && (
@@ -238,15 +238,15 @@ export default function AddToCartDrawer() {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              Vezi coșul de cumpărături
+              Vedeți coșul de cumpărături
             </button>
           </LocalizedClientLink>
 
           <button
             onClick={closeDrawer}
-            className="w-full h-12 border-2 border-gray-200 text-[#1A1A1A] hover:border-[#F27A1A] hover:text-[#F27A1A] font-semibold rounded-xl transition-colors duration-150 text-sm"
+            className="w-full h-12 border-2 border-gray-200 text-[#1D1D1F] hover:border-[#F27A1A] hover:text-[#F27A1A] font-semibold rounded-xl transition-colors duration-150 text-sm"
           >
-            Continuă cumpărăturile
+            Continuați cumpărăturile
           </button>
         </div>
       </div>

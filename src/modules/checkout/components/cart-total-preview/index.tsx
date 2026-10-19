@@ -20,7 +20,7 @@ export default function CartTotalPreview({ baseTotal }: { baseTotal: number }) {
   return (
     <div className="flex items-center justify-between">
       <span className="text-sm text-gray-500">Total</span>
-      <span className="text-base font-bold text-[#1A1A1A]">{formatRon(total)}</span>
+      <span className="text-base font-bold text-[#1D1D1F]">{formatRon(total)}</span>
     </div>
   )
 }

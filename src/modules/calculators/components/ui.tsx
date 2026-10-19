@@ -9,12 +9,12 @@ export type Line = { name: string; quantity: number; unit: string; note?: string
 
 export function Step({ n, title, hint, children }: { n: number; title: string; hint?: string; children: ReactNode }) {
   return (
-    <section className="bg-white border border-gray-200 rounded-2xl p-5 md:p-6">
-      <div className="flex items-start gap-x-3 mb-4">
-        <span className="w-8 h-8 rounded-lg bg-[#F27A1A] text-white font-bold flex items-center justify-center flex-shrink-0">{n}</span>
+    <section className="bg-[#F5F5F7] rounded-[26px] p-5 md:p-7">
+      <div className="flex items-start gap-x-3 mb-5">
+        <span className="w-8 h-8 rounded-full bg-[#1D1D1F] text-white text-sm font-semibold flex items-center justify-center flex-shrink-0">{n}</span>
         <div>
-          <h2 className="text-lg font-bold text-[#1A1A1A] leading-tight pt-1">{title}</h2>
-          {hint && <p className="text-sm text-gray-500 mt-1">{hint}</p>}
+          <h2 className="text-[21px] font-semibold tracking-[-0.02em] text-[#1D1D1F] leading-tight pt-0.5">{title}</h2>
+          {hint && <p className="text-[15px] text-[#6E6E73] mt-1">{hint}</p>}
         </div>
       </div>
       {children}
@@ -30,14 +30,14 @@ export function Choice({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className={`w-full text-left rounded-xl border-2 p-3.5 transition-colors flex items-center gap-x-3 ${
-        selected ? "border-[#F27A1A] bg-[#FFF3E6]" : "border-gray-200 bg-white hover:border-gray-300"
+      className={`w-full text-left rounded-[18px] border-2 p-3.5 transition-colors flex items-center gap-x-3 bg-white ${
+        selected ? "border-[#F27A1A]" : "border-transparent hover:border-[#D2D2D7]"
       }`}
     >
       {icon && <span className="flex-shrink-0">{icon}</span>}
       <span className="min-w-0">
-        <span className={`block text-[15px] font-semibold ${selected ? "text-[#F27A1A]" : "text-[#1A1A1A]"}`}>{title}</span>
-        {subtitle && <span className="block text-xs text-gray-500 mt-0.5">{subtitle}</span>}
+        <span className="block text-[15px] font-semibold text-[#1D1D1F]">{title}</span>
+        {subtitle && <span className="block text-[13px] text-[#6E6E73] mt-0.5">{subtitle}</span>}
       </span>
     </button>
   )
@@ -51,7 +51,7 @@ export function NumberField({
 }) {
   return (
     <div className="flex flex-col gap-y-1.5">
-      <label htmlFor={id} className="text-sm font-semibold text-gray-800">{label}</label>
+      <label htmlFor={id} className="text-sm font-medium text-[#1D1D1F]">{label}</label>
       <div className="relative">
         <input
           id={id}
@@ -61,11 +61,11 @@ export function NumberField({
           step={step}
           value={Number.isFinite(value) ? value : ""}
           onChange={(e) => onChange(parseFloat(e.target.value.replace(",", ".")))}
-          className="w-full h-11 pl-3.5 pr-12 rounded-lg border border-gray-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A]/30 focus:border-[#F27A1A]"
+          className="w-full h-12 pl-4 pr-12 rounded-xl border border-transparent text-[17px] bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A]/40 focus:border-[#F27A1A]"
         />
-        <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none">{unit}</span>
+        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#6E6E73] pointer-events-none">{unit}</span>
       </div>
-      {hint && <p className="text-xs text-gray-500">{hint}</p>}
+      {hint && <p className="text-[13px] text-[#6E6E73]">{hint}</p>}
     </div>
   )
 }
@@ -73,11 +73,11 @@ export function NumberField({
 export function Stepper({ label, value, onChange, min = 0, max = 20 }: { label: string; value: number; onChange: (v: number) => void; min?: number; max?: number }) {
   return (
     <div className="flex flex-col gap-y-1.5">
-      <span className="text-sm font-semibold text-gray-800">{label}</span>
-      <div className="flex items-center h-11 rounded-lg border border-gray-200 bg-white w-fit">
-        <button type="button" aria-label="Mai puțin" onClick={() => onChange(Math.max(min, value - 1))} className="w-11 h-full text-lg text-gray-600 hover:text-[#F27A1A]">−</button>
+      <span className="text-sm font-medium text-[#1D1D1F]">{label}</span>
+      <div className="flex items-center h-12 rounded-full bg-white w-fit">
+        <button type="button" aria-label="Mai puțin" onClick={() => onChange(Math.max(min, value - 1))} className="w-12 h-full text-lg text-[#424245] hover:text-[#1D1D1F]">−</button>
         <span className="w-10 text-center font-semibold">{value}</span>
-        <button type="button" aria-label="Mai mult" onClick={() => onChange(Math.min(max, value + 1))} className="w-11 h-full text-lg text-gray-600 hover:text-[#F27A1A]">+</button>
+        <button type="button" aria-label="Mai mult" onClick={() => onChange(Math.min(max, value + 1))} className="w-12 h-full text-lg text-[#424245] hover:text-[#1D1D1F]">+</button>
       </div>
     </div>
   )
@@ -87,19 +87,19 @@ export function ResultTable({ title, lines }: { title: string; lines: Line[] }) 
   if (!lines.length) return null
   return (
     <div>
-      <h3 className="text-sm font-bold uppercase tracking-wide text-gray-500 mb-2">{title}</h3>
-      <ul className="divide-y divide-gray-100">
+      <h3 className="text-sm font-semibold text-[#6E6E73] mb-1">{title}</h3>
+      <ul className="divide-y divide-black/[0.07]">
         {lines.map((l) => (
           <li key={l.name + l.unit} className="flex items-start justify-between gap-x-4 py-2.5">
             <span className="min-w-0">
               {l.href ? (
-                <a href={l.href} className="text-[15px] font-medium text-[#1A1A1A] hover:text-[#F27A1A] underline-offset-2 hover:underline">{l.name}</a>
+                <a href={l.href} className="text-[15px] font-medium text-[#1D1D1F] hover:text-[#B9520A] underline-offset-2 hover:underline">{l.name}</a>
               ) : (
-                <span className="text-[15px] font-medium text-[#1A1A1A]">{l.name}</span>
+                <span className="text-[15px] font-medium text-[#1D1D1F]">{l.name}</span>
               )}
-              {l.note && <span className="block text-xs text-gray-500 mt-0.5">{l.note}</span>}
+              {l.note && <span className="block text-xs text-[#6E6E73] mt-0.5">{l.note}</span>}
             </span>
-            <span className="text-[15px] font-bold text-[#1A1A1A] whitespace-nowrap">
+            <span className="text-[15px] font-semibold text-[#1D1D1F] whitespace-nowrap">
               {fmt(l.quantity)} {unitLabel(l.unit, l.quantity)}
             </span>
           </li>
@@ -124,7 +124,7 @@ export function SendToQuote({ calculator, summary, lines }: { calculator: string
         track("calculator_oferta", { calculator })
         router.push(`/cerere-oferta?lista=${encodeURIComponent(text.slice(0, 1800))}`)
       }}
-      className="w-full h-12 rounded-xl text-[15px] font-semibold bg-[#F27A1A] hover:bg-[#D4600E] text-white transition-colors"
+      className="w-full btn-pill"
     >
       Cereți ofertă pentru această listă
     </button>
@@ -133,7 +133,7 @@ export function SendToQuote({ calculator, summary, lines }: { calculator: string
 
 export function Disclaimer({ children }: { children?: ReactNode }) {
   return (
-    <p className="text-xs text-gray-500 leading-relaxed">
+    <p className="text-xs text-[#6E6E73] leading-relaxed">
       {children ??
         "Cantitățile sunt orientative, calculate după datele tehnice ale producătorilor. Înainte de comandă, un coleg verifică împreună cu dumneavoastră necesarul exact."}
     </p>
@@ -142,11 +142,11 @@ export function Disclaimer({ children }: { children?: ReactNode }) {
 
 export function Breadcrumb({ items }: { items: { label: string; href?: string }[] }) {
   return (
-    <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+    <nav className="text-[13px] text-[#6E6E73] mb-4" aria-label="Breadcrumb">
       {items.map((it, i) => (
         <span key={it.label}>
           {i > 0 && <span className="mx-2 text-gray-300">›</span>}
-          {it.href ? <a href={it.href} className="hover:text-[#F27A1A]">{it.label}</a> : <span className="text-[#1A1A1A] font-medium">{it.label}</span>}
+          {it.href ? <a href={it.href} className="hover:text-[#1D1D1F] hover:underline">{it.label}</a> : <span className="text-[#1D1D1F]">{it.label}</span>}
         </span>
       ))}
     </nav>

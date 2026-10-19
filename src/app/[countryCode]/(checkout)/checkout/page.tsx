@@ -7,7 +7,7 @@ import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
   title: "Finalizare comandă",
-  description: "Finalizează comanda ta de materiale de construcții.",
+  description: "Finalizați comanda de materiale de construcții.",
 }
 
 type Props = {

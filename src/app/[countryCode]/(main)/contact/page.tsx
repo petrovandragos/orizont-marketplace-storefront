@@ -2,7 +2,7 @@ import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contactează-ne — Orizont, materiale de construcții, Sighetu Marmației.",
+  description: "Contactați-ne — Orizont, materiale de construcții, Sighetu Marmației.",
 }
 
 const phoneIcon = (
@@ -43,10 +43,9 @@ function toTelHref(num: string) {
 
 export default function ContactPage() {
   return (
-    <div className="content-container py-12 md:py-16">
+    <div className="content-container pt-8 pb-4 md:pt-12">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#1A1A1A] mb-2">Contact</h1>
-        <div className="w-12 h-1 bg-[#F27A1A] rounded mb-8" />
+        <h1 className="display-2 mb-10">Contact</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
@@ -54,22 +53,22 @@ export default function ContactPage() {
           <div className="flex flex-col gap-y-4">
 
             {/* Phone departments */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="flex items-center gap-x-3 px-5 py-3.5 border-b border-gray-100">
-                <div className="w-8 h-8 rounded-lg bg-[#FFF3E6] flex items-center justify-center text-[#F27A1A]">
+            <div className="bg-[#F5F5F7] rounded-[22px] overflow-hidden">
+              <div className="flex items-center gap-x-3 px-5 py-3.5 border-b border-black/[0.06]">
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#424245]">
                   {phoneIcon}
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Telefon</span>
+                <span className="text-xs text-[#6E6E73]">Telefon</span>
               </div>
               {PHONE_DEPTS.map(({ label, numbers }, i) => (
                 <div
                   key={label}
-                  className={`flex items-start justify-between gap-x-4 px-5 py-3 ${i < PHONE_DEPTS.length - 1 ? "border-b border-gray-50" : ""}`}
+                  className={`flex items-start justify-between gap-x-4 px-5 py-3 ${i < PHONE_DEPTS.length - 1 ? "border-b border-black/[0.06]" : ""}`}
                 >
                   <span className="text-sm text-gray-500 flex-1">{label}</span>
                   <div className="flex flex-col items-end gap-y-0.5">
                     {numbers.map(n => (
-                      <a key={n} href={toTelHref(n)} className="text-sm font-semibold text-[#F27A1A] hover:text-[#D4600E] transition-colors whitespace-nowrap">
+                      <a key={n} href={toTelHref(n)} className="text-sm font-medium text-[#1D1D1F] hover:text-[#B9520A] transition-colors whitespace-nowrap">
                         {n}
                       </a>
                     ))}
@@ -79,27 +78,27 @@ export default function ContactPage() {
             </div>
 
             {/* Email + Address */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div className="bg-[#F5F5F7] rounded-[22px] overflow-hidden">
               {EMAIL_ROWS.map(({ label, email }, i) => (
                 <div
                   key={label}
-                  className={`flex items-start gap-x-4 px-5 py-4 ${i < EMAIL_ROWS.length - 1 ? "border-b border-gray-50" : ""}`}
+                  className={`flex items-start gap-x-4 px-5 py-4 ${i < EMAIL_ROWS.length - 1 ? "border-b border-black/[0.06]" : ""}`}
                 >
-                  <div className="w-9 h-9 rounded-lg bg-[#FFF3E6] flex items-center justify-center text-[#F27A1A] flex-shrink-0 mt-0.5">
+                  <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#424245] flex-shrink-0 mt-0.5">
                     {emailIcon}
                   </div>
                   <div className="flex flex-col gap-y-0.5">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                    <span className="text-xs text-[#6E6E73]">
                       {label}
                     </span>
-                    <a href={`mailto:${email}`} className="text-sm font-medium text-[#1A1A1A] hover:text-[#F27A1A] transition-colors">
+                    <a href={`mailto:${email}`} className="text-sm font-medium text-[#1D1D1F] hover:text-[#B9520A] transition-colors">
                       {email}
                     </a>
                   </div>
                 </div>
               ))}
-              <div className="flex items-start gap-x-4 px-5 py-4 border-t border-gray-50">
-                <div className="w-9 h-9 rounded-lg bg-[#FFF3E6] flex items-center justify-center text-[#F27A1A] flex-shrink-0 mt-0.5">
+              <div className="flex items-start gap-x-4 px-5 py-4 border-t border-black/[0.06]">
+                <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#424245] flex-shrink-0 mt-0.5">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75}
                       d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -108,10 +107,10 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <div className="flex flex-col gap-y-0.5">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                  <span className="text-xs text-[#6E6E73]">
                     Adresă
                   </span>
-                  <span className="text-sm font-medium text-[#1A1A1A]">
+                  <span className="text-sm font-medium text-[#1D1D1F]">
                     Str. Plevnei nr. 3, Sighetu Marmației
                   </span>
                 </div>
@@ -119,9 +118,9 @@ export default function ContactPage() {
             </div>
 
             {/* Schedule */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-50">
-                <h2 className="text-sm font-semibold text-[#1A1A1A] uppercase tracking-wider">
+            <div className="bg-[#F5F5F7] rounded-[22px] overflow-hidden">
+              <div className="px-5 py-4 border-b border-black/[0.06]">
+                <h2 className="text-[17px] font-semibold text-[#1D1D1F]">
                   Program
                 </h2>
               </div>
@@ -130,9 +129,9 @@ export default function ContactPage() {
                 { day: "Sâmbătă", hours: "08:00 – 13:00", open: true },
                 { day: "Duminică", hours: "Închis", open: false },
               ].map(({ day, hours, open }) => (
-                <div key={day} className="flex items-center justify-between px-5 py-3 border-b border-gray-50 last:border-b-0">
+                <div key={day} className="flex items-center justify-between px-5 py-3 border-b border-black/[0.06] last:border-b-0">
                   <span className="text-sm text-gray-600">{day}</span>
-                  <span className={`text-sm font-semibold ${open ? "text-[#1A1A1A]" : "text-[#D32F2F]"}`}>
+                  <span className={`text-sm font-semibold ${open ? "text-[#1D1D1F]" : "text-[#D32F2F]"}`}>
                     {hours}
                   </span>
                 </div>
@@ -142,7 +141,7 @@ export default function ContactPage() {
 
           {/* Right — Google Maps */}
           <div className="flex flex-col gap-y-3">
-            <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm" style={{ height: 420 }}>
+            <div className="rounded-[22px] overflow-hidden bg-[#F5F5F7]" style={{ height: 420 }}>
               <iframe
                 title="Orizont — Hartă"
                 src="https://maps.google.com/maps?q=47.9359133,23.887697&hl=ro&z=16&output=embed"
@@ -158,7 +157,7 @@ export default function ContactPage() {
               href="https://www.google.com/maps/place/Orizont/@47.9359169,23.8851221,1048m/data=!3m2!1e3!4b1!4m6!3m5!1s0x4737bba71e1e2ba3:0x3c2a97e9bd96a70f!8m2!3d47.9359133!4d23.887697!16s%2Fg%2F1tgp90w4"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-x-2 w-full h-10 rounded-xl bg-[#F27A1A] hover:bg-[#D4600E] text-white text-sm font-semibold transition-colors duration-150"
+              className="flex items-center justify-center gap-x-2 w-full h-11 rounded-full bg-[#F27A1A] hover:bg-[#DD6A0E] text-white text-sm font-medium transition-colors duration-150"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -166,7 +165,7 @@ export default function ContactPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              Deschide în Google Maps
+              Deschideți în Google Maps
             </a>
           </div>
 

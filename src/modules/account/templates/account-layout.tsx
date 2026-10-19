@@ -30,9 +30,9 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
         
         <div className={`flex flex-col small:flex-row items-center justify-between border-t border-gray-100 mt-16 py-12 gap-8 ${!customer ? "max-w-[960px] mx-auto w-full" : ""}`}>
           <div className={`flex flex-col ${!customer ? "items-center text-center mx-auto" : "items-center small:items-start text-center small:text-left"}`}>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Ai nevoie de ajutor?</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Aveți nevoie de ajutor?</h3>
             <p className="text-gray-500 max-w-md">
-              Echipa noastră de asistență clienți este aici pentru a te ajuta cu orice întrebări legate de contul tău, comenzi sau profil.
+              Echipa noastră de asistență clienți este aici pentru a vă ajuta cu orice întrebare legată de cont, comenzi sau profil.
             </p>
             {!customer && (
               <div className="mt-6">

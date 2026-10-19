@@ -11,7 +11,7 @@ export default function DeliveryCostPreview() {
       {method === "pickup" ? (
         <span className="font-bold text-green-600">GRATUIT</span>
       ) : (
-        <span className="font-semibold text-[#1A1A1A]">25,00 lei</span>
+        <span className="font-semibold text-[#1D1D1F]">25,00 lei</span>
       )}
     </div>
   )

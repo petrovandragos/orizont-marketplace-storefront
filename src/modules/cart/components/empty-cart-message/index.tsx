@@ -12,10 +12,10 @@ const EmptyCartMessage = () => {
         Coș
       </Heading>
       <Text className="text-base-regular mt-4 mb-6 max-w-[32rem]">
-        Nu ai nimic în coșul tău. Folosește linkul de mai jos pentru a explora produsele noastre.
+        Coșul este gol. Folosiți linkul de mai jos pentru a vedea produsele noastre.
       </Text>
       <div>
-        <InteractiveLink href="/store">Explorează produse</InteractiveLink>
+        <InteractiveLink href="/store">Vedeți produsele</InteractiveLink>
       </div>
     </div>
   )

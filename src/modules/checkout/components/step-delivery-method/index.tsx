@@ -47,7 +47,7 @@ function MethodCard({ selected, onSelect, title, description, detail, icon }: Me
 
       {/* Text */}
       <div className="flex flex-col gap-y-1">
-        <p className="text-base font-bold text-[#1A1A1A]">{title}</p>
+        <p className="text-base font-bold text-[#1D1D1F]">{title}</p>
         <p className="text-sm text-gray-500">{description}</p>
         <p className="text-xs text-gray-400">{detail}</p>
       </div>
@@ -77,7 +77,7 @@ export default function StepDeliveryMethod() {
         Înapoi la coș
       </LocalizedClientLink>
 
-      <h2 className="text-lg font-bold text-[#1A1A1A]">Cum dorești să primești comanda?</h2>
+      <h2 className="text-lg font-bold text-[#1D1D1F]">Cum dorești să primești comanda?</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <MethodCard
@@ -85,7 +85,7 @@ export default function StepDeliveryMethod() {
           selected={selected === "livrare"}
           onSelect={() => setSelected("livrare")}
           title="Livrare la adresă"
-          description="Coletul ajunge direct la tine."
+          description="Coletul ajunge direct la dumneavoastră."
           detail="Vei selecta adresa și metoda de livrare în pasul următor."
           icon={
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,7 +125,7 @@ export default function StepDeliveryMethod() {
         {selected === "pickup" ? (
           <span className="font-bold text-green-600">GRATUIT</span>
         ) : (
-          <span className="font-semibold text-[#1A1A1A]">25,00 lei</span>
+          <span className="font-semibold text-[#1D1D1F]">25,00 lei</span>
         )}
       </div>
 

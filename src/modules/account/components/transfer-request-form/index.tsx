@@ -30,8 +30,8 @@ export default function TransferRequestForm() {
             Transfer comandă
           </Heading>
           <Text className="text-base-regular text-neutral-500">
-            Nu găsești comanda ta?
-            <br /> Asociaz-o contului tău.
+            Nu găsiți comanda?
+            <br /> Asociați-o contului.
           </Text>
         </div>
         <form

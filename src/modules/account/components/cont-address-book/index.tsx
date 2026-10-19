@@ -91,7 +91,7 @@ function Field({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         required={required}
-        className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition"
+        className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1D1D1F] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition"
       />
     </div>
   )
@@ -161,7 +161,7 @@ function AddressForm({
           value={form.province}
           onChange={(e) => set("province")(e.target.value)}
           required
-          className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition bg-white"
+          className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1D1D1F] focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition bg-white"
         >
           <option value="">Selectează județ</option>
           {JUDETE.map((j) => (
@@ -182,14 +182,14 @@ function AddressForm({
           disabled={isPending}
           className="px-5 py-2.5 bg-[#F27A1A] text-white text-sm font-semibold rounded-lg hover:bg-[#D4600E] transition-colors disabled:opacity-60"
         >
-          {isPending ? "Se salvează..." : editingId ? "Actualizează adresa" : "Adaugă adresa"}
+          {isPending ? "Se salvează..." : editingId ? "Actualizați adresa" : "Adăugați adresa"}
         </button>
         <button
           type="button"
           onClick={onClose}
           className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
         >
-          Anulează
+          Anulați
         </button>
       </div>
     </form>
@@ -209,7 +209,7 @@ function AddressCard({
   const [isDeleting, startTransition] = useTransition()
 
   const handleDelete = () => {
-    if (!confirm("Ești sigur că vrei să ștergi această adresă?")) return
+    if (!confirm("Sigur doriți să ștergeți această adresă?")) return
     startTransition(async () => {
       await deleteCustomerAddress(address.id)
       router.refresh()
@@ -219,7 +219,7 @@ function AddressCard({
   return (
     <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex flex-col gap-y-3">
       <address className="not-italic text-sm text-gray-600 flex flex-col gap-y-0.5 flex-1">
-        <span className="font-semibold text-[#1A1A1A]">
+        <span className="font-semibold text-[#1D1D1F]">
           {address.first_name} {address.last_name}
         </span>
         {address.company && <span>{address.company}</span>}
@@ -237,7 +237,7 @@ function AddressCard({
           onClick={onEdit}
           className="text-xs font-medium text-[#F27A1A] hover:text-[#D4600E] transition-colors"
         >
-          Editează
+          Editați
         </button>
         <span className="text-gray-200">|</span>
         <button
@@ -245,7 +245,7 @@ function AddressCard({
           disabled={isDeleting}
           className="text-xs font-medium text-red-400 hover:text-red-600 transition-colors disabled:opacity-50"
         >
-          {isDeleting ? "Se șterge..." : "Șterge"}
+          {isDeleting ? "Se șterge..." : "Ștergeți"}
         </button>
       </div>
     </div>
@@ -270,7 +270,7 @@ export default function ContAddressBook({
       {/* Add new */}
       {showAdd ? (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h2 className="text-base font-bold text-[#1A1A1A] mb-5">Adresă nouă</h2>
+          <h2 className="text-base font-bold text-[#1D1D1F] mb-5">Adresă nouă</h2>
           <AddressForm onClose={() => setShowAdd(false)} />
         </div>
       ) : (
@@ -281,14 +281,14 @@ export default function ContAddressBook({
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          Adaugă adresă nouă
+          Adăugați o adresă nouă
         </button>
       )}
 
       {/* Edit form */}
       {editingId && editingAddress && (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h2 className="text-base font-bold text-[#1A1A1A] mb-5">Editează adresa</h2>
+          <h2 className="text-base font-bold text-[#1D1D1F] mb-5">Editați adresa</h2>
           <AddressForm
             initial={addressToForm(editingAddress)}
             editingId={editingId}
@@ -306,7 +306,7 @@ export default function ContAddressBook({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
               d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <p className="text-sm text-gray-400">Nu ai adrese salvate.</p>
+          <p className="text-sm text-gray-400">Nu aveți adrese salvate.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

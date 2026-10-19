@@ -3,6 +3,7 @@ import { HttpTypes } from "@medusajs/types"
 
 import { CALCULATORS, CATEGORY_CALCULATOR } from "@lib/calculators/links"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { CALCULATOR_ART } from "@modules/calculators/components/icons"
 import ProductCard from "@modules/products/components/product-card"
 import FilterSidebar from "@modules/categories/components/filter-sidebar"
 import SortAndCountBar from "@modules/categories/components/sort-and-count-bar"
@@ -164,13 +165,13 @@ export default async function CategoryTemplate({
     !!minPrice || !!maxPrice || !!brands || inStock === "1"
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="content-container pt-6 pb-4 md:pt-8">
 
       {/* ── Breadcrumbs ── */}
       <nav aria-label="Breadcrumb" className="mb-5">
-        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-gray-500">
+        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-[#6E6E73]">
           <li>
-            <LocalizedClientLink href="/" className="hover:text-[#F27A1A] transition-colors">
+            <LocalizedClientLink href="/" className="hover:text-[#1D1D1F] hover:underline transition-colors">
               Acasă
             </LocalizedClientLink>
           </li>
@@ -182,7 +183,7 @@ export default async function CategoryTemplate({
               </svg>
               <LocalizedClientLink
                 href={`/categories/${parent.handle}`}
-                className="hover:text-[#F27A1A] transition-colors"
+                className="hover:text-[#1D1D1F] hover:underline transition-colors"
               >
                 {parent.name}
               </LocalizedClientLink>
@@ -193,7 +194,7 @@ export default async function CategoryTemplate({
             <svg className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            <span className="font-medium text-[#1A1A1A]" aria-current="page">
+            <span className="font-medium text-[#1D1D1F]" aria-current="page">
               {category.name}
             </span>
           </li>
@@ -201,16 +202,16 @@ export default async function CategoryTemplate({
       </nav>
 
       {/* ── Heading ── */}
-      <h1 className="text-2xl font-bold text-[#1A1A1A] mb-4">{category.name}</h1>
+      <h1 className="display-2 mb-6">{category.name}</h1>
 
       {/* ── Sub-category pills ── */}
       {(category.category_children?.length ?? 0) > 0 && (
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-8">
           {category.category_children!.map((child) => (
             <LocalizedClientLink
               key={child.id}
               href={`/categories/${child.handle}`}
-              className="inline-flex items-center h-8 px-3 text-sm font-medium text-[#333333] border border-gray-200 rounded-full bg-white hover:border-[#F27A1A] hover:text-[#F27A1A] transition-colors"
+              className="inline-flex items-center h-9 px-4 text-sm text-[#1D1D1F] rounded-full bg-[#F5F5F7] hover:bg-[#E8E8ED] transition-colors"
             >
               {child.name}
             </LocalizedClientLink>
@@ -226,23 +227,24 @@ export default async function CategoryTemplate({
         return (
           <LocalizedClientLink
             href={`/calculatoare/${calc.slug}`}
-            className="mb-6 flex flex-col sm:flex-row sm:items-center gap-3 rounded-xl border-2 border-[#F27A1A] bg-[#FFF3E6] px-4 py-3.5 hover:bg-[#FFEAD5] transition-colors"
+            className="mb-8 flex flex-col sm:flex-row sm:items-center gap-4 rounded-[22px] bg-[#FFF3E6] px-5 py-4 sm:px-6 hover:bg-[#FFEAD5] transition-colors"
           >
+            <span className="hidden sm:block w-[72px] h-12 text-[#F27A1A] flex-none">{CALCULATOR_ART[calc.slug]}</span>
             <span className="flex-1">
-              <span className="block text-[15px] font-bold text-[#1A1A1A]">Calculați necesarul: {calc.short.toLowerCase()}</span>
-              <span className="block text-sm text-gray-600">{calc.text}</span>
+              <span className="block text-[17px] font-semibold tracking-[-0.01em] text-[#1D1D1F]">Calculați necesarul: {calc.short.toLowerCase()}</span>
+              <span className="block text-sm text-[#6E6E73] mt-0.5">{calc.text}</span>
             </span>
-            <span className="inline-flex items-center justify-center h-10 px-4 rounded-lg bg-[#F27A1A] text-white text-sm font-semibold whitespace-nowrap">Deschideți calculatorul</span>
+            <span className="btn-pill-sm self-start sm:self-auto">Deschideți calculatorul</span>
           </LocalizedClientLink>
         )
       })()}
 
       {/* ── Main layout: sidebar + content ── */}
-      <div className="flex gap-x-8 items-start">
+      <div className="flex gap-x-8 xl:gap-x-10 items-start">
 
         {/* Desktop filter sidebar */}
         <aside className="hidden lg:block w-60 flex-shrink-0 sticky top-[var(--header-height,120px)]">
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+          <div className="bg-[#F5F5F7] rounded-[22px] p-5">
             <FilterSidebar
               availableBrands={availableBrands}
               brandCounts={brandCounts}
@@ -265,7 +267,7 @@ export default async function CategoryTemplate({
 
           {/* Product grid */}
           {pageProducts.length > 0 ? (
-            <ul className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+            <ul className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-4">
               {pageProducts.map((product) => (
                 <li key={product.id}>
                   <ProductCard product={product} region={region} />
@@ -278,8 +280,8 @@ export default async function CategoryTemplate({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1}
                   d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <p className="text-gray-500 font-medium">Niciun produs găsit</p>
-              <p className="text-sm text-gray-400">Încearcă să ajustezi filtrele aplicate.</p>
+              <p className="text-[#1D1D1F] font-medium">Niciun produs găsit</p>
+              <p className="text-sm text-[#6E6E73]">Încercați să modificați filtrele aplicate.</p>
             </div>
           )}
 
@@ -354,7 +356,7 @@ function Pagination({
       {currentPage > 1 ? (
         <LocalizedClientLink
           href={buildHref(currentPage - 1)}
-          className="h-9 w-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-[#F27A1A] hover:text-[#F27A1A] transition-colors"
+          className="h-9 w-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-[#F27A1A] hover:text-[#1D1D1F] hover:underline transition-colors"
           aria-label="Pagina anterioară"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -362,7 +364,7 @@ function Pagination({
           </svg>
         </LocalizedClientLink>
       ) : (
-        <span className="h-9 w-9 flex items-center justify-center rounded-lg border border-gray-100 text-gray-300 cursor-not-allowed" aria-hidden="true">
+        <span className="h-9 w-9 flex items-center justify-center rounded-full text-gray-300 cursor-not-allowed" aria-hidden="true">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
@@ -380,10 +382,10 @@ function Pagination({
             key={p}
             href={buildHref(p)}
             aria-current={p === currentPage ? "page" : undefined}
-            className={`h-9 w-9 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+            className={`h-9 w-9 flex items-center justify-center rounded-full text-sm font-medium transition-colors ${
               p === currentPage
-                ? "bg-[#F27A1A] text-white border border-[#F27A1A]"
-                : "border border-gray-200 text-gray-600 hover:border-[#F27A1A] hover:text-[#F27A1A]"
+                ? "bg-[#1D1D1F] text-white"
+                : "bg-[#F5F5F7] text-[#1D1D1F] hover:bg-[#E8E8ED]"
             }`}
           >
             {p}
@@ -395,17 +397,17 @@ function Pagination({
       {currentPage < totalPages ? (
         <LocalizedClientLink
           href={buildHref(currentPage + 1)}
-          className="h-9 w-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-[#F27A1A] hover:text-[#F27A1A] transition-colors"
+          className="h-9 w-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-[#F27A1A] hover:text-[#1D1D1F] hover:underline transition-colors"
           aria-label="Pagina următoare"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7 7-7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </LocalizedClientLink>
       ) : (
-        <span className="h-9 w-9 flex items-center justify-center rounded-lg border border-gray-100 text-gray-300 cursor-not-allowed" aria-hidden="true">
+        <span className="h-9 w-9 flex items-center justify-center rounded-full text-gray-300 cursor-not-allowed" aria-hidden="true">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7 7-7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </span>
       )}

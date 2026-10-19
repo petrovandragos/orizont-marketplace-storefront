@@ -72,7 +72,7 @@ export default function NavAccountDropdown({ customer }: Props) {
         aria-label="Contul meu"
         data-testid="nav-account-link"
         className={`flex items-center gap-x-1.5 transition-colors duration-150 ${
-          open ? "text-[#F27A1A]" : "text-[#333333] hover:text-[#F27A1A]"
+          open ? "text-[#1D1D1F]" : "text-[#424245] hover:text-[#1D1D1F]"
         }`}
       >
         {initials ? (
@@ -80,9 +80,8 @@ export default function NavAccountDropdown({ customer }: Props) {
             {initials}
           </span>
         ) : (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75}
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          <svg className="w-[22px] h-[22px]" fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" />
           </svg>
         )}
       </LocalizedClientLink>
@@ -101,7 +100,7 @@ export default function NavAccountDropdown({ customer }: Props) {
 
         <div className="relative bg-white rounded-2xl border border-gray-100 overflow-hidden">
           {/* Header */}
-          <div className="px-4 py-4 bg-gradient-to-br from-[#FFF3E6] to-white border-b border-gray-100">
+          <div className="px-4 py-4 border-b border-gray-100">
             <div className="flex items-center gap-x-3">
               <div className="w-10 h-10 rounded-full bg-[#F27A1A] flex items-center justify-center flex-shrink-0">
                 {initials ? (
@@ -116,15 +115,15 @@ export default function NavAccountDropdown({ customer }: Props) {
               <div className="flex-1 min-w-0">
                 {customer ? (
                   <>
-                    <p className="text-sm font-bold text-[#1A1A1A] truncate">
+                    <p className="text-sm font-bold text-[#1D1D1F] truncate">
                       {customer.first_name} {customer.last_name}
                     </p>
                     <p className="text-xs text-gray-400 truncate">{customer.email}</p>
                   </>
                 ) : (
                   <>
-                    <p className="text-sm font-bold text-[#1A1A1A]">Bun venit!</p>
-                    <p className="text-xs text-gray-400">Autentifică-te pentru mai mult</p>
+                    <p className="text-sm font-bold text-[#1D1D1F]">Bun venit!</p>
+                    <p className="text-xs text-gray-500">Autentificați-vă pentru a vedea comenzile</p>
                   </>
                 )}
               </div>
@@ -139,7 +138,7 @@ export default function NavAccountDropdown({ customer }: Props) {
                   <LocalizedClientLink
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-x-3 px-4 py-2.5 text-sm text-[#333333] hover:bg-gray-50 hover:text-[#F27A1A] transition-colors group"
+                    className="flex items-center gap-x-3 px-4 py-2.5 text-sm text-[#424245] hover:bg-gray-50 hover:text-[#F27A1A] transition-colors group"
                   >
                     <span className="text-gray-400 group-hover:text-[#F27A1A] transition-colors flex-shrink-0">
                       {link.icon}
@@ -160,7 +159,7 @@ export default function NavAccountDropdown({ customer }: Props) {
               <LocalizedClientLink
                 href="/cont"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center w-full h-9 bg-[#F27A1A] hover:bg-[#D4600E] text-white text-sm font-semibold rounded-xl transition-colors duration-150"
+                className="btn-pill-sm w-full"
               >
                 Contul meu
               </LocalizedClientLink>
@@ -168,7 +167,7 @@ export default function NavAccountDropdown({ customer }: Props) {
               <LocalizedClientLink
                 href="/cont"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center w-full h-9 bg-[#F27A1A] hover:bg-[#D4600E] text-white text-sm font-semibold rounded-xl transition-colors duration-150"
+                className="btn-pill-sm w-full"
               >
                 Autentificare
               </LocalizedClientLink>

@@ -35,7 +35,7 @@ const OrderSummary = ({ cart }: OrderSummaryProps) => {
 
   return (
     <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 flex flex-col gap-y-5">
-      <h2 className="text-lg font-bold text-[#1A1A1A]">Sumar comandă</h2>
+      <h2 className="text-lg font-bold text-[#1D1D1F]">Sumar comandă</h2>
 
       {/* Line items */}
       <div className="flex flex-col gap-y-3 text-sm">
@@ -58,9 +58,9 @@ const OrderSummary = ({ cart }: OrderSummaryProps) => {
 
       {/* Total */}
       <div className="flex items-center justify-between">
-        <span className="text-base font-semibold text-[#1A1A1A]">Total</span>
+        <span className="text-base font-semibold text-[#1D1D1F]">Total</span>
         <span
-          className="text-xl font-bold text-[#1A1A1A]"
+          className="text-xl font-bold text-[#1D1D1F]"
           data-testid="cart-total"
         >
           {formatRon(total)}
@@ -78,7 +78,7 @@ const OrderSummary = ({ cart }: OrderSummaryProps) => {
               d="M9 5l7 7-7 7"
             />
           </svg>
-          Finalizează comanda
+          Finalizați comanda
         </button>
       </LocalizedClientLink>
 
@@ -86,7 +86,7 @@ const OrderSummary = ({ cart }: OrderSummaryProps) => {
         href="/store"
         className="text-center text-sm text-gray-400 hover:text-[#F27A1A] transition-colors"
       >
-        Continuă cumpărăturile
+        Continuați cumpărăturile
       </LocalizedClientLink>
     </div>
   )

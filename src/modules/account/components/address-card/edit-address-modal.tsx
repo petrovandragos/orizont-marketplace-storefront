@@ -115,7 +115,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
             data-testid="address-edit-button"
           >
             <Edit className="h-4 w-4" />
-            Editează
+            Editați
           </button>
           <button
             className="text-[10px] font-bold text-gray-400 flex items-center gap-x-2 hover:text-red-600 transition-colors uppercase tracking-widest"
@@ -123,14 +123,14 @@ const EditAddress: React.FC<EditAddressProps> = ({
             data-testid="address-delete-button"
           >
             {removing ? <Spinner className="h-4 w-4" /> : <Trash className="h-4 w-4" />}
-            Șterge
+            Ștergeți
           </button>
         </div>
       </div>
 
       <Modal isOpen={state} close={close} data-testid="edit-address-modal">
         <Modal.Title>
-          <Heading className="mb-2 text-2xl font-bold uppercase tracking-tighter">Editează adresa</Heading>
+          <Heading className="mb-2 text-2xl font-bold uppercase tracking-tighter">Editați adresa</Heading>
         </Modal.Title>
         <form action={formAction}>
           <input type="hidden" name="addressId" value={address.id} />
@@ -233,10 +233,10 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 className="h-12 flex-1 rounded-xl font-bold uppercase tracking-widest text-[10px] border-gray-200"
                 data-testid="cancel-button"
               >
-                Anulează
+                Anulați
               </Button>
               <SubmitButton data-testid="save-button" className="h-12 flex-1 rounded-xl bg-black text-white hover:bg-gray-800 font-bold uppercase tracking-widest text-[10px]">
-                Salvează
+                Salvați
               </SubmitButton>
             </div>
           </Modal.Footer>

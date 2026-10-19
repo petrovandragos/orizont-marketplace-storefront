@@ -47,7 +47,7 @@ export default async function EuplatescFailPage({ params, searchParams }: Props)
           </div>
 
           <div>
-            <h1 className="text-xl font-bold text-[#1A1A1A]">Plata nu a fost procesată</h1>
+            <h1 className="text-xl font-bold text-[#1D1D1F]">Plata nu a fost procesată</h1>
             <p className="text-sm text-gray-500 mt-1 max-w-xs">
               {errorMessage}
             </p>
@@ -56,7 +56,7 @@ export default async function EuplatescFailPage({ params, searchParams }: Props)
 
         {/* Options */}
         <div className="pt-8 flex flex-col gap-y-3">
-          <p className="text-sm font-semibold text-[#1A1A1A] mb-1">Ce dorești să faci?</p>
+          <p className="text-sm font-semibold text-[#1D1D1F] mb-1">Ce dorești să faci?</p>
 
           {/* Retry card payment */}
           <LocalizedClientLink
@@ -86,7 +86,7 @@ export default async function EuplatescFailPage({ params, searchParams }: Props)
           <LocalizedClientLink
             href={`/checkout?step=payment${cart_id ? `&cart_id=${cart_id}` : ""}`}
           >
-            <button className="w-full h-12 border-2 border-gray-200 text-[#333333] hover:border-[#F27A1A] hover:text-[#F27A1A] font-semibold rounded-xl transition-colors duration-150 flex items-center justify-center gap-x-2 text-sm">
+            <button className="w-full h-12 border-2 border-gray-200 text-[#424245] hover:border-[#F27A1A] hover:text-[#F27A1A] font-semibold rounded-xl transition-colors duration-150 flex items-center justify-center gap-x-2 text-sm">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -95,7 +95,7 @@ export default async function EuplatescFailPage({ params, searchParams }: Props)
                   d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              Plătește ramburs la livrare
+              Plătiți ramburs la livrare
             </button>
           </LocalizedClientLink>
 

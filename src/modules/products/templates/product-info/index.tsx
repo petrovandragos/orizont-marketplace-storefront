@@ -18,7 +18,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
           </LocalizedClientLink>
         )}
         <h2
-          className="text-2xl font-semibold text-[#1A1A1A] leading-snug"
+          className="text-2xl font-semibold text-[#1D1D1F] leading-snug"
           data-testid="product-title"
         >
           {product.title}

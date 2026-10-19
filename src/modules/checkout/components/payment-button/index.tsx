@@ -40,7 +40,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
         <ManualTestPaymentButton notReady={notReady} data-testid={dataTestId} />
       )
     default:
-      return <Button disabled>Selectează o metodă de plată</Button>
+      return <Button disabled>Selectați o metodă de plată</Button>
   }
 }
 
@@ -141,7 +141,7 @@ const StripePaymentButton = ({
         isLoading={submitting}
         data-testid={dataTestId}
       >
-        Plasează comanda
+        Plasați comanda
       </Button>
       <ErrorMessage
         error={errorMessage}
@@ -180,7 +180,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         size="large"
         data-testid="submit-order-button"
       >
-        Plasează comanda
+        Plasați comanda
       </Button>
       <ErrorMessage
         error={errorMessage}

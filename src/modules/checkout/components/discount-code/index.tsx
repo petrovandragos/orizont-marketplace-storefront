@@ -66,7 +66,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
               className="txt-medium text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="add-discount-button"
             >
-              Adaugă cod(uri) de reducere
+              Adăugați un cod de reducere
             </button>
 
             {/* <Tooltip content="You can add multiple promotion codes">
@@ -89,7 +89,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                   variant="secondary"
                   data-testid="discount-apply-button"
                 >
-                  Aplică
+                  Aplicați
                 </SubmitButton>
               </div>
 

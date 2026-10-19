@@ -5,7 +5,7 @@ import RegisterCard from "@modules/account/components/register-card"
 
 export const metadata: Metadata = {
   title: "Înregistrare",
-  description: "Creează un cont Orizont pentru o experiență completă de cumpărături.",
+  description: "Creați un cont Orizont pentru o experiență completă de cumpărături.",
 }
 
 type Props = {

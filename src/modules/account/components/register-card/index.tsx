@@ -29,7 +29,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-col gap-y-1.5">
-      <label htmlFor={name} className="text-sm font-medium text-[#333333]">
+      <label htmlFor={name} className="text-sm font-medium text-[#424245]">
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
@@ -78,7 +78,7 @@ function PasswordField({
 
   return (
     <div className="flex flex-col gap-y-1.5">
-      <label htmlFor={name} className="text-sm font-medium text-[#333333]">
+      <label htmlFor={name} className="text-sm font-medium text-[#424245]">
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
@@ -140,7 +140,7 @@ export default function RegisterCard({ redirectTo }: RegisterCardProps) {
   // Wraps the server action with client-side validation
   const wrappedAction = (formData: FormData) => {
     if (password !== confirmPassword) {
-      setClientError("Parolele nu se potrivesc. Verifică și încearcă din nou.")
+      setClientError("Parolele nu se potrivesc. Verificați și încercați din nou.")
       return
     }
     setClientError(null)
@@ -160,8 +160,8 @@ export default function RegisterCard({ redirectTo }: RegisterCardProps) {
               d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">Creează un cont</h1>
-        <p className="text-sm text-gray-500 mt-1">Înregistrează-te pentru o experiență completă</p>
+        <h1 className="text-2xl font-bold text-[#1D1D1F]">Creați un cont</h1>
+        <p className="text-sm text-gray-500 mt-1">Înregistrați-vă pentru o experiență completă</p>
       </div>
 
       {/* Form */}
@@ -276,7 +276,7 @@ export default function RegisterCard({ redirectTo }: RegisterCardProps) {
             href={loginHref}
             className="font-semibold text-[#F27A1A] hover:text-[#D4600E] transition-colors"
           >
-            Conectează-te
+            Conectați-vă
           </Link>
         </p>
       </div>

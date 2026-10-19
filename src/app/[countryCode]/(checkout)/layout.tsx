@@ -7,14 +7,14 @@ export default function CheckoutLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen bg-[#F5F5F5] flex flex-col">
+    <div className="min-h-screen bg-[#F5F5F7] flex flex-col">
       {/* Checkout header */}
-      <header className="bg-white border-b border-gray-100 shadow-sm">
+      <header className="bg-white/80 backdrop-blur-xl border-b border-black/[0.08]">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           {/* Back to cart */}
           <LocalizedClientLink
             href="/cart"
-            className="flex items-center gap-x-1.5 text-sm text-gray-500 hover:text-[#F27A1A] transition-colors"
+            className="flex items-center gap-x-1.5 text-sm text-gray-500 hover:text-[#1D1D1F] transition-colors"
             data-testid="back-to-cart-link"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

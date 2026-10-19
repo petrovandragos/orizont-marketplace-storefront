@@ -8,44 +8,43 @@ export const metadata: Metadata = {
 const STEPS = [
   {
     step: "01",
-    title: "Plasezi comanda",
-    desc: "Adaugi produsele în coș și finalizezi comanda online sau telefonic.",
+    title: "Plasați comanda",
+    desc: "Adăugați produsele în coș și finalizați comanda online sau telefonic.",
   },
   {
     step: "02",
     title: "Confirmăm disponibilitatea",
-    desc: "Te contactăm în cel mai scurt timp pentru a confirma stocul și data livrării.",
+    desc: "Vă contactăm în cel mai scurt timp pentru a confirma stocul și data livrării.",
   },
   {
     step: "03",
-    title: "Livrăm la tine",
+    title: "Livrăm la dumneavoastră",
     desc: "Transportăm marfa cu vehiculele proprii direct la adresa indicată.",
   },
 ]
 
 export default function LivrarePage() {
   return (
-    <div className="content-container py-12 md:py-16">
+    <div className="content-container pt-8 pb-4 md:pt-12">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#1A1A1A] mb-2">
+        <h1 className="display-2 mb-10">
           Livrare
         </h1>
-        <div className="w-12 h-1 bg-[#F27A1A] rounded mb-8" />
 
         <div className="flex flex-col gap-y-10">
 
           {/* Steps */}
           <section>
-            <h2 className="text-lg font-semibold text-[#1A1A1A] mb-5">Cum funcționează</h2>
+            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-[#1D1D1F] mb-5">Cum funcționează</h2>
             <div className="flex flex-col gap-y-4">
               {STEPS.map(({ step, title, desc }) => (
-                <div key={step} className="flex items-start gap-x-4 bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-                  <div className="w-10 h-10 rounded-xl bg-[#F27A1A] text-white text-sm font-bold flex items-center justify-center flex-shrink-0">
+                <div key={step} className="flex items-start gap-x-4 bg-[#F5F5F7] rounded-[22px] p-5">
+                  <div className="w-10 h-10 rounded-full bg-[#1D1D1F] text-white text-sm font-semibold flex items-center justify-center flex-shrink-0">
                     {step}
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-[#1A1A1A] mb-0.5">{title}</h3>
-                    <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
+                    <h3 className="text-[17px] font-semibold text-[#1D1D1F] mb-0.5">{title}</h3>
+                    <p className="text-[15px] text-[#6E6E73] leading-relaxed">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -54,7 +53,7 @@ export default function LivrarePage() {
 
           {/* Details */}
           <section>
-            <h2 className="text-lg font-semibold text-[#1A1A1A] mb-4">Detalii livrare</h2>
+            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-[#1D1D1F] mb-4">Detalii livrare</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 {
@@ -94,12 +93,12 @@ export default function LivrarePage() {
                   desc: "Puteți ridica comanda direct din depozitul nostru din Str. Plevnei nr. 3, Sighetu Marmației, în programul de lucru.",
                 },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex flex-col gap-y-2">
+                <div key={title} className="bg-[#F5F5F7] rounded-[22px] p-5 flex flex-col gap-y-2">
                   <div className="w-9 h-9 rounded-lg bg-[#FFF3E6] flex items-center justify-center">
                     {icon}
                   </div>
-                  <h3 className="text-sm font-semibold text-[#1A1A1A]">{title}</h3>
-                  <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
+                  <h3 className="text-sm font-semibold text-[#1D1D1F]">{title}</h3>
+                  <p className="text-[15px] text-[#6E6E73] leading-relaxed">{desc}</p>
                 </div>
               ))}
             </div>
@@ -107,16 +106,16 @@ export default function LivrarePage() {
 
           {/* Schedule */}
           <section>
-            <h2 className="text-lg font-semibold text-[#1A1A1A] mb-4">Program de livrare</h2>
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-[#1D1D1F] mb-4">Program de livrare</h2>
+            <div className="bg-[#F5F5F7] rounded-[22px] overflow-hidden">
               {[
                 { day: "Luni – Vineri", hours: "07:00 – 18:00", open: true },
                 { day: "Sâmbătă", hours: "08:00 – 14:00", open: true },
                 { day: "Duminică", hours: "Închis", open: false },
               ].map(({ day, hours, open }) => (
-                <div key={day} className="flex items-center justify-between px-5 py-3.5 border-b border-gray-50 last:border-b-0">
+                <div key={day} className="flex items-center justify-between px-5 py-3.5 border-b border-black/[0.06] last:border-b-0">
                   <span className="text-sm text-gray-600">{day}</span>
-                  <span className={`text-sm font-semibold ${open ? "text-[#1A1A1A]" : "text-[#D32F2F]"}`}>
+                  <span className={`text-sm font-semibold ${open ? "text-[#1D1D1F]" : "text-[#D32F2F]"}`}>
                     {hours}
                   </span>
                 </div>
@@ -129,7 +128,7 @@ export default function LivrarePage() {
             <svg className="w-5 h-5 text-[#F27A1A] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <p className="text-sm text-[#1A1A1A]">
+            <p className="text-sm text-[#1D1D1F]">
               Pentru comenzi mari sau transport special, vă rugăm să ne contactați la{" "}
               <a href="tel:0730076606" className="font-semibold text-[#F27A1A] hover:underline">
                 0730 076 606

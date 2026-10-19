@@ -34,13 +34,13 @@ const AddToCartButton = ({
         href={`/products/${productHandle}`}
         className="
           w-full flex items-center justify-center
-          px-4 py-2.5 rounded-lg text-sm font-semibold
-          border-2 border-[#F27A1A] text-[#F27A1A]
-          hover:bg-[#F27A1A] hover:text-white
+          h-10 px-4 rounded-full text-sm font-medium
+          bg-white border border-[#D2D2D7] text-[#1D1D1F]
+          hover:border-[#1D1D1F]
           transition-colors duration-150
         "
       >
-        Alege varianta
+        Alegeți varianta
       </a>
     )
   }
@@ -79,13 +79,13 @@ const AddToCartButton = ({
         disabled={disabled || isPending}
         className="
           w-full flex items-center justify-center gap-x-2
-          px-4 py-2.5 rounded-lg text-sm font-semibold
-          border-2 border-[#F27A1A] text-[#F27A1A]
-          hover:bg-[#F27A1A] hover:text-white
+          h-10 px-4 rounded-full text-sm font-medium
+          bg-[#F27A1A] text-white
+          hover:bg-[#DD6A0E]
           disabled:opacity-50 disabled:cursor-not-allowed
           transition-colors duration-150
         "
-        aria-label="Adaugă în coș"
+        aria-label="Adăugați în coș"
       >
         {isPending ? (
           <>
@@ -125,7 +125,7 @@ const AddToCartButton = ({
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
               />
             </svg>
-            Adaugă în coș
+            Adăugați în coș
           </>
         )}
       </button>

@@ -56,7 +56,7 @@ const Item: React.FC<AccordionItemProps> = ({
         <div className="flex flex-col">
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-4">
-              <span className="text-sm font-medium text-[#1A1A1A] group-hover:text-[#F27A1A] transition-colors duration-200">
+              <span className="text-sm font-medium text-[#1D1D1F] group-hover:text-[#F27A1A] transition-colors duration-200">
                 {title}
               </span>
             </div>

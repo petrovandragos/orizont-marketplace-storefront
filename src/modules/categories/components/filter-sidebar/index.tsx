@@ -76,20 +76,20 @@ const FilterSidebar = ({
     <div className="flex flex-col gap-y-0">
       {/* Header */}
       <div className="flex items-center justify-between pb-4">
-        <h2 className="text-base font-bold text-[#1A1A1A]">Filtrează</h2>
+        <h2 className="text-[17px] font-semibold text-[#1D1D1F]">Filtre</h2>
         {hasActiveFilters && (
           <button
             onClick={clearAll}
-            className="text-xs font-medium text-[#F27A1A] hover:text-[#D4600E] transition-colors"
+            className="text-xs text-[#B9520A] hover:underline"
           >
-            Șterge toate
+            Ștergeți tot
           </button>
         )}
       </div>
 
       {/* ── Price range ── */}
-      <div className="border-t border-gray-100 py-5">
-        <h3 className="text-sm font-semibold text-[#1A1A1A] mb-3">Preț (lei)</h3>
+      <div className="border-t border-black/[0.07] py-5">
+        <h3 className="text-sm font-semibold text-[#1D1D1F] mb-3">Preț (lei)</h3>
         <div className="flex items-center gap-x-2">
           <input
             type="number"
@@ -97,7 +97,7 @@ const FilterSidebar = ({
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
             placeholder="Min"
-            className="w-full h-9 px-3 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent"
+            className="w-full h-9 px-3 text-sm border-0 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent"
           />
           <span className="text-gray-400 flex-shrink-0">—</span>
           <input
@@ -106,21 +106,21 @@ const FilterSidebar = ({
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
             placeholder="Max"
-            className="w-full h-9 px-3 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent"
+            className="w-full h-9 px-3 text-sm border-0 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent"
           />
         </div>
         <div className="flex gap-x-2 mt-2">
           <button
             onClick={handleApplyPrice}
-            className="flex-1 h-9 bg-[#F27A1A] hover:bg-[#D4600E] text-white text-sm font-semibold rounded-lg transition-colors"
+            className="flex-1 h-9 bg-[#1D1D1F] hover:bg-black text-white text-sm font-medium rounded-full transition-colors"
           >
-            Aplică
+            Aplicați
           </button>
           {(searchParams.has("minPrice") || searchParams.has("maxPrice")) && (
             <button
               onClick={handleClearPrice}
-              className="h-9 w-9 flex items-center justify-center text-gray-400 border border-gray-200 rounded-lg hover:border-gray-300 hover:text-gray-600 transition-colors"
-              aria-label="Șterge filtrul de preț"
+              className="h-9 w-9 flex items-center justify-center text-gray-500 bg-white rounded-full hover:text-[#1D1D1F] hover:text-gray-600 transition-colors"
+              aria-label="Ștergeți filtrul de preț"
             >
               ×
             </button>
@@ -130,8 +130,8 @@ const FilterSidebar = ({
 
       {/* ── Brands ── */}
       {availableBrands.length > 0 && (
-        <div className="border-t border-gray-100 py-5">
-          <h3 className="text-sm font-semibold text-[#1A1A1A] mb-3">Producător</h3>
+        <div className="border-t border-black/[0.07] py-5">
+          <h3 className="text-sm font-semibold text-[#1D1D1F] mb-3">Producător</h3>
           <ul className="flex flex-col gap-y-2.5 max-h-56 overflow-y-auto pr-1">
             {availableBrands.map((brand) => (
               <li key={brand}>
@@ -143,7 +143,7 @@ const FilterSidebar = ({
                       onChange={(e) => handleBrandChange(brand, e.target.checked)}
                       className="w-4 h-4 flex-shrink-0 rounded border-gray-300 text-[#F27A1A] accent-[#F27A1A] cursor-pointer"
                     />
-                    <span className="text-sm text-[#333333] truncate group-hover:text-[#F27A1A] transition-colors">
+                    <span className="text-sm text-[#424245] truncate group-hover:text-[#1D1D1F] transition-colors">
                       {brand}
                     </span>
                   </span>
@@ -158,9 +158,9 @@ const FilterSidebar = ({
       )}
 
       {/* ── In-stock toggle ── */}
-      <div className="border-t border-gray-100 py-5">
+      <div className="border-t border-black/[0.07] py-5">
         <label className="flex items-center justify-between cursor-pointer gap-x-3">
-          <span className="text-sm font-medium text-[#333333]">
+          <span className="text-sm font-medium text-[#424245]">
             Doar produse în stoc
           </span>
           <button

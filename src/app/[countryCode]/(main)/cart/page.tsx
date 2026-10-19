@@ -4,8 +4,8 @@ import CartTemplate from "@modules/cart/templates"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Coșul tău",
-  description: "Verifică produsele din coșul tău și finalizează comanda.",
+  title: "Coșul de cumpărături",
+  description: "Verificați produsele din coș și finalizați comanda.",
 }
 
 export default async function Cart() {

@@ -36,12 +36,12 @@ const ProductCard = ({ product, region }: ProductCardProps) => {
   const brand = (product.metadata?.brand as string | undefined) ?? null
 
   return (
-    <article className="group flex flex-col bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden">
+    <article className="group flex flex-col h-full bg-[#F5F5F7] rounded-[22px] p-3 sm:p-4 md:p-5">
 
       {/* ── Image ── */}
       <LocalizedClientLink
         href={`/products/${product.handle}`}
-        className="relative block aspect-square bg-gray-50 overflow-hidden"
+        className="relative block aspect-square bg-white rounded-[14px] overflow-hidden"
         tabIndex={-1}
         aria-hidden="true"
       >
@@ -51,7 +51,7 @@ const ProductCard = ({ product, region }: ProductCardProps) => {
             alt={product.title ?? "Produs"}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
+            className="object-contain object-center p-[7%] group-hover:scale-[1.04] transition-transform duration-500 ease-out"
             quality={75}
           />
         ) : (
@@ -76,24 +76,24 @@ const ProductCard = ({ product, region }: ProductCardProps) => {
 
         {/* Sale badge */}
         {isSale && !isOutOfStock && (
-          <span className="absolute top-2 left-2 bg-[#F27A1A] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-            REDUCERE
+          <span className="absolute top-2.5 left-2.5 bg-[#F27A1A] text-white text-xs font-medium px-2.5 py-0.5 rounded-full">
+            Reducere
           </span>
         )}
       </LocalizedClientLink>
 
       {/* ── Content ── */}
-      <div className="flex flex-col flex-1 p-4 gap-y-2">
+      <div className="flex flex-col flex-1 pt-4 px-1 gap-y-1.5">
         {/* Brand */}
         {brand && (
-          <span className="text-xs text-gray-400 font-medium uppercase tracking-wide truncate">
+          <span className="text-[13px] text-[#B9520A] truncate">
             {brand}
           </span>
         )}
 
         {/* Name */}
         <LocalizedClientLink href={`/products/${product.handle}`}>
-          <h3 className="text-sm font-semibold text-[#1A1A1A] leading-snug line-clamp-2 group-hover:text-[#F27A1A] transition-colors duration-150 min-h-[2.5rem]">
+          <h3 className="text-[15px] sm:text-base font-semibold tracking-[-0.01em] text-[#1D1D1F] leading-snug line-clamp-2 min-h-[2.6em]">
             {product.title}
           </h3>
         </LocalizedClientLink>
@@ -124,14 +124,14 @@ const ProductCard = ({ product, region }: ProductCardProps) => {
         ) : (
           <>
             <div className="mt-auto pt-2">
-              <span className="text-xs font-semibold uppercase tracking-wide text-[#F27A1A]">Preț la cerere</span>
+              <span className="text-sm text-[#6E6E73]">Preț la cerere</span>
             </div>
             <div className="pt-1">
               <LocalizedClientLink
                 href={`/products/${product.handle}?oferta=1#cere-oferta`}
-                className="w-full flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold border-2 border-[#F27A1A] text-[#F27A1A] hover:bg-[#F27A1A] hover:text-white transition-colors duration-150"
+                className="w-full flex items-center justify-center h-10 px-4 rounded-full text-sm font-medium bg-white border border-[#D2D2D7] text-[#1D1D1F] hover:border-[#1D1D1F] transition-colors duration-150"
               >
-                Cere Ofertă
+                Cereți ofertă
               </LocalizedClientLink>
             </div>
           </>

@@ -27,7 +27,7 @@ export default function ContProfileForm({ customer }: Props) {
             type="text"
             defaultValue={customer.first_name ?? ""}
             placeholder="Prenume"
-            className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition"
+            className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1D1D1F] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition"
           />
         </div>
         <div className="flex flex-col gap-y-1.5">
@@ -40,7 +40,7 @@ export default function ContProfileForm({ customer }: Props) {
             type="text"
             defaultValue={customer.last_name ?? ""}
             placeholder="Nume"
-            className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition"
+            className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1D1D1F] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition"
           />
         </div>
       </div>
@@ -66,7 +66,7 @@ export default function ContProfileForm({ customer }: Props) {
           type="tel"
           defaultValue={customer.phone ?? ""}
           placeholder="07xxxxxxxx"
-          className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition"
+          className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1D1D1F] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition"
         />
       </div>
 
@@ -88,7 +88,7 @@ export default function ContProfileForm({ customer }: Props) {
           disabled={isPending}
           className="px-6 py-2.5 bg-[#F27A1A] text-white text-sm font-semibold rounded-lg hover:bg-[#D4600E] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {isPending ? "Se salvează..." : "Salvează modificările"}
+          {isPending ? "Se salvează..." : "Salvați modificările"}
         </button>
       </div>
     </form>

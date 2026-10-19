@@ -24,13 +24,13 @@ const ProductTemplate = ({
   const primaryCategory = product.categories?.[0] ?? null
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="content-container pt-6 pb-4 md:pt-8">
 
       {/* ── Breadcrumbs ── */}
       <nav aria-label="Breadcrumb" className="mb-6">
-        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-gray-500">
+        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-[#6E6E73]">
           <li>
-            <LocalizedClientLink href="/" className="hover:text-[#F27A1A] transition-colors">
+            <LocalizedClientLink href="/" className="hover:text-[#1D1D1F] hover:underline transition-colors">
               Acasă
             </LocalizedClientLink>
           </li>
@@ -42,7 +42,7 @@ const ProductTemplate = ({
               </svg>
               <LocalizedClientLink
                 href={`/categories/${primaryCategory.handle}`}
-                className="hover:text-[#F27A1A] transition-colors"
+                className="hover:text-[#1D1D1F] hover:underline transition-colors"
               >
                 {primaryCategory.name}
               </LocalizedClientLink>
@@ -53,7 +53,7 @@ const ProductTemplate = ({
             <svg className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            <span className="font-medium text-[#1A1A1A] line-clamp-1" aria-current="page">
+            <span className="font-medium text-[#1D1D1F] line-clamp-1" aria-current="page">
               {product.title}
             </span>
           </li>

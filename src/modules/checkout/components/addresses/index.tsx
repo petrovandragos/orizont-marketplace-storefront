@@ -56,7 +56,7 @@ const Addresses = ({
               className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="edit-address-button"
             >
-              Editează
+              Editați
             </button>
           </Text>
         )}
@@ -84,7 +84,7 @@ const Addresses = ({
               </div>
             )}
             <SubmitButton className="mt-6" data-testid="submit-address-button">
-              Continuă la livrare
+              Continuați la livrare
             </SubmitButton>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>

@@ -25,10 +25,10 @@ const PdpClientSection = ({ product, selectedVariant, onVariantChange }: Props) 
   }, [selectedVariant, product.images])
 
   return (
-    <div className="flex flex-col md:flex-row md:gap-x-10 lg:gap-x-16 gap-y-8">
+    <div className="flex flex-col md:flex-row md:gap-x-10 lg:gap-x-16 gap-y-8 md:items-start">
 
       {/* LEFT — Image gallery (50%) */}
-      <div className="w-full md:w-1/2">
+      <div className="w-full md:w-[55%] md:sticky md:top-28">
         <PdpGallery
           key={selectedVariant?.id ?? "default"}
           images={displayImages}
@@ -37,29 +37,29 @@ const PdpClientSection = ({ product, selectedVariant, onVariantChange }: Props) 
       </div>
 
       {/* RIGHT — Product info (50%) */}
-      <div className="w-full md:w-1/2 flex flex-col gap-y-4">
+      <div className="w-full md:w-[45%] flex flex-col gap-y-4 md:pt-4">
 
         {/* Brand */}
         {brand && (
-          <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+          <span className="text-[15px] text-[#B9520A]">
             {brand}
           </span>
         )}
 
         {/* Name */}
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#1A1A1A] leading-tight">
+        <h1 className="text-[30px] sm:text-[40px] font-semibold tracking-[-0.03em] text-[#1D1D1F] leading-[1.08]">
           {product.title}
         </h1>
 
         {/* SKU */}
         {sku && (
-          <p className="text-xs text-gray-400">
-            Cod produs: <span className="font-mono text-gray-500">{sku}</span>
+          <p className="text-[13px] text-[#6E6E73]">
+            Cod produs: <span className="text-[#424245]">{sku}</span>
           </p>
         )}
 
         {/* Divider */}
-        <div className="border-t border-gray-100" />
+        <div className="border-t border-[#D2D2D7]/70" />
 
         {/* Actions: price, stock, quantity, add-to-cart, quote form */}
         <PdpActions product={product} onVariantChange={onVariantChange} />

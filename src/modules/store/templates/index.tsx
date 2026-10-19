@@ -114,45 +114,23 @@ const StoreTemplate = async ({
 
   return (
     <div
-      className="flex flex-col gap-y-4 small:gap-y-12 py-6 small:py-12 content-container bg-white"
+      className="flex flex-col gap-y-8 small:gap-y-10 pt-6 pb-4 small:pt-8 content-container"
       data-testid="category-container"
     >
-      {/* Premium Store Header */}
-      <div className="relative overflow-hidden rounded-[2.5rem] bg-gray-900 px-8 py-16 small:px-16 small:py-24">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#F27A1A]/10 to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#F27A1A]/5 to-transparent pointer-events-none" />
-        <div className="absolute top-[-20%] right-[-10%] w-96 h-96 bg-[#F27A1A]/10 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col gap-y-6 max-w-3xl">
-          <nav className="flex items-center gap-x-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#F27A1A]">
-            <LocalizedClientLink
-              href="/"
-              className="hover:text-white transition-colors duration-300"
-            >
-              Acasă
-            </LocalizedClientLink>
-            <span className="text-gray-700">/</span>
-            <span className="text-gray-400">Magazin</span>
-          </nav>
-
-          <div className="space-y-4">
-            <h1
-              className="text-4xl small:text-7xl font-black tracking-tight text-white leading-[1.1]"
-              data-testid="store-page-title"
-            >
-              Construiește <span className="text-[#F27A1A]">Fără</span> Limite.
-            </h1>
-            <p className="text-gray-400 font-medium text-lg small:text-xl leading-relaxed max-w-2xl">
-              Explorați catalogul nostru complet de materiale de construcții și
-              echipamente profesionale, selectate pentru performanță și
-              durabilitate.
-            </p>
-          </div>
-        </div>
+      <div>
+        <nav aria-label="Breadcrumb" className="text-[13px] text-[#6E6E73] mb-4">
+          <LocalizedClientLink href="/" className="hover:text-[#1D1D1F] hover:underline">Acasă</LocalizedClientLink>
+          <span className="mx-1.5 text-gray-300">›</span>
+          <span className="text-[#1D1D1F]">Toate produsele</span>
+        </nav>
+        <h1 className="display-2" data-testid="store-page-title">Toate produsele</h1>
+        <p className="lead mt-3 max-w-[52ch]">
+          Catalogul complet de materiale de construcții, instalații, finisaje și scule din depozitul nostru.
+        </p>
       </div>
 
       <div className="flex flex-col small:flex-row small:items-start gap-x-12 pt-4">
-        <aside className="small:sticky small:top-24 w-full small:w-[280px] shrink-0">
+        <aside className="small:sticky small:top-28 w-full small:w-[260px] shrink-0 bg-[#F5F5F7] rounded-[22px] p-5 mb-8 small:mb-0">
           <RefinementList
             sortBy={sort}
             categories={rootCategories}
@@ -166,7 +144,7 @@ const StoreTemplate = async ({
           {pageProducts.length > 0 ? (
             <>
               <ul
-                className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
+                className="grid grid-cols-2 w-full small:grid-cols-3 gap-2.5 sm:gap-4"
                 data-testid="products-list"
               >
                 {pageProducts.map((p) => (
@@ -198,9 +176,9 @@ const StoreTemplate = async ({
                   d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <p className="text-gray-500 font-medium">Niciun produs găsit</p>
-              <p className="text-sm text-gray-400">
-                Încearcă să ajustezi filtrele aplicate.
+              <p className="text-[#1D1D1F] font-medium">Niciun produs găsit</p>
+              <p className="text-sm text-[#6E6E73]">
+                Încercați să modificați filtrele aplicate.
               </p>
             </div>
           )}

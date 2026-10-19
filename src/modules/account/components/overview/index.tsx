@@ -19,7 +19,7 @@ const Overview = ({ customer, orders }: OverviewProps) => {
           Salut, {customer?.first_name}
         </h1>
         <p className="text-gray-500 font-medium text-lg">
-          Bine ai revenit în panoul tău de control Orizont.
+          Bine ați revenit în contul Orizont.
         </p>
       </div>
 
@@ -27,14 +27,14 @@ const Overview = ({ customer, orders }: OverviewProps) => {
         <div className="flex items-center justify-between group pt-12">
           <div className="flex flex-col gap-y-1">
             <h2 className="text-2xl font-bold tracking-tighter text-gray-900">Istoric Comenzi</h2>
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Vizualizează achizițiile tale recente</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Achizițiile recente</p>
           </div>
           <LocalizedClientLink
             href="/cont/comenzi"
             className="flex items-center gap-x-2 text-xs font-bold text-gray-400 hover:text-black transition-colors uppercase tracking-widest"
             data-testid="orders-link"
           >
-            Vezi toate comenzile
+            Vedeți toate comenzile
           </LocalizedClientLink>
         </div>
         

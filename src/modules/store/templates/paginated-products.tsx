@@ -94,22 +94,22 @@ export default async function PaginatedProducts({
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
-        <h2 className="text-2xl font-black text-gray-900 mb-2 tracking-tighter uppercase">
-          Nu am găsit rezultate
+        <h2 className="text-2xl font-semibold tracking-[-0.02em] mb-2">
+          Nu am găsit produse pentru „{search}”
         </h2>
-        <p className="text-gray-500 max-w-xs mb-8 font-medium">
-          Ne pare rău, dar nu am găsit niciun produs care să corespundă căutării tale „{search}".
+        <p className="text-[#6E6E73] max-w-sm mb-8">
+          Încercați alt cuvânt sau sunați-ne la 0730 076 606 și vă spunem dacă avem produsul.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
           <LocalizedClientLink
             href="/store"
-            className="px-8 py-4 bg-black text-white rounded-2xl hover:bg-gray-800 transition-all font-bold uppercase tracking-widest text-[10px] text-center shadow-xl shadow-black/10 active:scale-95"
+            className="btn-pill"
           >
-            Explorează magazinul
+            Vedeți toate produsele
           </LocalizedClientLink>
           <LocalizedClientLink
             href="/"
-            className="px-8 py-4 border border-gray-200 text-gray-900 rounded-2xl hover:bg-gray-50 transition-all font-bold uppercase tracking-widest text-[10px] text-center active:scale-95"
+            className="btn-ghost"
           >
             Pagina principală
           </LocalizedClientLink>
@@ -121,7 +121,7 @@ export default async function PaginatedProducts({
   return (
     <>
       <ul
-        className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
+        className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-2.5 sm:gap-4"
         data-testid="products-list"
       >
         {products.map((p) => {

@@ -31,7 +31,7 @@ const CategoriesSection = ({ categories }: Props) => {
     <section className="content-container py-12 md:py-16">
       {/* Section heading */}
       <div className="mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-[#1A1A1A]">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#1D1D1F]">
           Categorii de produse
         </h2>
       </div>
@@ -77,7 +77,7 @@ const CategoriesSection = ({ categories }: Props) => {
               </div>
 
               {/* Category name */}
-              <span className="text-sm md:text-base font-bold text-[#1A1A1A] leading-snug group-hover:text-[#F27A1A] transition-colors duration-150">
+              <span className="text-sm md:text-base font-bold text-[#1D1D1F] leading-snug group-hover:text-[#F27A1A] transition-colors duration-150">
                 {cat.name}
               </span>
             </LocalizedClientLink>

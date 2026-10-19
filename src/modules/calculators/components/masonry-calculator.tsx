@@ -47,7 +47,7 @@ export default function MasonryCalculator() {
             {groups.map((g) => (
               <button key={g} type="button" aria-pressed={group === g}
                 onClick={() => { setGroup(g); const f = MASONRY_UNITS.find((u) => u.group === g); if (f) setUnitId(f.id) }}
-                className={`h-9 px-4 rounded-full text-sm font-semibold border ${group === g ? "bg-[#192335] text-white border-[#192335]" : "bg-white text-gray-700 border-gray-200 hover:border-gray-300"}`}>
+                className={`h-9 px-4 rounded-full text-sm font-semibold border ${group === g ? "bg-[#1D1D1F] text-white border-[#1D1D1F]" : "bg-white text-[#424245] border-transparent hover:border-[#D2D2D7]"}`}>
                 {g}
               </button>
             ))}
@@ -69,12 +69,12 @@ export default function MasonryCalculator() {
         </Step>
       </div>
 
-      <aside className="bg-white border border-gray-200 rounded-2xl p-5 md:p-6 lg:sticky lg:top-36 flex flex-col gap-5">
+      <aside className="bg-white border border-[#D2D2D7] rounded-[26px] p-5 md:p-7 lg:sticky lg:top-32 flex flex-col gap-5">
         {res ? (
           <div className="grid grid-cols-3 gap-2">
-            <div className="bg-[#F5F5F5] rounded-xl p-3"><b className="block text-xl font-extrabold">{fmt(res.area, 1)}</b><span className="text-xs text-gray-500">m² perete</span></div>
-            <div className="bg-[#F5F5F5] rounded-xl p-3"><b className="block text-xl font-extrabold">{fmt(res.volume, 1)}</b><span className="text-xs text-gray-500">m³ zidărie</span></div>
-            <div className="bg-[#F5F5F5] rounded-xl p-3"><b className="block text-xl font-extrabold">{res.pieces}</b><span className="text-xs text-gray-500">bucăți</span></div>
+            <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{fmt(res.area, 1)}</b><span className="text-xs text-[#6E6E73]">m² perete</span></div>
+            <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{fmt(res.volume, 1)}</b><span className="text-xs text-[#6E6E73]">m³ zidărie</span></div>
+            <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{res.pieces}</b><span className="text-xs text-[#6E6E73]">bucăți</span></div>
           </div>
         ) : (
           <p className="text-sm text-red-600">Completați dimensiunile ca să vedem calculul.</p>

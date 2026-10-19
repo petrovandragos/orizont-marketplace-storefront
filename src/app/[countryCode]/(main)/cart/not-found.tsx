@@ -15,7 +15,7 @@ export default function NotFound() {
             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
       </div>
-      <h1 className="text-2xl font-semibold text-[#1A1A1A]">Coșul nu a fost găsit</h1>
+      <h1 className="text-2xl font-semibold text-[#1D1D1F]">Coșul nu a fost găsit</h1>
       <p className="text-sm text-gray-500 max-w-sm">
         Coșul pe care ai încercat să îl accesezi nu există. Șterge cookie-urile și încearcă din nou.
       </p>
@@ -23,7 +23,7 @@ export default function NotFound() {
         href="/"
         className="px-8 py-3 bg-[#F27A1A] hover:bg-[#D4600E] text-white font-medium rounded-xl transition-colors duration-200 text-sm"
       >
-        Mergi la pagina principală
+        Mergeți la pagina principală
       </LocalizedClientLink>
     </div>
   )

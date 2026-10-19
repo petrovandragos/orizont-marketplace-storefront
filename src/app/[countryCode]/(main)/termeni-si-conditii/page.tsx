@@ -87,10 +87,9 @@ export default function TermeniPage() {
   return (
     <div className="content-container py-12 md:py-16">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#1A1A1A] mb-2">
+        <h1 className="display-2 mb-10">
           Termeni și condiții
         </h1>
-        <div className="w-12 h-1 bg-[#F27A1A] rounded mb-2" />
         <p className="text-xs text-gray-400 mb-8">
           Ultima actualizare: aprilie 2026
         </p>
@@ -98,7 +97,7 @@ export default function TermeniPage() {
         <div className="flex flex-col gap-y-8">
           {SECTIONS.map(({ title, content }) => (
             <section key={title}>
-              <h2 className="text-sm font-semibold text-[#1A1A1A] mb-2">{title}</h2>
+              <h2 className="text-sm font-semibold text-[#1D1D1F] mb-2">{title}</h2>
               <div className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
                 {content}
               </div>

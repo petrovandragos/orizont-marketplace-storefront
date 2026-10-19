@@ -17,7 +17,7 @@ export default function NotFound() {
       </div>
 
       <p className="text-[#F27A1A] text-xs uppercase tracking-wider mb-2">Eroare 404</p>
-      <h1 className="text-3xl font-semibold text-[#1A1A1A] mb-3">Pagina nu a fost găsită</h1>
+      <h1 className="text-3xl font-semibold text-[#1D1D1F] mb-3">Pagina nu a fost găsită</h1>
       <p className="text-gray-500 max-w-sm mb-8">
         Pagina pe care o cauți nu există sau a fost mutată.
       </p>
@@ -27,7 +27,7 @@ export default function NotFound() {
           href="/store"
           className="px-8 py-3 bg-[#F27A1A] hover:bg-[#D4600E] text-white font-medium rounded-xl transition-colors duration-200 text-sm"
         >
-          Mergi la magazin
+          Mergeți la magazin
         </LocalizedClientLink>
         <LocalizedClientLink
           href="/"

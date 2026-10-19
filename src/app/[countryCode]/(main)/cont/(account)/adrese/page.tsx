@@ -15,9 +15,9 @@ export default async function AdresePage() {
   return (
     <div className="flex flex-col gap-y-6">
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <h1 className="text-xl font-bold text-[#1A1A1A]">Adresele mele</h1>
+        <h1 className="text-xl font-bold text-[#1D1D1F]">Adresele mele</h1>
         <p className="text-sm text-gray-500 mt-1">
-          Gestionează adresele tale de livrare salvate.
+          Gestionați adresele de livrare salvate.
         </p>
       </div>
 

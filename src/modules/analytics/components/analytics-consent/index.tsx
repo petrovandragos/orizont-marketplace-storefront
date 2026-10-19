@@ -89,7 +89,7 @@ gtag('config', '${GA_ID}', { anonymize_ip: true });`}
           aria-label="Cookie-uri"
           className="fixed inset-x-3 z-50 bottom-[calc(84px+env(safe-area-inset-bottom))] md:bottom-5 md:left-5 md:right-auto md:max-w-md bg-white border border-gray-200 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] p-4 md:p-5"
         >
-          <p className="text-[15px] font-semibold text-[#1A1A1A]">Cookie-uri pentru statistici</p>
+          <p className="text-[15px] font-semibold text-[#1D1D1F]">Cookie-uri pentru statistici</p>
           <p className="text-sm text-gray-600 mt-1.5 leading-relaxed">
             Folosim Google Analytics ca să vedem ce pagini și produse sunt căutate și să îmbunătățim
             site-ul. Nu folosim cookie-uri de publicitate.{" "}

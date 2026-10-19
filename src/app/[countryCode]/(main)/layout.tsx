@@ -28,7 +28,7 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
 
   return (
     <CartDrawerWrapper>
-      <div className="flex flex-col min-h-screen bg-[#F5F5F5]">
+      <div className="flex flex-col min-h-screen bg-white">
         <Nav />
 
         {customer && cart && (

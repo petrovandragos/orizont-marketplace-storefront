@@ -65,7 +65,7 @@ function PaymentCard({
       {/* Text */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-x-2 flex-wrap">
-          <span className="text-sm font-semibold text-[#1A1A1A]">{label}</span>
+          <span className="text-sm font-semibold text-[#1D1D1F]">{label}</span>
           {badge}
         </div>
         <p className="text-xs text-gray-500 mt-0.5">{description}</p>
@@ -163,8 +163,8 @@ export default function StepPayment({ cart, availablePaymentMethods }: StepPayme
 
   const buttonLabel =
     selectedMethod === "card"
-      ? `Plătește cu cardul — ${formatRon(total)}`
-      : `Plasează comanda — ${formatRon(total)}`
+      ? `Plătiți cu cardul — ${formatRon(total)}`
+      : `Plasați comanda — ${formatRon(total)}`
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -200,7 +200,7 @@ export default function StepPayment({ cart, availablePaymentMethods }: StepPayme
         </form>
       )}
 
-      <h2 className="text-lg font-bold text-[#1A1A1A]">Metodă de plată</h2>
+      <h2 className="text-lg font-bold text-[#1D1D1F]">Metodă de plată</h2>
 
       {/* ── Payment options ─────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-y-3">
@@ -293,7 +293,7 @@ export default function StepPayment({ cart, availablePaymentMethods }: StepPayme
       {/* ── Warnings ───────────────────────────────────────────────────────── */}
       {notReady && (
         <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-4 py-2.5">
-          Informațiile de livrare sunt incomplete. Revino la pasul anterior.
+          Informațiile de livrare sunt incomplete. Reveniți la pasul anterior.
         </p>
       )}
 

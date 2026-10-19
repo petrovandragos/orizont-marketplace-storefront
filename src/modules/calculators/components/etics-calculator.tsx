@@ -52,11 +52,11 @@ export default function EticsCalculator() {
             ))}
           </div>
           <div className="mt-4">
-            <span className="text-sm font-semibold text-gray-800">Grosimea plăcilor</span>
+            <span className="text-sm font-medium text-[#1D1D1F]">Grosimea plăcilor</span>
             <div className="flex flex-wrap gap-2 mt-1.5">
               {ins.thicknesses.map((t) => (
                 <button key={t} type="button" aria-pressed={thick === t} onClick={() => setThickness(t)}
-                  className={`h-10 min-w-[64px] px-3 rounded-lg text-sm font-semibold border-2 ${thick === t ? "border-[#F27A1A] bg-[#FFF3E6] text-[#F27A1A]" : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"}`}>
+                  className={`h-10 min-w-[64px] px-4 rounded-full text-sm font-medium border-2 ${thick === t ? "border-[#F27A1A] bg-white text-[#1D1D1F]" : "border-transparent bg-white text-[#424245] hover:border-[#D2D2D7]"}`}>
                   {t} cm
                 </button>
               ))}
@@ -93,11 +93,11 @@ export default function EticsCalculator() {
         </Step>
       </div>
 
-      <aside className="bg-white border border-gray-200 rounded-2xl p-5 md:p-6 lg:sticky lg:top-36 flex flex-col gap-5">
+      <aside className="bg-white border border-[#D2D2D7] rounded-[26px] p-5 md:p-7 lg:sticky lg:top-32 flex flex-col gap-5">
         {res ? (
           <div className="grid grid-cols-2 gap-2">
-            <div className="bg-[#F5F5F5] rounded-xl p-3"><b className="block text-xl font-extrabold">{fmt(res.area, 1)}</b><span className="text-xs text-gray-500">m² de izolat</span></div>
-            <div className="bg-[#F5F5F5] rounded-xl p-3"><b className="block text-xl font-extrabold">{thick} cm</b><span className="text-xs text-gray-500">dibluri de {res.dowel} mm</span></div>
+            <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{fmt(res.area, 1)}</b><span className="text-xs text-[#6E6E73]">m² de izolat</span></div>
+            <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{thick} cm</b><span className="text-xs text-[#6E6E73]">dibluri de {res.dowel} mm</span></div>
           </div>
         ) : (
           <p className="text-sm text-red-600">Completați dimensiunile ca să vedem calculul.</p>

@@ -110,7 +110,7 @@ function FaceSketch({ face, label }: { face: FaceResult; label: string }) {
         <text x={padX - 22} y={(y0 + y1) / 2} textAnchor="middle" fontSize="12" fontWeight="700" fill="#192335" transform={`rotate(-90 ${padX - 22} ${(y0 + y1) / 2})`}>{fmt(face.height)} m</text>
       </svg>
       <figcaption className="text-sm text-gray-600 mt-1">
-        <b className="text-[#1A1A1A]">{label}</b> · {fmt(face.area)} m² · {face.columns.length} coloane de tablă
+        <b className="text-[#1D1D1F]">{label}</b> · {fmt(face.area)} m² · {face.columns.length} coloane de tablă
       </figcaption>
     </figure>
   )
@@ -168,7 +168,7 @@ export default function RoofCalculator() {
             {groups.map((g) => (
               <button key={g} type="button" aria-pressed={group === g}
                 onClick={() => { setGroup(g); const first = ROOF_MODELS.find((m) => m.group === g); if (first) setModelId(first.id) }}
-                className={`h-9 px-4 rounded-full text-sm font-semibold border ${group === g ? "bg-[#192335] text-white border-[#192335]" : "bg-white text-gray-700 border-gray-200 hover:border-gray-300"}`}>
+                className={`h-9 px-4 rounded-full text-sm font-semibold border ${group === g ? "bg-[#1D1D1F] text-white border-[#1D1D1F]" : "bg-white text-[#424245] border-transparent hover:border-[#D2D2D7]"}`}>
                 {g}
               </button>
             ))}
@@ -209,14 +209,14 @@ export default function RoofCalculator() {
         )}
       </div>
 
-      <aside className="bg-white border border-gray-200 rounded-2xl p-5 md:p-6 lg:sticky lg:top-36 flex flex-col gap-5">
+      <aside className="bg-white border border-[#D2D2D7] rounded-[26px] p-5 md:p-7 lg:sticky lg:top-32 flex flex-col gap-5">
         <div>
           <p className="text-sm text-gray-500">Acoperiș în {typeTitle.toLowerCase()}</p>
           {result ? (
             <div className="grid grid-cols-3 gap-2 mt-2">
-              <div className="bg-[#F5F5F5] rounded-xl p-3"><b className="block text-xl font-extrabold">{fmt(result.roofArea, 1)}</b><span className="text-xs text-gray-500">m² acoperiș</span></div>
-              <div className="bg-[#F5F5F5] rounded-xl p-3"><b className="block text-xl font-extrabold">{model.kind === "panel" ? result.panels : result.sheetCount}</b><span className="text-xs text-gray-500">{model.kind === "panel" ? unitLabel("panou", result.panels ?? 0) : unitLabel("foaie", result.sheetCount)}</span></div>
-              <div className="bg-[#F5F5F5] rounded-xl p-3"><b className="block text-xl font-extrabold">{fmt(result.orderedArea, 1)}</b><span className="text-xs text-gray-500">m² tablă</span></div>
+              <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{fmt(result.roofArea, 1)}</b><span className="text-xs text-[#6E6E73]">m² acoperiș</span></div>
+              <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{model.kind === "panel" ? result.panels : result.sheetCount}</b><span className="text-xs text-[#6E6E73]">{model.kind === "panel" ? unitLabel("panou", result.panels ?? 0) : unitLabel("foaie", result.sheetCount)}</span></div>
+              <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{fmt(result.orderedArea, 1)}</b><span className="text-xs text-[#6E6E73]">m² tablă</span></div>
             </div>
           ) : (
             <p className="text-sm text-red-600 mt-2">Completați dimensiunile ca să vedem calculul.</p>

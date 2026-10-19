@@ -1,41 +1,27 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Chevron from "@modules/common/components/open-status/chevron"
 import { CALCULATORS } from "@lib/calculators/links"
-import { CALCULATOR_ICONS, CalculatorGlyph } from "@modules/calculators/components/icons"
+import { CALCULATOR_ART } from "@modules/calculators/components/icons"
 
-/** Bandă pe pagina principală: cele trei calculatoare de materiale. */
+const TITLES: Record<string, string> = { acoperis: "Tablă pentru acoperiș", termosistem: "Termosistem", zidarie: "Zidărie" }
+
+/** Banda cu cele trei calculatoare de materiale. */
 export default function CalculatorsSection() {
   return (
-    <section className="content-container pt-8 md:pt-10" aria-labelledby="calc-title">
-      <div className="relative overflow-hidden rounded-2xl bg-[#192335] text-white p-5 sm:p-7 md:p-8">
-        <div className="relative flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-5 md:mb-6">
-          <div className="max-w-xl">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F27A1A] px-3 py-1 text-xs font-bold uppercase tracking-wide">
-              <CalculatorGlyph className="w-3.5 h-3.5" /> Gratuit
-            </span>
-            <h2 id="calc-title" className="mt-3 text-2xl md:text-[28px] font-bold leading-tight !text-white">
-              Calculați necesarul de materiale
-            </h2>
-            <p className="mt-2 text-[15px] text-white/75">
-              Introduceți dimensiunile, iar calculatorul vă spune ce materiale vă trebuie și în ce cantitate. Lista o puteți trimite direct pentru ofertă.
-            </p>
-          </div>
-          <LocalizedClientLink href="/calculatoare" className="self-start lg:self-auto text-sm font-semibold text-[#FDBA74] hover:text-white whitespace-nowrap">
-            Toate calculatoarele →
-          </LocalizedClientLink>
-        </div>
-        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-3">
+    <section className="bg-[#F5F5F7] mt-20 md:mt-24 py-16 md:py-24" aria-labelledby="calc-title">
+      <div className="content-container">
+        <h2 id="calc-title" className="display-2 max-w-[20ch]">Știți dimensiunile. Noi calculăm restul.</h2>
+        <p className="lead max-w-[46ch] mt-3">
+          Calculatoarele vă dau lista de materiale, pe care o puteți trimite direct pentru ofertă.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
           {CALCULATORS.map((c) => (
             <LocalizedClientLink key={c.slug} href={`/calculatoare/${c.slug}`}
-              className="group flex items-center gap-4 rounded-xl bg-white p-4 text-[#1A1A1A] ring-2 ring-transparent hover:ring-[#F27A1A] transition">
-              <span className="flex-shrink-0 w-14 h-14 rounded-xl bg-[#FFF3E6] flex items-center justify-center">{CALCULATOR_ICONS[c.slug]}</span>
-              <span className="flex-1 min-w-0">
-                <span className="block font-bold group-hover:text-[#F27A1A]">{c.title}</span>
-                <span className="block text-sm text-gray-600 md:hidden">{c.tagline}</span>
-                <span className="hidden md:block text-sm text-gray-600">{c.text}</span>
-              </span>
-              <span className="flex-shrink-0 w-9 h-9 rounded-full bg-[#F27A1A] text-white flex items-center justify-center group-hover:bg-[#D4600E]" aria-hidden="true">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
-              </span>
+              className="group bg-white rounded-[26px] p-7 md:min-h-[320px] flex flex-col hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-shadow">
+              <span className="block w-[120px] h-20 text-[#F27A1A]">{CALCULATOR_ART[c.slug]}</span>
+              <h3 className="text-2xl font-semibold tracking-[-0.02em] mt-6 md:mt-16">{TITLES[c.slug] ?? c.short}</h3>
+              <p className="text-base text-[#6E6E73] mt-2">{c.text}</p>
+              <span className="link-more mt-4">Începeți calculul <Chevron /></span>
             </LocalizedClientLink>
           ))}
         </div>

@@ -127,7 +127,7 @@ const Payment = ({
               className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="edit-payment-button"
             >
-              Editează
+              Editați
             </button>
           </Text>
         )}
@@ -195,8 +195,8 @@ const Payment = ({
             data-testid="submit-payment-button"
           >
             {!activeSession && isStripeLike(selectedPaymentMethod)
-              ? "Introdu detaliile cardului"
-              : "Continuă la revizuire"}
+              ? "Introduceți detaliile cardului"
+              : "Continuați la verificare"}
           </Button>
         </div>
 

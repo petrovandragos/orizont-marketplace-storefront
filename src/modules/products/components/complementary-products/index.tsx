@@ -134,11 +134,11 @@ export default async function ComplementaryProducts({ product, region }: Props) 
     if (!picked.length) return null
 
     return (
-      <section className="mt-12 md:mt-16" aria-labelledby="complementare-titlu">
-        <h2 id="complementare-titlu" className="text-xl md:text-2xl font-bold text-[#1A1A1A] mb-5">
-          {fromRules ? "Ai nevoie și de" : "Produse similare"}
+      <section className="mt-20 md:mt-28" aria-labelledby="complementare-titlu">
+        <h2 id="complementare-titlu" className="display-2 mb-8">
+          {fromRules ? "Vă mai trebuie și" : "Produse similare"}
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4">
           {picked.map((p) => (
             <ProductCard key={p.id} product={p} region={region} />
           ))}

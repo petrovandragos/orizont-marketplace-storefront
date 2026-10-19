@@ -31,10 +31,10 @@ const Register = ({ setCurrentView }: Props) => {
       data-testid="register-page"
     >
       <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">
-        Creează un cont
+        Creați un cont
       </h1>
       <p className="text-center text-gray-500 text-sm mb-8 leading-relaxed">
-        Alătură-te <span className="font-semibold text-gray-900">Orizont</span> pentru o experiență de cumpărături simplificată.
+        Înscrieți-vă la <span className="font-semibold text-gray-900">Orizont</span> pentru o experiență de cumpărături simplificată.
       </p>
       <form className="w-full flex flex-col" action={formAction}>
         <div className="flex flex-col w-full gap-y-3">
@@ -120,7 +120,7 @@ const Register = ({ setCurrentView }: Props) => {
           onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
           className="text-[#F27A1A] font-bold underline underline-offset-4 hover:text-[#D4600E] transition-colors"
         >
-          Conectează-te
+          Conectați-vă
         </button>
       </span>
     </div>

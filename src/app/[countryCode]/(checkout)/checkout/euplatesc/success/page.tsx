@@ -84,7 +84,7 @@ export default async function EuplatescSuccessPage({ params, searchParams }: Pro
     // If we reach here, cart.complete() returned without redirecting — unexpected.
     redirect(
       `/${countryCode}/checkout/euplatesc/fail?cart_id=${cartId}&message=${encodeURIComponent(
-        "Comanda nu a putut fi finalizată. Contactează-ne."
+        "Comanda nu a putut fi finalizată. Contactați-ne."
       )}`
     )
   } catch (e: any) {
@@ -93,7 +93,7 @@ export default async function EuplatescSuccessPage({ params, searchParams }: Pro
 
     redirect(
       `/${countryCode}/checkout/euplatesc/fail?cart_id=${cartId}&message=${encodeURIComponent(
-        "Eroare la finalizarea comenzii. Contactează-ne."
+        "Eroare la finalizarea comenzii. Contactați-ne."
       )}`
     )
   }

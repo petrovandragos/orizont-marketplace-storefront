@@ -44,9 +44,9 @@ export default function CategoryNav({ categories }: Props) {
       onMouseLeave={scheduleClose}
     >
       {/* ── Tab bar ── */}
-      <nav className="bg-white border-b border-gray-200" aria-label="Categorii produse">
+      <nav aria-label="Categorii produse">
         <div className="content-container">
-          <ul className="flex items-center overflow-x-auto no-scrollbar -mx-1">
+          <ul className="flex items-center overflow-x-auto no-scrollbar -mx-2.5">
             {topLevel.map((cat) => {
               const isActive = pathname.includes(`/categories/${cat.handle}`)
               const isOpen   = activeSlug === cat.handle
@@ -57,16 +57,18 @@ export default function CategoryNav({ categories }: Props) {
                   <div onMouseEnter={() => handleTabEnter(cat.handle!)}>
                     <LocalizedClientLink
                       href={`/categories/${cat.handle}`}
-                      className={`flex items-center gap-x-1 px-3 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-colors duration-150 ${
-                        isActive || isOpen
-                          ? "border-[#F27A1A] text-[#F27A1A]"
-                          : "border-transparent text-[#333333] hover:border-[#F27A1A] hover:text-[#F27A1A]"
+                      className={`flex items-center gap-x-1 px-2.5 h-10 text-[13px] whitespace-nowrap border-b-2 transition-colors duration-150 ${
+                        isActive
+                          ? "border-[#F27A1A] text-[#1D1D1F] font-medium"
+                          : isOpen
+                            ? "border-transparent text-[#1D1D1F]"
+                            : "border-transparent text-[#424245] hover:text-[#1D1D1F]"
                       }`}
                     >
                       {cat.name}
                       {(cat.category_children?.length ?? 0) > 0 && (
                         <svg
-                          className={`w-3 h-3 flex-shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                          className={`w-2.5 h-2.5 opacity-60 flex-shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
                           fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
@@ -77,17 +79,17 @@ export default function CategoryNav({ categories }: Props) {
                 </li>
               )
             })}
-            <li className="flex-shrink-0 ml-auto pl-3" onMouseEnter={() => setActiveSlug(null)}>
+            <li className="flex-shrink-0 ml-auto pl-3 pr-2.5" onMouseEnter={() => setActiveSlug(null)}>
               <LocalizedClientLink
                 href="/calculatoare"
-                className={`my-1.5 flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-semibold whitespace-nowrap transition-colors ${
+                className={`flex items-center gap-1.5 rounded-full px-3 h-7 text-[13px] font-medium whitespace-nowrap transition-colors ${
                   pathname.includes("/calculatoare")
                     ? "bg-[#F27A1A] text-white"
-                    : "bg-[#FFF3E6] text-[#D4600E] hover:bg-[#F27A1A] hover:text-white"
+                    : "bg-[#FFF3E6] text-[#B9520A] hover:bg-[#F27A1A] hover:text-white"
                 }`}
               >
-                <CalculatorGlyph />
-                Calculatoare materiale
+                <CalculatorGlyph className="w-3.5 h-3.5" />
+                Calculatoare
               </LocalizedClientLink>
             </li>
           </ul>
@@ -103,19 +105,19 @@ export default function CategoryNav({ categories }: Props) {
         }`}
       >
         {/* Keeps the panel "hot" even while animating out so mouse can re-enter */}
-        <div className="bg-white border-b border-gray-200 shadow-2xl">
+        <div className="bg-white border-b border-black/[0.08] shadow-[0_24px_48px_-24px_rgba(0,0,0,0.18)]">
           {activeCategory && (
-            <div className="content-container py-6">
+            <div className="content-container pt-8 pb-10">
               <div className="flex gap-x-10">
 
                 {/* Left: category header */}
-                <div className="w-52 flex-shrink-0 flex flex-col gap-y-2 pt-1">
+                <div className="w-64 flex-shrink-0 flex flex-col gap-y-2">
                   <LocalizedClientLink
                     href={`/categories/${activeCategory.handle}`}
                     onClick={() => setActiveSlug(null)}
                     className="group flex items-center justify-between"
                   >
-                    <span className="text-base font-bold text-[#1A1A1A] group-hover:text-[#F27A1A] transition-colors">
+                    <span className="text-2xl font-semibold tracking-[-0.02em] text-[#1D1D1F] group-hover:text-[#B9520A] transition-colors">
                       {activeCategory.name}
                     </span>
                     <svg className="w-4 h-4 text-[#F27A1A] opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,9 +133,9 @@ export default function CategoryNav({ categories }: Props) {
                     <LocalizedClientLink
                       href={`/categories/${activeCategory.handle}`}
                       onClick={() => setActiveSlug(null)}
-                      className="inline-flex items-center gap-x-1.5 text-xs font-semibold text-[#F27A1A] hover:text-[#D4600E] transition-colors"
+                      className="inline-flex items-center gap-x-1 text-sm text-[#B9520A] hover:underline"
                     >
-                      Vezi toate
+                      Vedeți toate produsele
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                       </svg>
@@ -142,10 +144,10 @@ export default function CategoryNav({ categories }: Props) {
                 </div>
 
                 {/* Divider */}
-                <div className="w-px bg-gray-100 self-stretch" />
+                <div className="w-px bg-black/[0.06] self-stretch" />
 
                 {/* Right: subcategory grid */}
-                <div className="flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-0.5">
+                <div className="flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-1">
                   {(activeCategory.category_children ?? [])
                     .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0))
                     .map((sub) => (
@@ -153,10 +155,9 @@ export default function CategoryNav({ categories }: Props) {
                         key={sub.id}
                         href={`/categories/${sub.handle}`}
                         onClick={() => setActiveSlug(null)}
-                        className="group flex items-center gap-x-2 px-3 py-2 rounded-lg hover:bg-[#FFF3E6] transition-colors duration-150"
+                        className="group flex items-center py-1.5"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-[#F27A1A] flex-shrink-0 transition-colors" />
-                        <span className="text-sm text-[#333333] group-hover:text-[#F27A1A] transition-colors font-medium">
+                                                <span className="text-[15px] text-[#424245] group-hover:text-[#1D1D1F] group-hover:underline transition-colors">
                           {sub.name}
                         </span>
                       </LocalizedClientLink>

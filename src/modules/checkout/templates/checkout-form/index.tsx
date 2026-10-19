@@ -37,7 +37,7 @@ function CartMiniSummary({
 
   return (
     <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex flex-col gap-y-4">
-      <h3 className="text-sm font-bold text-[#1A1A1A]">
+      <h3 className="text-sm font-bold text-[#1D1D1F]">
         Rezumat comandă ({itemCount} {itemCount === 1 ? "produs" : "produse"})
       </h3>
 
@@ -58,10 +58,10 @@ function CartMiniSummary({
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-medium text-[#1A1A1A] truncate">{item.product_title}</p>
+              <p className="text-xs font-medium text-[#1D1D1F] truncate">{item.product_title}</p>
               <p className="text-xs text-gray-400">x{item.quantity}</p>
             </div>
-            <span className="text-xs font-semibold text-[#1A1A1A] flex-shrink-0">
+            <span className="text-xs font-semibold text-[#1D1D1F] flex-shrink-0">
               {formatRon(item.total)}
             </span>
           </li>
@@ -82,7 +82,7 @@ function CartMiniSummary({
         ) : (
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-500">Total</span>
-            <span className="text-base font-bold text-[#1A1A1A]">{formatRon(total)}</span>
+            <span className="text-base font-bold text-[#1D1D1F]">{formatRon(total)}</span>
           </div>
         )}
       </div>

@@ -45,7 +45,7 @@ const SortAndCountBar = ({
           {/* "Filtre" button — mobile only */}
           <button
             onClick={() => setDrawerOpen(true)}
-            className="lg:hidden flex items-center gap-x-1.5 h-9 px-3 border border-gray-200 rounded-lg text-sm font-medium text-[#333333] hover:border-[#F27A1A] hover:text-[#F27A1A] transition-colors"
+            className="lg:hidden flex items-center gap-x-1.5 h-9 px-4 rounded-full bg-[#F5F5F7] text-sm font-medium text-[#1D1D1F] hover:bg-[#E8E8ED] transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -58,7 +58,7 @@ const SortAndCountBar = ({
           </button>
 
           <span className="text-sm text-gray-500">
-            <span className="font-semibold text-[#1A1A1A]">{count}</span>
+            <span className="font-semibold text-[#1D1D1F]">{count}</span>
             {" "}produse
           </span>
         </div>
@@ -66,14 +66,14 @@ const SortAndCountBar = ({
         {/* Right: sort dropdown */}
         <div className="flex items-center gap-x-2 flex-shrink-0">
           <label htmlFor="sort-select" className="hidden sm:block text-sm text-gray-500 flex-shrink-0">
-            Sortează:
+            Ordonați după
           </label>
           <div className="relative">
             <select
               id="sort-select"
               value={currentSort}
               onChange={(e) => handleSortChange(e.target.value)}
-              className="h-9 pl-3 pr-8 text-sm border border-gray-200 rounded-lg bg-white text-[#333333] appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent"
+              className="h-9 pl-4 pr-8 text-sm border-0 rounded-full bg-[#F5F5F7] text-[#1D1D1F] appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent"
             >
               {SORT_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -108,7 +108,7 @@ const SortAndCountBar = ({
           >
             {/* Panel header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 flex-shrink-0">
-              <h2 className="text-base font-bold text-[#1A1A1A]">Filtrează produsele</h2>
+              <h2 className="text-[17px] font-semibold text-[#1D1D1F]">Filtrați produsele</h2>
               <button
                 onClick={() => setDrawerOpen(false)}
                 className="p-1.5 rounded-lg text-gray-400 hover:text-[#F27A1A] hover:bg-gray-50 transition-colors"
@@ -129,9 +129,9 @@ const SortAndCountBar = ({
             <div className="flex-shrink-0 px-5 py-4 border-t border-gray-100">
               <button
                 onClick={() => setDrawerOpen(false)}
-                className="w-full h-11 bg-[#F27A1A] hover:bg-[#D4600E] text-white font-semibold rounded-xl transition-colors"
+                className="w-full h-11 bg-[#F27A1A] hover:bg-[#DD6A0E] text-white font-medium rounded-full transition-colors"
               >
-                Aplică filtrele
+                Aplicați filtrele
               </button>
             </div>
           </div>

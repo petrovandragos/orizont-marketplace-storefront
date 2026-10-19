@@ -69,7 +69,7 @@ const AccountInfo = ({
             data-testid="edit-button"
             data-active={state}
           >
-            {state ? "Anulează" : "Editează"}
+            {state ? "Anulați" : "Editați"}
           </Button>
         </div>
       </div>
@@ -132,7 +132,7 @@ const AccountInfo = ({
                 type="submit"
                 data-testid="save-button"
               >
-                Salvează modificările
+                Salvați modificările
               </Button>
             </div>
           </div>

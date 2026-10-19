@@ -17,7 +17,7 @@ import { Locale } from "@lib/data/locales"
 const NAV_LINKS = [
   { label: "Acasă", href: "/" },
   { label: "Toate produsele", href: "/store" },
-  { label: "Cere ofertă", href: "/cerere-oferta" },
+  { label: "Cereți ofertă", href: "/cerere-oferta" },
   { label: "Calculatoare materiale", href: "/calculatoare" },
   { label: "Contul meu", href: "/cont" },
   { label: "Coș", href: "/cart" },
@@ -60,8 +60,8 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
               <div className="relative flex h-full">
                 <Popover.Button
                   data-testid="nav-menu-button"
-                  className="relative h-full flex items-center px-1 transition-all ease-out duration-200 focus:outline-none text-[#333333] hover:text-[#F27A1A]"
-                  aria-label="Deschide meniu"
+                  className="relative h-full flex items-center px-1 transition-all ease-out duration-200 focus:outline-none text-[#1D1D1F]"
+                  aria-label="Deschideți meniul"
                 >
                   {/* Hamburger icon */}
                   <svg
@@ -73,8 +73,8 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
+                      strokeWidth={1.7}
+                      d="M4 8h16M4 16h16"
                     />
                   </svg>
                 </Popover.Button>
@@ -82,7 +82,7 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
 
               {open && (
                 <div
-                  className="fixed inset-0 z-[50] bg-black/40 pointer-events-auto"
+                  className="fixed inset-0 z-[50] bg-black/30 backdrop-blur-sm pointer-events-auto"
                   onClick={close}
                   data-testid="side-menu-backdrop"
                 />
@@ -98,7 +98,7 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                 leaveFrom="translate-x-0 opacity-100"
                 leaveTo="-translate-x-full opacity-0"
               >
-                <PopoverPanel className="fixed top-0 left-0 h-full w-[85vw] max-w-sm z-[51] flex flex-col bg-white shadow-2xl overflow-y-auto">
+                <PopoverPanel className="fixed top-0 left-0 h-full w-[88vw] max-w-sm z-[51] flex flex-col bg-white shadow-2xl overflow-y-auto">
                   {/* Header */}
                   <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
                     <LocalizedClientLink
@@ -111,7 +111,7 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                         alt="Orizont Logo"
                         width={211}
                         height={55}
-                        className="h-8 w-auto object-contain"
+                        className="h-7 w-auto object-contain"
                         unoptimized
                       />
                     </LocalizedClientLink>
@@ -119,7 +119,7 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                       data-testid="close-menu-button"
                       onClick={close}
                       className="p-1 text-gray-500 hover:text-[#F27A1A] transition-colors"
-                      aria-label="Închide meniu"
+                      aria-label="Închideți meniul"
                     >
                       <XMark className="w-5 h-5" />
                     </button>
@@ -133,13 +133,13 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                           type="search"
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          placeholder="Caută produse..."
-                          className="w-full h-10 pl-4 pr-10 rounded-full border border-gray-300 bg-[#F5F5F5] text-sm focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent"
+                          placeholder="Căutați produse"
+                          className="w-full h-11 pl-4 pr-10 rounded-full border-0 bg-[#F0F0F3] text-base focus:outline-none focus:ring-2 focus:ring-[#F27A1A]"
                         />
                         <button
                           type="submit"
                           className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#F27A1A]"
-                          aria-label="Caută"
+                          aria-label="Căutați"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -157,7 +157,7 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                           <LocalizedClientLink
                             href={href}
                             onClick={close}
-                            className="flex items-center h-10 text-base font-medium text-[#333333] hover:text-[#F27A1A] transition-colors"
+                            className="flex items-center h-11 text-[19px] font-semibold tracking-[-0.01em] text-[#1D1D1F] hover:text-[#B9520A] transition-colors"
                           >
                             {label}
                           </LocalizedClientLink>
@@ -168,7 +168,7 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
 
                   {/* Categories */}
                   <div className="px-5 py-4 flex-1">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                    <p className="text-sm text-[#6E6E73] mb-2">
                       Categorii
                     </p>
                     <ul className="flex flex-col">
@@ -184,8 +184,8 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                               <LocalizedClientLink
                                 href={`/categories/${cat.handle}`}
                                 onClick={close}
-                                className={`flex-1 flex items-center h-10 text-sm font-medium transition-colors ${
-                                  isActive ? "text-[#F27A1A]" : "text-[#333333] hover:text-[#F27A1A]"
+                                className={`flex-1 flex items-center h-11 text-[16px] font-medium transition-colors ${
+                                  isActive ? "text-[#B9520A]" : "text-[#1D1D1F] hover:text-[#B9520A]"
                                 }`}
                               >
                                 {cat.name}
@@ -193,7 +193,7 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                               {children.length > 0 && (
                                 <button
                                   onClick={() => setExpandedSlug(isExpanded ? null : cat.id)}
-                                  aria-label={isExpanded ? "Restrânge" : "Extinde"}
+                                  aria-label={isExpanded ? "Restrângeți" : "Extindeți"}
                                   className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-[#F27A1A] transition-colors"
                                 >
                                   <svg
@@ -214,7 +214,7 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                                     <LocalizedClientLink
                                       href={`/categories/${sub.handle}`}
                                       onClick={close}
-                                      className="flex items-center h-8 text-xs text-gray-500 hover:text-[#F27A1A] transition-colors"
+                                      className="flex items-center h-9 text-[15px] text-[#424245] hover:text-[#B9520A] transition-colors"
                                     >
                                       {sub.name}
                                     </LocalizedClientLink>

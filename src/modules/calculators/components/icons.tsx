@@ -15,3 +15,10 @@ export function CalculatorGlyph({ className = "w-4 h-4" }: { className?: string 
     </svg>
   )
 }
+
+/** Desenele liniare din cardurile calculatoarelor (culoarea vine din `currentColor`). */
+export const CALCULATOR_ART: Record<string, React.ReactNode> = {
+  acoperis: <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" strokeWidth={2} strokeLinejoin="round" aria-hidden="true"><path d="M10 44 60 12l50 32" /><path d="M22 37v33h76V37" /><path d="M36 28v8M48 20v10M60 12v12M72 20v10M84 28v8" opacity=".55" /><path d="M50 70V52h20v18" /></svg>,
+  termosistem: <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true"><rect x="18" y="10" width="34" height="60" /><rect x="52" y="10" width="26" height="60" /><path d="M78 10v60M84 10v60" /><path d="M24 22h22M24 34h22M24 46h22M24 58h22" opacity=".45" /><circle cx="65" cy="25" r="2.5" /><circle cx="65" cy="55" r="2.5" /></svg>,
+  zidarie: <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true"><path d="M12 14h96v52H12z" /><path d="M12 27h96M12 40h96M12 53h96" /><path d="M40 14v13M76 14v13M24 27v13M58 27v13M92 27v13M40 40v13M76 40v13M24 53v13M58 53v13M92 53v13" opacity=".7" /></svg>,
+}

@@ -5,7 +5,7 @@ import LoginCard from "@modules/account/components/login-card"
 
 export const metadata: Metadata = {
   title: "Conectare",
-  description: "Conectează-te în contul tău Orizont.",
+  description: "Conectați-vă în contul Orizont.",
 }
 
 type Props = {

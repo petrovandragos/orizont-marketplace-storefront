@@ -38,7 +38,7 @@ const Review = ({ cart }: { cart: any }) => {
           <div className="flex items-start gap-x-1 w-full mb-6">
             <div className="w-full">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Prin apăsarea butonului „Plasează comanda", confirmi că ai citit,
+                Prin apăsarea butonului „Plasați comanda", confirmi că ai citit,
                 înțeles și accepți Termenii și Condițiile și Politica de
                 Confidențialitate Orizont.
               </Text>

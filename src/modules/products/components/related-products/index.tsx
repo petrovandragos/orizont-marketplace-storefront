@@ -51,7 +51,7 @@ export default async function RelatedProducts({
         <span className="text-xs text-[#F27A1A] uppercase tracking-wider">
           Colecție
         </span>
-        <h2 className="text-2xl font-semibold text-[#1A1A1A]">
+        <h2 className="text-2xl font-semibold text-[#1D1D1F]">
           Produse similare
         </h2>
       </div>

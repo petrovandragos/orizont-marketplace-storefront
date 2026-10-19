@@ -33,7 +33,7 @@ const Login = ({ setCurrentView }: Props) => {
         Bun venit înapoi
       </h1>
       <p className="text-center text-gray-500 text-sm mb-8 leading-relaxed">
-        Introdu datele tale pentru a accesa contul <span className="font-semibold text-gray-900">Orizont</span>.
+        Introduceți datele pentru a accesa contul <span className="font-semibold text-gray-900">Orizont</span>.
       </p>
       <form className="w-full" action={formAction}>
         <div className="flex flex-col w-full gap-y-3">
@@ -41,7 +41,7 @@ const Login = ({ setCurrentView }: Props) => {
             label="Adresă E-mail"
             name="email"
             type="email"
-            title="Introdu o adresă de e-mail validă."
+            title="Introduceți o adresă de e-mail validă."
             autoComplete="email"
             required
             data-testid="email-input"
@@ -81,7 +81,7 @@ const Login = ({ setCurrentView }: Props) => {
           className="text-[#F27A1A] font-bold underline underline-offset-4 hover:text-[#D4600E] transition-colors"
           data-testid="register-button"
         >
-          Creează un cont
+          Creați un cont
         </button>
       </span>
     </div>

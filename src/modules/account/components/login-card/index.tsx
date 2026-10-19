@@ -25,7 +25,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-col gap-y-1.5">
-      <label htmlFor={name} className="text-sm font-medium text-[#333333]">
+      <label htmlFor={name} className="text-sm font-medium text-[#424245]">
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
@@ -135,7 +135,7 @@ export default function LoginCard({ redirectTo }: LoginCardProps) {
               d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">Conectare</h1>
+        <h1 className="text-2xl font-bold text-[#1D1D1F]">Conectare</h1>
         <p className="text-sm text-gray-500 mt-1">Bun venit înapoi la Orizont!</p>
       </div>
 
@@ -192,7 +192,7 @@ export default function LoginCard({ redirectTo }: LoginCardProps) {
               Se conectează...
             </>
           ) : (
-            "Conectează-te"
+            "Conectați-vă"
           )}
         </button>
       </form>
@@ -203,12 +203,12 @@ export default function LoginCard({ redirectTo }: LoginCardProps) {
       {/* Register link */}
       <div className="text-center">
         <p className="text-sm text-gray-500">
-          Nu ai un cont?{" "}
+          Nu aveți cont?{" "}
           <Link
             href={registerHref}
             className="font-semibold text-[#F27A1A] hover:text-[#D4600E] transition-colors"
           >
-            Creează un cont
+            Creați un cont
           </Link>
         </p>
       </div>

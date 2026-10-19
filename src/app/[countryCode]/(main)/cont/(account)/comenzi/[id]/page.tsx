@@ -52,7 +52,7 @@ const STEPS = [
   {
     key: "livrata",
     label: "Livrată / Ridicată",
-    desc: "Comanda a ajuns la tine",
+    desc: "Comanda a ajuns la dumneavoastră",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -84,7 +84,7 @@ function OrderProgressStepper({ order }: { order: HttpTypes.StoreOrder }) {
 
   return (
     <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-      <h2 className="text-base font-bold text-[#1A1A1A] mb-5">Statusul comenzii</h2>
+      <h2 className="text-base font-bold text-[#1D1D1F] mb-5">Statusul comenzii</h2>
       <div className="flex items-start gap-x-0">
         {STEPS.map((s, i) => {
           const done = step >= i + 1
@@ -123,7 +123,7 @@ function OrderProgressStepper({ order }: { order: HttpTypes.StoreOrder }) {
               {/* Label */}
               <div className="mt-2 text-center px-1">
                 <p className={`text-[10px] font-bold uppercase tracking-wide leading-tight ${
-                  done || active ? "text-[#1A1A1A]" : "text-gray-400"
+                  done || active ? "text-[#1D1D1F]" : "text-gray-400"
                 }`}>
                   {s.label}
                 </p>
@@ -165,7 +165,7 @@ export default async function OrderDetailPage({ params }: Props) {
               </svg>
               Înapoi la comenzi
             </Link>
-            <h1 className="text-xl font-bold text-[#1A1A1A]">
+            <h1 className="text-xl font-bold text-[#1D1D1F]">
               Comanda #{order.display_id}
             </h1>
             <p className="text-sm text-gray-500 mt-0.5">
@@ -184,7 +184,7 @@ export default async function OrderDetailPage({ params }: Props) {
       {/* Products */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
         <div className="p-5 border-b border-gray-100">
-          <h2 className="text-base font-bold text-[#1A1A1A]">Produse comandate</h2>
+          <h2 className="text-base font-bold text-[#1D1D1F]">Produse comandate</h2>
         </div>
         <ul className="divide-y divide-gray-100">
           {order.items?.map((item) => (
@@ -197,14 +197,14 @@ export default async function OrderDetailPage({ params }: Props) {
                 />
               )}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-[#1A1A1A] truncate">{item.title}</p>
+                <p className="text-sm font-semibold text-[#1D1D1F] truncate">{item.title}</p>
                 {item.variant_title && (
                   <p className="text-xs text-gray-400 mt-0.5">{item.variant_title}</p>
                 )}
                 <p className="text-xs text-gray-400 mt-0.5">Cantitate: {item.quantity}</p>
               </div>
               <div className="text-right flex-shrink-0">
-                <p className="text-sm font-bold text-[#1A1A1A]">
+                <p className="text-sm font-bold text-[#1D1D1F]">
                   {formatRon(item.unit_price * item.quantity)}
                 </p>
                 <p className="text-xs text-gray-400">{formatRon(item.unit_price)} / buc.</p>
@@ -218,11 +218,11 @@ export default async function OrderDetailPage({ params }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Order summary */}
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-          <h2 className="text-base font-bold text-[#1A1A1A] mb-4">Sumar comandă</h2>
+          <h2 className="text-base font-bold text-[#1D1D1F] mb-4">Sumar comandă</h2>
           <dl className="flex flex-col gap-y-2">
             <div className="flex justify-between text-sm">
               <dt className="text-gray-500">Subtotal</dt>
-              <dd className="font-medium text-[#1A1A1A]">{formatRon(order.subtotal)}</dd>
+              <dd className="font-medium text-[#1D1D1F]">{formatRon(order.subtotal)}</dd>
             </div>
             {(order.discount_total ?? 0) > 0 && (
               <div className="flex justify-between text-sm">
@@ -232,18 +232,18 @@ export default async function OrderDetailPage({ params }: Props) {
             )}
             <div className="flex justify-between text-sm">
               <dt className="text-gray-500">Transport</dt>
-              <dd className="font-medium text-[#1A1A1A]">
+              <dd className="font-medium text-[#1D1D1F]">
                 {(order.shipping_total ?? 0) === 0 ? "Gratuit" : formatRon(order.shipping_total)}
               </dd>
             </div>
             <div className="flex justify-between text-sm">
               <dt className="text-gray-500">TVA</dt>
-              <dd className="font-medium text-[#1A1A1A]">{formatRon(order.tax_total)}</dd>
+              <dd className="font-medium text-[#1D1D1F]">{formatRon(order.tax_total)}</dd>
             </div>
             <div className="h-px bg-gray-100 my-1" />
             <div className="flex justify-between text-sm font-bold">
-              <dt className="text-[#1A1A1A]">Total</dt>
-              <dd className="text-[#1A1A1A]">{formatRon(order.total)}</dd>
+              <dt className="text-[#1D1D1F]">Total</dt>
+              <dd className="text-[#1D1D1F]">{formatRon(order.total)}</dd>
             </div>
           </dl>
         </div>
@@ -251,9 +251,9 @@ export default async function OrderDetailPage({ params }: Props) {
         {/* Shipping address */}
         {shippingAddress && (
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <h2 className="text-base font-bold text-[#1A1A1A] mb-4">Adresă de livrare</h2>
+            <h2 className="text-base font-bold text-[#1D1D1F] mb-4">Adresă de livrare</h2>
             <address className="not-italic text-sm text-gray-600 flex flex-col gap-y-1">
-              <span className="font-semibold text-[#1A1A1A]">
+              <span className="font-semibold text-[#1D1D1F]">
                 {shippingAddress.first_name} {shippingAddress.last_name}
               </span>
               {shippingAddress.company && <span>{shippingAddress.company}</span>}

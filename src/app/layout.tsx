@@ -1,13 +1,13 @@
 import { getBaseURL } from "@lib/util/env"
-import { Inter } from "next/font/google"
+import { Geist } from "next/font/google"
 import { Metadata } from "next"
 import "styles/globals.css"
 import AnalyticsConsent from "@modules/analytics/components/analytics-consent"
 
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin", "latin-ext"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-geist",
 })
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
-    <html lang="ro" data-mode="light" className={inter.variable}>
+    <html lang="ro" data-mode="light" className={geist.variable}>
       <body className="antialiased">
         {props.children}
         <AnalyticsConsent />

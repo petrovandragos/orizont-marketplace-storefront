@@ -104,7 +104,7 @@ const BillingAddress = ({ cart }: { cart: HttpTypes.StoreCart | null }) => {
           value={formData["billing_address.city"]}
           onChange={handleChange}
           required
-          placeholder={selectedJudet ? "Localitate" : "Selectează mai întâi județul"}
+          placeholder={selectedJudet ? "Localitate" : "Selectați mai întâi județul"}
           disabled={!selectedJudet}
           data-testid="billing-city-select"
         >

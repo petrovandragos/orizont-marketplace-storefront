@@ -8,17 +8,17 @@ export default function CheckoutAuthChoice() {
         <CheckoutProgress step="delivery" />
       </div>
 
-      <div className="max-w-md mx-auto bg-white rounded-xl border border-gray-100 shadow-sm p-8 flex flex-col gap-y-6">
+      <div className="max-w-md mx-auto bg-white rounded-[22px] border border-[#D2D2D7]/70 p-8 flex flex-col gap-y-6">
         <div className="text-center">
-          <h1 className="text-xl font-bold text-[#1A1A1A]">Finalizare comandă</h1>
+          <h1 className="text-xl font-bold text-[#1D1D1F]">Finalizare comandă</h1>
           <p className="text-sm text-gray-500 mt-2">
-            Intră în cont pentru a salva comanda în istoricul tău sau continuă ca oaspete.
+            Intrați în cont pentru a salva comanda în istoric sau continuați fără cont.
           </p>
         </div>
 
         <LocalizedClientLink href={`/cont/conectare?redirectTo=${encodeURIComponent("/checkout?step=delivery")}`}>
           <button className="w-full h-12 bg-[#F27A1A] hover:bg-[#D4600E] text-white font-semibold rounded-xl transition-colors duration-150">
-            Intră în cont
+            Intrați în cont
           </button>
         </LocalizedClientLink>
 
@@ -29,8 +29,8 @@ export default function CheckoutAuthChoice() {
         </div>
 
         <LocalizedClientLink href="/checkout?step=delivery&guest=1">
-          <button className="w-full h-12 border-2 border-gray-200 hover:border-[#F27A1A] text-[#1A1A1A] hover:text-[#F27A1A] font-semibold rounded-xl transition-colors duration-150">
-            Continuă ca oaspete
+          <button className="w-full h-12 border-2 border-gray-200 hover:border-[#F27A1A] text-[#1D1D1F] hover:text-[#F27A1A] font-semibold rounded-xl transition-colors duration-150">
+            Continuați fără cont
           </button>
         </LocalizedClientLink>
       </div>

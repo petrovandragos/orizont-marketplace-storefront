@@ -31,16 +31,16 @@ const OrderOverview = ({ orders }: { orders: HttpTypes.StoreOrder[] }) => {
             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
         </svg>
       </div>
-      <h2 className="text-xl font-semibold text-[#1A1A1A]">Nicio comandă încă</h2>
+      <h2 className="text-xl font-semibold text-[#1D1D1F]">Nicio comandă încă</h2>
       <p className="text-sm text-gray-500 max-w-xs">
-        Nu ai plasate nicio comandă. Explorează catalogul nostru pentru a găsi ce ai nevoie.
+        Nu ați plasat încă nicio comandă. Vedeți catalogul nostru pentru a găsi ce vă trebuie.
       </p>
       <LocalizedClientLink
         href="/store"
         className="mt-2 px-8 py-3 bg-[#F27A1A] hover:bg-[#D4600E] text-white font-medium rounded-xl transition-colors duration-200 text-sm"
         data-testid="continue-shopping-button"
       >
-        Mergi la magazin
+        Mergeți la magazin
       </LocalizedClientLink>
     </div>
   )

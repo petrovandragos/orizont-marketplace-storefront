@@ -28,7 +28,7 @@ function formatDate(dateStr: string | null | undefined) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-y-3">
-      <h3 className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wide">{title}</h3>
+      <h3 className="text-sm font-bold text-[#1D1D1F] uppercase tracking-wide">{title}</h3>
       {children}
     </div>
   )
@@ -74,10 +74,10 @@ export default function OrderCompletedTemplate({
             </svg>
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1A1A1A]">Comanda ta a fost plasată cu succes!</h1>
+            <h1 className="text-2xl font-bold text-[#1D1D1F]">Comanda dumneavoastră a fost plasată.</h1>
             <p className="text-sm text-gray-500 mt-1">
               Vei primi o confirmare pe email la{" "}
-              <span className="font-medium text-[#1A1A1A]">{order.email}</span>
+              <span className="font-medium text-[#1D1D1F]">{order.email}</span>
             </p>
           </div>
           <div className="flex items-center gap-x-2 bg-[#FFF3E6] border border-[#F27A1A]/20 rounded-lg px-5 py-2.5">
@@ -112,12 +112,12 @@ export default function OrderCompletedTemplate({
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-[#1A1A1A] truncate">{item.product_title}</p>
+                    <p className="text-sm font-medium text-[#1D1D1F] truncate">{item.product_title}</p>
                     <p className="text-xs text-gray-400">
                       {item.quantity} × {formatRon(item.unit_price)}
                     </p>
                   </div>
-                  <span className="text-sm font-semibold text-[#1A1A1A] flex-shrink-0">
+                  <span className="text-sm font-semibold text-[#1D1D1F] flex-shrink-0">
                     {formatRon(item.total)}
                   </span>
                 </li>
@@ -138,7 +138,7 @@ export default function OrderCompletedTemplate({
                     : "Gratuită"}
                 </span>
               </div>
-              <div className="flex justify-between font-bold text-[#1A1A1A] pt-2 border-t border-gray-100 text-base">
+              <div className="flex justify-between font-bold text-[#1D1D1F] pt-2 border-t border-gray-100 text-base">
                 <span>Total</span>
                 <span>{formatRon(order.total)}</span>
               </div>
@@ -152,7 +152,7 @@ export default function OrderCompletedTemplate({
             <Section title="Adresă de livrare">
               {addr ? (
                 <div className="text-sm text-gray-600 leading-relaxed">
-                  <p className="font-medium text-[#1A1A1A]">
+                  <p className="font-medium text-[#1D1D1F]">
                     {addr.first_name} {addr.last_name}
                   </p>
                   <p>{addr.address_1}</p>
@@ -182,7 +182,7 @@ export default function OrderCompletedTemplate({
                     />
                   </svg>
                 </div>
-                <span className="text-sm font-medium text-[#1A1A1A]">
+                <span className="text-sm font-medium text-[#1D1D1F]">
                   {isManualPayment ? (isPickup ? "Plată la ridicare" : "Ramburs la livrare") : (paymentSession?.provider_id ?? "—")}
                 </span>
               </div>
@@ -200,7 +200,7 @@ export default function OrderCompletedTemplate({
           {customer && (
             <LocalizedClientLink href="/cont/comenzi" className="flex-1">
               <button className="w-full h-11 border-2 border-[#F27A1A] text-[#F27A1A] hover:bg-[#FFF3E6] font-semibold rounded-xl transition-colors duration-150 text-sm">
-                Vezi comenzile mele
+                Vedeți comenzile mele
               </button>
             </LocalizedClientLink>
           )}

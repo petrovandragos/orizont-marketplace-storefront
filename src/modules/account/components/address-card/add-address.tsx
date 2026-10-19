@@ -63,7 +63,7 @@ const AddAddress = ({
 
       <Modal isOpen={state} close={close} data-testid="add-address-modal">
         <Modal.Title>
-          <Heading className="mb-2 text-2xl font-bold uppercase tracking-tighter">Adaugă adresa</Heading>
+          <Heading className="mb-2 text-2xl font-bold uppercase tracking-tighter">Adăugați adresa</Heading>
         </Modal.Title>
         <form action={formAction}>
           <Modal.Body>
@@ -157,10 +157,10 @@ const AddAddress = ({
                 className="h-12 flex-1 rounded-xl font-bold uppercase tracking-widest text-[10px] border-gray-200"
                 data-testid="cancel-button"
               >
-                Anulează
+                Anulați
               </Button>
               <SubmitButton data-testid="save-button" className="h-12 flex-1 rounded-xl bg-black text-white hover:bg-gray-800 font-bold uppercase tracking-widest text-[10px]">
-                Salvează
+                Salvați
               </SubmitButton>
             </div>
           </Modal.Footer>

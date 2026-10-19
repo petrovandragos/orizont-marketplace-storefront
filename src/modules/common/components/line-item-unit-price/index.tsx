@@ -42,7 +42,7 @@ const LineItemUnitPrice = ({
         </>
       )}
       <span
-        className={clx("text-sm font-medium text-[#1A1A1A]", {
+        className={clx("text-sm font-medium text-[#1D1D1F]", {
           "text-[#F27A1A]": hasReducedPrice,
         })}
         data-testid="product-unit-price"

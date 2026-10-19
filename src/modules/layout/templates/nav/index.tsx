@@ -31,11 +31,14 @@ export default async function Nav() {
       <TopBar />
 
       {/* ── Rows 2 & 3: Sticky — main header + category nav ── */}
-      <div className="sticky top-0 inset-x-0 z-50 shadow-sm">
+      <div className="sticky top-0 inset-x-0 z-50 border-b border-black/[0.08]">
+        {/* Fundalul translucid stă într-un strat separat: backdrop-filter pe
+            containerul însuși ar prinde meniul de pe telefon (position: fixed) în antet. */}
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-white/80 backdrop-blur-xl backdrop-saturate-150" />
 
         {/* ── Row 2: Main header ── */}
-        <header className="bg-white border-b border-gray-100 relative z-10">
-          <div className="content-container flex items-center gap-x-3 md:gap-x-5 h-16">
+        <header className="relative z-10">
+          <div className="content-container flex items-center gap-x-3 md:gap-x-6 h-14">
 
             {/* Mobile: Hamburger — hidden on md+ */}
             <div className="flex md:hidden flex-shrink-0">
@@ -58,29 +61,25 @@ export default async function Nav() {
                   alt="Orizont Logo"
                   width={211}
                   height={55}
-                  className="h-8 md:h-10 w-auto object-contain"
+                  className="h-7 md:h-8 w-auto object-contain"
                   priority
                   unoptimized
                 />
             </LocalizedClientLink>
 
             {/* Search bar — hidden on mobile, shown on md+ */}
-            <div className="hidden md:flex flex-1 min-w-0">
+            <div className="hidden md:flex flex-1 min-w-0 max-w-[560px] mx-auto">
               <SearchBar />
             </div>
 
             {/* Right actions */}
-            <div className="flex items-center gap-x-4 ml-auto flex-shrink-0">
+            <div className="flex items-center gap-x-5 ml-auto md:ml-0 flex-shrink-0">
               {/* Cere ofertă — desktop (pe telefon e în meniu) */}
               <LocalizedClientLink
                 href="/cerere-oferta"
-                className="hidden md:inline-flex items-center gap-x-2 h-10 px-4 rounded-full bg-[#F27A1A] hover:bg-[#D4600E] text-white text-sm font-semibold transition-colors whitespace-nowrap"
+                className="hidden md:inline-flex btn-pill-sm"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Cere ofertă
+                Cereți ofertă
               </LocalizedClientLink>
 
               {/* Account dropdown — desktop only */}
@@ -89,7 +88,7 @@ export default async function Nav() {
               {/* Cart dropdown — always visible */}
               <Suspense
                 fallback={
-                  <div className="relative flex items-center text-[#333333]">
+                  <div className="relative flex items-center text-[#424245]">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75}
                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
@@ -104,7 +103,7 @@ export default async function Nav() {
           </div>
 
           {/* Mobile search bar — full-width row below the icon row */}
-          <div className="flex md:hidden px-4 pb-3">
+          <div className="flex md:hidden px-4 pb-2.5">
             <div className="w-full">
               <SearchBar />
             </div>

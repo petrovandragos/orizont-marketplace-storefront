@@ -29,7 +29,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-col gap-y-1.5">
-      <label htmlFor={name} className="text-sm font-medium text-[#333333]">
+      <label htmlFor={name} className="text-sm font-medium text-[#424245]">
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
@@ -59,7 +59,7 @@ function CountySelect({
 }) {
   return (
     <div className="flex flex-col gap-y-1.5">
-      <label htmlFor={name} className="text-sm font-medium text-[#333333]">
+      <label htmlFor={name} className="text-sm font-medium text-[#424245]">
         Județ<span className="text-red-500 ml-0.5">*</span>
       </label>
       <select
@@ -70,7 +70,7 @@ function CountySelect({
         onChange={(e) => onChange(e.target.value)}
         className="h-10 px-3 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent"
       >
-        <option value="">Selectează județul</option>
+        <option value="">Selectați județul</option>
         {JUDETE_RO.map(({ name: n }) => (
           <option key={n} value={n}>{n}</option>
         ))}
@@ -93,7 +93,7 @@ function LocalitateSelect({
 
   return (
     <div className="flex flex-col gap-y-1.5">
-      <label htmlFor={name} className="text-sm font-medium text-[#333333]">
+      <label htmlFor={name} className="text-sm font-medium text-[#424245]">
         Localitate<span className="text-red-500 ml-0.5">*</span>
       </label>
       <select
@@ -105,7 +105,7 @@ function LocalitateSelect({
         className="h-10 px-3 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed"
       >
         <option value="">
-          {disabled ? "Selectează mai întâi județul" : "Selectează localitatea"}
+          {disabled ? "Selectați mai întâi județul" : "Selectează localitatea"}
         </option>
         {localities.map((loc) => (
           <option key={loc} value={loc}>{loc}</option>
@@ -233,7 +233,7 @@ function AddressFields({
               onChange={(e) => onBillingChange(e.target.checked)}
               className="w-4 h-4 rounded border-gray-300 text-[#F27A1A] accent-[#F27A1A]"
             />
-            <span className="text-sm font-medium text-[#333333]">Facturare pe firmă</span>
+            <span className="text-sm font-medium text-[#424245]">Facturare pe firmă</span>
           </label>
 
           {billing && (
@@ -365,7 +365,7 @@ export default function StepDelivery({ cart, customer, method }: StepDeliveryPro
 
       {savedAddresses.length > 0 && (
         <div className="flex flex-col gap-y-1.5">
-          <label htmlFor="saved_addr_select" className="text-sm font-medium text-[#333333]">
+          <label htmlFor="saved_addr_select" className="text-sm font-medium text-[#424245]">
             Adresă salvată
           </label>
           <select
@@ -386,7 +386,7 @@ export default function StepDelivery({ cart, customer, method }: StepDeliveryPro
         </div>
       )}
 
-      <h2 className="text-lg font-bold text-[#1A1A1A]">{formTitle}</h2>
+      <h2 className="text-lg font-bold text-[#1D1D1F]">{formTitle}</h2>
 
       {isPickup && (
         <AddressFields
@@ -425,7 +425,7 @@ export default function StepDelivery({ cart, customer, method }: StepDeliveryPro
                 className="w-4 h-4 rounded border-gray-300 accent-[#F27A1A]"
               />
               <div>
-                <span className="text-sm font-medium text-[#333333]">Detalii facturare</span>
+                <span className="text-sm font-medium text-[#424245]">Detalii facturare</span>
                 <p className="text-xs text-gray-400 mt-0.5">
                   Bifează dacă adresa de facturare diferă de cea de livrare
                 </p>
@@ -434,7 +434,7 @@ export default function StepDelivery({ cart, customer, method }: StepDeliveryPro
 
             {useDifferentBilling && (
               <div className="mt-1 flex flex-col gap-y-4 pt-4 border-t border-gray-100">
-                <p className="text-sm font-semibold text-[#1A1A1A]">Adresă de facturare</p>
+                <p className="text-sm font-semibold text-[#1D1D1F]">Adresă de facturare</p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="sm:col-span-2">
@@ -490,7 +490,7 @@ export default function StepDelivery({ cart, customer, method }: StepDeliveryPro
                       onChange={(e) => setBillingCompany(e.target.checked)}
                       className="w-4 h-4 rounded border-gray-300 accent-[#F27A1A]"
                     />
-                    <span className="text-sm font-medium text-[#333333]">Facturare pe firmă</span>
+                    <span className="text-sm font-medium text-[#424245]">Facturare pe firmă</span>
                   </label>
 
                   {billingCompany && (
@@ -529,7 +529,7 @@ export default function StepDelivery({ cart, customer, method }: StepDeliveryPro
           <><Spinner />Se procesează...</>
         ) : (
           <>
-            Continuă spre plată
+            Continuați spre plată
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>

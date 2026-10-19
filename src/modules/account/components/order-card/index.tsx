@@ -107,7 +107,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
             variant="secondary"
             className="rounded-xl px-10 h-12 font-bold text-[10px] uppercase tracking-[0.2em] border-gray-900 text-gray-900 hover:bg-black hover:text-white hover:border-black transition-all active:scale-95 shadow-sm"
           >
-            Vezi Detalii Comandă
+            Vedeți detaliile comenzii
           </Button>
         </LocalizedClientLink>
       </div>

@@ -89,7 +89,7 @@ const RefinementList = ({
       {availableBrands.length > 0 && (
         <div className="flex flex-col gap-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 leading-none">
+            <span className="text-sm font-semibold text-[#1D1D1F] leading-none">
               Producător
             </span>
             {activeBrands.length > 0 && (
@@ -100,9 +100,9 @@ const RefinementList = ({
                   params.delete("page")
                   router.push(`${pathname}?${params.toString()}`)
                 }}
-                className="text-[10px] text-[#F27A1A] hover:text-[#D4600E] transition-colors duration-200 underline"
+                className="text-xs text-[#B9520A] hover:underline"
               >
-                Resetează
+                Ștergeți
               </button>
             )}
           </div>
@@ -114,10 +114,10 @@ const RefinementList = ({
                 <button
                   key={brand}
                   onClick={() => toggleBrand(brand)}
-                  className={`flex items-center justify-between gap-x-3 py-2 px-4 rounded-xl cursor-pointer transition-all duration-200 border border-transparent w-full text-left ${
+                  className={`flex items-center justify-between gap-x-3 py-2 px-3 rounded-full cursor-pointer transition-colors duration-200 w-full text-left ${
                     isSelected
-                      ? "bg-black text-white shadow-xl shadow-black/10"
-                      : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+                      ? "bg-white text-[#1D1D1F]"
+                      : "text-[#424245] hover:text-[#1D1D1F] hover:bg-white/70"
                   }`}
                 >
                   <span className="flex items-center gap-x-2.5 min-w-0">
@@ -134,7 +134,7 @@ const RefinementList = ({
                         </svg>
                       )}
                     </span>
-                    <span className="text-[11px] font-bold uppercase tracking-widest leading-none truncate">
+                    <span className="text-sm leading-tight truncate">
                       {brand}
                     </span>
                   </span>
@@ -151,7 +151,7 @@ const RefinementList = ({
       {categories.length > 0 && (
         <div className="flex flex-col gap-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 leading-none">
+            <span className="text-sm font-semibold text-[#1D1D1F] leading-none">
               Categorii
             </span>
             {selectedCategoryIds.length > 0 && (
@@ -162,9 +162,9 @@ const RefinementList = ({
                   params.delete("page")
                   router.push(`${pathname}?${params.toString()}`)
                 }}
-                className="text-[10px] text-[#F27A1A] hover:text-[#D4600E] transition-colors duration-200 underline"
+                className="text-xs text-[#B9520A] hover:underline"
               >
-                Resetează
+                Ștergeți
               </button>
             )}
           </div>
@@ -176,10 +176,10 @@ const RefinementList = ({
                 <button
                   key={cat.id}
                   onClick={() => toggleCategory(cat.id)}
-                  className={`flex items-center gap-x-3 py-2 px-4 rounded-xl cursor-pointer transition-all duration-200 border border-transparent w-full text-left ${
+                  className={`flex items-center gap-x-3 py-2 px-3 rounded-full cursor-pointer transition-colors duration-200 w-full text-left ${
                     isSelected
-                      ? "bg-black text-white shadow-xl shadow-black/10"
-                      : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+                      ? "bg-white text-[#1D1D1F]"
+                      : "text-[#424245] hover:text-[#1D1D1F] hover:bg-white/70"
                   }`}
                 >
                   {/* Custom checkbox */}
@@ -196,7 +196,7 @@ const RefinementList = ({
                       </svg>
                     )}
                   </span>
-                  <span className="text-[11px] font-bold uppercase tracking-widest leading-none">
+                  <span className="text-sm leading-tight">
                     {cat.name}
                   </span>
                 </button>

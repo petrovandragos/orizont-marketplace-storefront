@@ -20,7 +20,7 @@ const PdpBody = ({ product }: Props) => {
         onVariantChange={setSelectedVariant}
       />
 
-      <div className="mt-10 bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+      <div className="mt-14 md:mt-20">
         <PdpTabs product={product} selectedVariant={selectedVariant} />
       </div>
     </>

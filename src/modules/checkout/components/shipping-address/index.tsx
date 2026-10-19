@@ -187,7 +187,7 @@ const ShippingAddress = ({
           value={formData["shipping_address.city"]}
           onChange={handleChange}
           required
-          placeholder={selectedJudet ? "Localitate" : "Selectează mai întâi județul"}
+          placeholder={selectedJudet ? "Localitate" : "Selectați mai întâi județul"}
           disabled={!selectedJudet}
           data-testid="shipping-city-select"
         >
@@ -221,7 +221,7 @@ const ShippingAddress = ({
           label="Email"
           name="email"
           type="email"
-          title="Introdu o adresă de email validă."
+          title="Introduceți o adresă de e-mail validă."
           autoComplete="email"
           value={formData.email}
           onChange={handleChange}

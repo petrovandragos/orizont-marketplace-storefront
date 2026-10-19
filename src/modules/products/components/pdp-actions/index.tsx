@@ -122,16 +122,16 @@ const PdpActions = ({ product, onVariantChange }: PdpActionsProps) => {
         <div className="flex flex-col gap-y-4">
           {product.options.map((option) => (
             <div key={option.id} className="flex flex-col gap-y-2">
-              <span className="text-sm font-semibold text-[#1A1A1A]">{option.title}</span>
+              <span className="text-sm font-semibold text-[#1D1D1F]">{option.title}</span>
               <div className="flex flex-wrap gap-2">
                 {(option.values ?? []).map((v) => (
                   <button
                     key={v.value}
                     onClick={() => setOptions((prev) => ({ ...prev, [option.id]: v.value }))}
-                    className={`h-9 px-4 rounded-lg text-sm font-medium border transition-all duration-150 ${
+                    className={`h-10 px-4 rounded-full text-sm font-medium border transition-all duration-150 ${
                       options[option.id] === v.value
-                        ? "bg-[#F27A1A] text-white border-[#F27A1A]"
-                        : "bg-white text-[#333333] border-gray-200 hover:border-[#F27A1A] hover:text-[#F27A1A]"
+                        ? "bg-white text-[#1D1D1F] border-[#1D1D1F] border-2"
+                        : "bg-white text-[#424245] border-[#D2D2D7] hover:border-[#86868B]"
                     }`}
                   >
                     {v.value}
@@ -152,7 +152,7 @@ const PdpActions = ({ product, onVariantChange }: PdpActionsProps) => {
           size="lg"
         />
       ) : (
-        <span className="text-xs font-semibold uppercase tracking-wide text-[#F27A1A]">Preț la cerere</span>
+        <span className="text-[21px] font-semibold tracking-[-0.02em] text-[#1D1D1F]">Preț la cerere</span>
       )}
 
       {/* ── Stock badge ── */}
@@ -160,13 +160,13 @@ const PdpActions = ({ product, onVariantChange }: PdpActionsProps) => {
 
       {/* ── Packaging info ── */}
       {packaging && (
-        <div className="flex items-center gap-x-2 px-4 py-2.5 bg-gray-50 rounded-lg border border-gray-100">
+        <div className="flex items-center gap-x-2 px-4 py-3 bg-[#F5F5F7] rounded-2xl">
           <svg className="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
               d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
             />
           </svg>
-          <span className="text-sm text-[#333333]">{packaging}</span>
+          <span className="text-sm text-[#424245]">{packaging}</span>
         </div>
       )}
 
@@ -175,13 +175,13 @@ const PdpActions = ({ product, onVariantChange }: PdpActionsProps) => {
         {/* Quantity selector — only shown when variant is selected and in stock */}
         {selectedVariant && !isOutOfStock && (
           <div className="flex items-center gap-x-3">
-            <span className="text-sm font-medium text-[#333333] flex-shrink-0">Cantitate:</span>
-            <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+            <span className="text-sm font-medium text-[#424245] flex-shrink-0">Cantitate:</span>
+            <div className="flex items-center border border-[#D2D2D7] rounded-full overflow-hidden">
               <button
                 onClick={decQty}
                 disabled={quantity <= 1 || isPending}
-                aria-label="Scade cantitatea"
-                className="w-9 h-9 flex items-center justify-center text-gray-500 hover:text-[#F27A1A] hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                aria-label="Scădeți cantitatea"
+                className="w-9 h-9 flex items-center justify-center text-gray-500 hover:text-[#1D1D1F] hover:bg-[#F5F5F7] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
@@ -194,13 +194,13 @@ const PdpActions = ({ product, onVariantChange }: PdpActionsProps) => {
                 value={quantity}
                 onChange={handleQtyInput}
                 disabled={isPending}
-                className="w-12 h-9 text-center text-sm font-semibold text-[#1A1A1A] border-x border-gray-200 focus:outline-none focus:bg-[#FFF3E6] transition-colors [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                className="w-12 h-9 text-center text-sm font-semibold text-[#1D1D1F] border-x border-[#D2D2D7] focus:outline-none focus:bg-[#F5F5F7] transition-colors [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               />
               <button
                 onClick={incQty}
                 disabled={(maxQty > 0 && quantity >= maxQty) || isPending}
-                aria-label="Crește cantitatea"
-                className="w-9 h-9 flex items-center justify-center text-gray-500 hover:text-[#F27A1A] hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                aria-label="Creșteți cantitatea"
+                className="w-9 h-9 flex items-center justify-center text-gray-500 hover:text-[#1D1D1F] hover:bg-[#F5F5F7] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -214,22 +214,22 @@ const PdpActions = ({ product, onVariantChange }: PdpActionsProps) => {
         {isOutOfStock ? (
           <button
             disabled
-            className="w-full h-12 flex items-center justify-center gap-x-2 rounded-xl text-base font-semibold bg-gray-100 text-gray-400 cursor-not-allowed"
+            className="w-full h-12 flex items-center justify-center gap-x-2 rounded-full text-base font-medium bg-[#F5F5F7] text-gray-400 cursor-not-allowed"
           >
             Stoc epuizat
           </button>
         ) : !selectedVariant ? (
           <button
             disabled
-            className="w-full h-12 flex items-center justify-center gap-x-2 rounded-xl text-base font-semibold bg-gray-100 text-gray-400 cursor-not-allowed"
+            className="w-full h-12 flex items-center justify-center gap-x-2 rounded-full text-base font-medium bg-[#F5F5F7] text-gray-400 cursor-not-allowed"
           >
-            Selectează varianta
+            Alegeți varianta
           </button>
         ) : (
           <button
             onClick={handleAdd}
             disabled={!canAdd}
-            className="w-full h-12 flex items-center justify-center gap-x-2 rounded-xl text-base font-semibold bg-[#F27A1A] hover:bg-[#D4600E] text-white disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-150"
+            className="w-full h-12 flex items-center justify-center gap-x-2 rounded-full text-[17px] font-medium bg-[#F27A1A] hover:bg-[#DD6A0E] text-white disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-150"
           >
             {isPending ? (
               <>
@@ -246,7 +246,7 @@ const PdpActions = ({ product, onVariantChange }: PdpActionsProps) => {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                Adaugă în coș
+                Adăugați în coș
               </>
             )}
           </button>

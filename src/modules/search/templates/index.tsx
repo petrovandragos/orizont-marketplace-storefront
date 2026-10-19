@@ -21,14 +21,15 @@ export default function SearchResultsTemplate({
   const sort = sortBy || "created_at"
 
   return (
-    <div className="flex flex-col small:flex-row small:items-start py-6 content-container">
-      <RefinementList sortBy={sort} />
+    <div className="flex flex-col small:flex-row small:items-start gap-x-10 pt-6 pb-4 small:pt-8 content-container">
+      <aside className="w-full small:w-[240px] shrink-0 bg-[#F5F5F7] rounded-[22px] p-5 mb-8 small:mb-0 small:sticky small:top-28">
+        <RefinementList sortBy={sort} />
+      </aside>
 
       <div className="w-full">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-[#1A1A1A]">
-            Rezultate pentru{" "}
-            <span className="text-[#F27A1A]">„{query}"</span>
+          <h1 className="display-2">
+            Rezultate pentru „{query}”
           </h1>
         </div>
 

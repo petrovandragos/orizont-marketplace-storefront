@@ -90,7 +90,7 @@ const CartItemRow = ({ item }: CartItemRowProps) => {
         <div className="flex items-start justify-between gap-x-2">
           <div className="min-w-0">
             <LocalizedClientLink href={`/products/${item.product_handle}`}>
-              <h3 className="text-sm font-semibold text-[#1A1A1A] hover:text-[#F27A1A] transition-colors line-clamp-2 leading-snug">
+              <h3 className="text-sm font-semibold text-[#1D1D1F] hover:text-[#F27A1A] transition-colors line-clamp-2 leading-snug">
                 {item.product_title}
               </h3>
             </LocalizedClientLink>
@@ -126,20 +126,20 @@ const CartItemRow = ({ item }: CartItemRowProps) => {
             <button
               onClick={() => handleQtyChange(item.quantity - 1)}
               disabled={item.quantity <= 1 || isPending}
-              aria-label="Scade cantitatea"
+              aria-label="Scădeți cantitatea"
               className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-[#F27A1A] hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
               </svg>
             </button>
-            <span className="w-10 text-center text-sm font-semibold text-[#1A1A1A]">
+            <span className="w-10 text-center text-sm font-semibold text-[#1D1D1F]">
               {item.quantity}
             </span>
             <button
               onClick={() => handleQtyChange(item.quantity + 1)}
               disabled={isPending}
-              aria-label="Crește cantitatea"
+              aria-label="Creșteți cantitatea"
               className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-[#F27A1A] hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@ const CartItemRow = ({ item }: CartItemRowProps) => {
           </div>
 
           {/* Line total */}
-          <span className="text-base font-bold text-[#1A1A1A] min-w-[80px] text-right">
+          <span className="text-base font-bold text-[#1D1D1F] min-w-[80px] text-right">
             {formatRon(lineTotal)}
           </span>
         </div>

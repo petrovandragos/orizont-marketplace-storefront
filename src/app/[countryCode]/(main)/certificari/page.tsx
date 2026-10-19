@@ -39,9 +39,9 @@ const CERTIFICATES = [
 
 export default function CertificariPage() {
   return (
-    <div className="content-container py-12 md:py-16">
+    <div className="content-container pt-8 pb-4 md:pt-12">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#1A1A1A] mb-2">
+        <h1 className="display-2 mb-10">
           Certificări
         </h1>
         <p className="text-gray-500 mb-10">

@@ -31,7 +31,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
             Înapoi la Comenzi
           </LocalizedClientLink>
         </div>
-        <p className="text-gray-500 font-medium">Vizualizează informațiile complete despre achiziția ta și statusul livrării.</p>
+        <p className="text-gray-500 font-medium">Informațiile complete despre comandă și starea livrării.</p>
       </div>
       <div
         className="flex flex-col gap-4 h-full bg-white w-full"
