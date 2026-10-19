@@ -36,7 +36,7 @@ export async function submitQuoteRequest(
 ): Promise<{ ok: true } | { error: string }> {
   const valid = await verifyTurnstile(payload.turnstileToken)
   if (!valid) {
-    return { error: "Verificarea de securitate a eșuat. Te rugăm să încerci din nou." }
+    return { error: "Verificarea de securitate a eșuat. Vă rugăm să încercați din nou." }
   }
 
   const backendUrl = process.env.MEDUSA_BACKEND_URL ?? "https://admin.orizont-srl.ro"
@@ -56,7 +56,7 @@ export async function submitQuoteRequest(
   if (!res.ok) {
     const body = await res.json().catch(() => ({}))
     console.error("[CereOferta] Backend error:", body)
-    return { error: "Eroare la trimiterea cererii. Te rugăm să încerci din nou." }
+    return { error: "Solicitarea nu a putut fi trimisă. Vă rugăm să încercați din nou." }
   }
 
   return { ok: true }

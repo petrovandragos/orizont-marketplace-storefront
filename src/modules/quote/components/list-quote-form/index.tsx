@@ -10,7 +10,7 @@ const inputClass =
 
 const WHATSAPP_URL =
   "https://wa.me/40730076606?text=" +
-  encodeURIComponent("Bună ziua, vă trimit lista de materiale pentru o ofertă.")
+  encodeURIComponent("Bună ziua, vă transmit lista de materiale pentru o ofertă.")
 
 /**
  * Cerere de ofertă pentru o listă întreagă de materiale (nu pentru un singur
@@ -34,7 +34,7 @@ export default function ListQuoteForm() {
     e.preventDefault()
 
     if (!turnstileToken) {
-      setError("Bifează verificarea de securitate de mai jos.")
+      setError("Vă rugăm să bifați verificarea de securitate de mai jos.")
       return
     }
 
@@ -74,9 +74,9 @@ export default function ListQuoteForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <p className="text-xl font-bold text-[#1A1A1A]">Am primit lista ta</p>
+        <p className="text-xl font-bold text-[#1A1A1A]">Vă mulțumim, am primit solicitarea</p>
         <p className="text-gray-600 mt-2">
-          Te sunăm în programul depozitului cu oferta pentru toată cantitatea.
+          Un coleg vă va contacta în programul depozitului pentru a stabili necesarul și a vă transmite oferta.
         </p>
       </div>
     )
@@ -120,7 +120,7 @@ export default function ListQuoteForm() {
           placeholder={"Ex:\n20 saci ciment 40 kg\n3 paleți Porotherm 25\nplasă sudată 6 mm, 10 buc"}
           className={`${inputClass} h-auto py-3 resize-y leading-relaxed`} />
         <p className="text-xs text-gray-500">
-          Scrie cum știi. Dacă nu ești sigur de cantități, scrie ce construiești și suprafața, te ajutăm noi.
+          Nu este necesar să știți cantitățile exacte. Puteți descrie lucrarea și suprafața, iar noi vă ajutăm să stabiliți necesarul.
         </p>
       </div>
 
@@ -170,7 +170,7 @@ export default function ListQuoteForm() {
 
       <button type="submit" disabled={submitting}
         className="w-full h-12 rounded-xl text-[15px] font-semibold bg-[#F27A1A] hover:bg-[#D4600E] text-white transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
-        {submitting ? "Se trimite..." : "Trimite cererea"}
+        {submitting ? "Se trimite..." : "Trimiteți solicitarea"}
       </button>
 
       <div className="flex items-center gap-x-3 text-xs text-gray-400" aria-hidden="true">
@@ -182,7 +182,7 @@ export default function ListQuoteForm() {
         <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 13.9c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.5-4-.1-.2-1-1.3-1-2.5s.6-1.8.9-2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.4-.4.4c-.1.1-.3.3-.1.5.1.3.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1l.7-.9c.2-.2.3-.2.6-.1l1.9.9c.3.1.4.2.5.3.1.2.1.6-.1 1.2z" />
         </svg>
-        Trimite poza cu lista pe WhatsApp
+        Transmiteți fotografia listei pe WhatsApp
       </a>
     </form>
   )
