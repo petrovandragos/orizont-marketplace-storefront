@@ -14,7 +14,9 @@ const STEPS: { title: string; text: string }[] = [
   { title: "Primiți oferta personalizată", text: "și organizăm livrarea pe șantier sau ridicarea din depozit" },
 ]
 
-export default function CerereOfertaPage() {
+export default async function CerereOfertaPage(props: { searchParams: Promise<{ lista?: string }> }) {
+  const { lista } = await props.searchParams
+  const initialList = typeof lista === "string" ? lista.slice(0, 2000) : ""
   return (
     <div className="content-container py-8 md:py-12">
       <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
@@ -30,7 +32,7 @@ export default function CerereOfertaPage() {
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-6 mt-6 items-start">
-        <ListQuoteForm />
+        <ListQuoteForm initialList={initialList} />
 
         <aside className="bg-white border border-gray-200 rounded-2xl p-6 lg:sticky lg:top-36">
           <h2 className="text-lg font-bold text-[#1A1A1A] mb-4">Cum funcționează</h2>
@@ -58,6 +60,10 @@ export default function CerereOfertaPage() {
               Sâmbătă 08:00–13:00
             </p>
           </div>
+          <a href="/calculatoare" className="mt-5 flex items-center justify-between gap-x-3 rounded-xl bg-[#FFF3E6] border border-[#FED7AA] px-4 py-3 text-sm font-semibold text-[#9A3412] hover:border-[#F27A1A]">
+            Nu știți cantitățile? Folosiți calculatoarele de materiale
+            <span aria-hidden="true">›</span>
+          </a>
         </aside>
       </div>
     </div>

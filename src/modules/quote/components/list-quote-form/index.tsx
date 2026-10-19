@@ -17,11 +17,11 @@ const WHATSAPP_URL =
  * produs). Folosește același endpoint ca formularul de pe paginile de produs,
  * deci cererile apar în admin la „Cereri ofertă”, cu lista în titlu.
  */
-export default function ListQuoteForm() {
+export default function ListQuoteForm({ initialList = "" }: { initialList?: string }) {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
-  const [list, setList] = useState("")
+  const [list, setList] = useState(initialList)
   const [delivery, setDelivery] = useState<"livrare" | "ridicare">("livrare")
   const [address, setAddress] = useState("")
   const [submitting, setSubmitting] = useState(false)

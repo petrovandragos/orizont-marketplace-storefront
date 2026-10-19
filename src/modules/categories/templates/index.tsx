@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
 
+import { CALCULATORS, CATEGORY_CALCULATOR } from "@lib/calculators/links"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import ProductCard from "@modules/products/components/product-card"
 import FilterSidebar from "@modules/categories/components/filter-sidebar"
@@ -216,6 +217,25 @@ export default async function CategoryTemplate({
           ))}
         </div>
       )}
+
+      {/* ── Banda cu calculatorul potrivit categoriei ── */}
+      {(() => {
+        const slug = CATEGORY_CALCULATOR[category.handle ?? ""]
+        const calc = CALCULATORS.find((c) => c.slug === slug)
+        if (!calc) return null
+        return (
+          <LocalizedClientLink
+            href={`/calculatoare/${calc.slug}`}
+            className="mb-6 flex flex-col sm:flex-row sm:items-center gap-3 rounded-xl border-2 border-[#F27A1A] bg-[#FFF3E6] px-4 py-3.5 hover:bg-[#FFEAD5] transition-colors"
+          >
+            <span className="flex-1">
+              <span className="block text-[15px] font-bold text-[#1A1A1A]">Calculați necesarul: {calc.short.toLowerCase()}</span>
+              <span className="block text-sm text-gray-600">{calc.text}</span>
+            </span>
+            <span className="inline-flex items-center justify-center h-10 px-4 rounded-lg bg-[#F27A1A] text-white text-sm font-semibold whitespace-nowrap">Deschideți calculatorul</span>
+          </LocalizedClientLink>
+        )
+      })()}
 
       {/* ── Main layout: sidebar + content ── */}
       <div className="flex gap-x-8 items-start">

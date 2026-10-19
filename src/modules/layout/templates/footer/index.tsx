@@ -5,6 +5,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 const INFO_LINKS = [
   { label: "Despre noi", href: "/despre-noi" },
   { label: "Livrare", href: "/livrare" },
+  { label: "Calculatoare materiale", href: "/calculatoare" },
   { label: "Contact", href: "/contact" },
   { label: "Serviciu Clienți", href: "/customer-service" },
 ]

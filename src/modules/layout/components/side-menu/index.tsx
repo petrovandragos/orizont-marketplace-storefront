@@ -18,6 +18,7 @@ const NAV_LINKS = [
   { label: "Acasă", href: "/" },
   { label: "Toate produsele", href: "/store" },
   { label: "Cere ofertă", href: "/cerere-oferta" },
+  { label: "Calculatoare materiale", href: "/calculatoare" },
   { label: "Contul meu", href: "/cont" },
   { label: "Coș", href: "/cart" },
 ]
