@@ -13,7 +13,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Care este termenul de livrare?",
-    a: "Livrăm în 1–3 zile lucrătoare în Sighetu Marmației și împrejurimi. Pentru localitățile mai îndepărtate, termenul poate fi de 2–5 zile lucrătoare. Vei fi contactat înainte de livrare pentru confirmare.",
+    a: "Termenul depinde de disponibilitatea produselor și de distanță. Vă confirmăm data livrării odată cu oferta și vă contactăm înainte de livrare.",
   },
   {
     q: "Pot modifica sau anula o comandă?",
@@ -280,15 +280,15 @@ export default function CustomerServicePage() {
         {/* ── Schedule + CTA banner ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Schedule */}
-          <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
+          <div className="bg-[#F5F5F7] rounded-[22px] overflow-hidden">
             <div className="px-5 py-4 border-b border-black/[0.06]">
               <h3 className="text-[17px] font-semibold text-[#1D1D1F]">
-                Program suport
+                Program
               </h3>
             </div>
             {[
-              { day: "Luni – Vineri", hours: "07:00 – 18:00", open: true },
-              { day: "Sâmbătă", hours: "08:00 – 14:00", open: true },
+              { day: "Luni – Vineri", hours: "08:00 – 17:00", open: true },
+              { day: "Sâmbătă", hours: "08:00 – 13:00", open: true },
               { day: "Duminică", hours: "Închis", open: false },
             ].map(({ day, hours, open }) => (
               <div key={day} className="flex items-center justify-between px-5 py-3 border-b border-black/[0.06] last:border-b-0">

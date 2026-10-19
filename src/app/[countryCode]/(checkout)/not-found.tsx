@@ -19,7 +19,7 @@ export default async function NotFound() {
       <p className="text-[#F27A1A] text-xs uppercase tracking-wider mb-2">Eroare 404</p>
       <h1 className="text-3xl font-semibold text-[#1D1D1F] mb-3">Pagina nu a fost găsită</h1>
       <p className="text-gray-500 max-w-sm mb-8">
-        Pagina pe care ai încercat să o accesezi nu există.
+        Pagina pe care ați încercat să o accesați nu există.
       </p>
       <LocalizedClientLink
         href="/"

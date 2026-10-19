@@ -570,7 +570,7 @@ export async function saveDeliveryInfo(
         : shipping_options?.find((o) => o.name === "Livrare Standard")
 
       if (!option) {
-        return "Metoda de livrare nu are un preț configurat. Te rugăm să contactezi magazinul."
+        return "Metoda de livrare nu are un preț configurat. Vă rugăm să contactați magazinul."
       }
 
       await sdk.store.cart.addShippingMethod(

@@ -17,7 +17,7 @@ export default async function EuplatescFailPage({ params, searchParams }: Props)
 
   const errorMessage =
     message ??
-    "Plata nu a putut fi procesată. Poți încerca din nou sau alege plata ramburs."
+    "Plata nu a putut fi procesată. Puteți încerca din nou sau alege plata ramburs."
 
   return (
     <div className="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -56,7 +56,7 @@ export default async function EuplatescFailPage({ params, searchParams }: Props)
 
         {/* Options */}
         <div className="pt-8 flex flex-col gap-y-3">
-          <p className="text-sm font-semibold text-[#1D1D1F] mb-1">Ce dorești să faci?</p>
+          <p className="text-sm font-semibold text-[#1D1D1F] mb-1">Ce doriți să faceți?</p>
 
           {/* Retry card payment */}
           <LocalizedClientLink
@@ -71,7 +71,7 @@ export default async function EuplatescFailPage({ params, searchParams }: Props)
                   d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                 />
               </svg>
-              Încearcă din nou cu cardul
+              Încercați din nou cu cardul
             </button>
           </LocalizedClientLink>
 

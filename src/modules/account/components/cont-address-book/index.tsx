@@ -163,7 +163,7 @@ function AddressForm({
           required
           className="h-11 w-full rounded-lg border border-gray-200 px-3.5 text-sm text-[#1D1D1F] focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent transition bg-white"
         >
-          <option value="">Selectează județ</option>
+          <option value="">Selectați județul</option>
           {JUDETE.map((j) => (
             <option key={j} value={j}>{j}</option>
           ))}

@@ -198,28 +198,10 @@ function TabContent({
             </svg>
           </div>
           <div>
-            <p className="font-semibold text-[#1D1D1F] mb-1">Livrare rapidă</p>
+            <p className="font-semibold text-[#1D1D1F] mb-1">Livrare pe șantier</p>
             <p className="text-[#6E6E73] leading-relaxed">
-              Comanda dumneavoastră va fi livrată în 2–5 zile lucrătoare la adresa indicată sau la un punct de ridicare.
-              Pentru comenzi voluminoase (materiale de construcții în vrac), vă contactăm pentru a stabili
-              modalitatea de livrare.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-start gap-x-4">
-          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#F5F5F7] flex items-center justify-center">
-            <svg className="w-5 h-5 text-[#F27A1A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <div>
-            <p className="font-semibold text-[#1D1D1F] mb-1">Livrare gratuită</p>
-            <p className="text-[#6E6E73] leading-relaxed">
-              Livrare gratuită pentru comenzi peste 500 lei. Sub această valoare, taxa de livrare
-              se calculează la finalizarea comenzii în funcție de greutate și destinație.
+              Livrăm materialele la adresa indicată sau le puteți ridica din depozitul nostru din Sighetu Marmației.
+              Termenul și costul transportului depind de cantitate și de distanță; vi le confirmăm odată cu oferta.
             </p>
           </div>
         </div>

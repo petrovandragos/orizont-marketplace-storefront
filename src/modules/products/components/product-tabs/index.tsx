@@ -89,7 +89,7 @@ const ShippingInfoTab = () => {
           <div>
             <span className="font-medium text-[#1D1D1F]">Livrare rapidă</span>
             <p className="text-gray-500 max-w-sm mt-0.5">
-              Coletul va ajunge în 1–3 zile lucrătoare la adresa de livrare sau îl puteți ridica din depozitul nostru.
+              Livrăm la adresa indicată sau puteți ridica produsele din depozitul nostru. Termenul vi-l confirmăm odată cu oferta.
             </p>
           </div>
         </div>
@@ -100,7 +100,7 @@ const ShippingInfoTab = () => {
           <div>
             <span className="font-medium text-[#1D1D1F]">Schimburi simple</span>
             <p className="text-gray-500 max-w-sm mt-0.5">
-              Nu ești mulțumit de produs? Te ajutăm să îl înlocuiești cu unul potrivit.
+              Nu sunteți mulțumit de produs? Vă ajutăm să îl înlocuiți cu unul potrivit.
             </p>
           </div>
         </div>
@@ -111,7 +111,7 @@ const ShippingInfoTab = () => {
           <div>
             <span className="font-medium text-[#1D1D1F]">Returnări ușoare</span>
             <p className="text-gray-500 max-w-sm mt-0.5">
-              Returnează produsul și îți rambursăm banii. Facem tot posibilul pentru o returnare fără bătăi de cap.
+              Returnați produsul și vă rambursăm banii. Facem tot posibilul ca returul să fie simplu.
             </p>
           </div>
         </div>

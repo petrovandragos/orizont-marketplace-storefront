@@ -6,7 +6,7 @@ const SignInPrompt = () => {
     <div className="bg-white flex items-center justify-between">
       <div>
         <Heading level="h2" className="txt-xlarge">
-          Ai deja un cont?
+          Aveți deja un cont?
         </Heading>
         <Text className="txt-medium text-ui-fg-subtle mt-2">
           Conectați-vă pentru o experiență mai bună.

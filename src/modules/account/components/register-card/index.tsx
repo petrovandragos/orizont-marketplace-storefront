@@ -237,7 +237,7 @@ export default function RegisterCard({ redirectTo }: RegisterCardProps) {
 
         {/* Terms */}
         <p className="text-xs text-gray-400 leading-relaxed">
-          Prin înregistrare ești de acord cu{" "}
+          Prin înregistrare sunteți de acord cu{" "}
           <Link href={`/termeni-si-conditii`} className="text-[#F27A1A] hover:underline">
             Termenii și Condițiile
           </Link>{" "}
@@ -271,7 +271,7 @@ export default function RegisterCard({ redirectTo }: RegisterCardProps) {
       {/* Login link */}
       <div className="text-center mt-6">
         <p className="text-sm text-gray-500">
-          Ai deja un cont?{" "}
+          Aveți deja un cont?{" "}
           <Link
             href={loginHref}
             className="font-semibold text-[#F27A1A] hover:text-[#D4600E] transition-colors"

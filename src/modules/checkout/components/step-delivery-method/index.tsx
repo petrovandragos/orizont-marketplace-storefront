@@ -77,7 +77,7 @@ export default function StepDeliveryMethod() {
         Înapoi la coș
       </LocalizedClientLink>
 
-      <h2 className="text-lg font-bold text-[#1D1D1F]">Cum dorești să primești comanda?</h2>
+      <h2 className="text-lg font-bold text-[#1D1D1F]">Cum doriți să primiți comanda?</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <MethodCard
@@ -86,7 +86,7 @@ export default function StepDeliveryMethod() {
           onSelect={() => setSelected("livrare")}
           title="Livrare la adresă"
           description="Coletul ajunge direct la dumneavoastră."
-          detail="Vei selecta adresa și metoda de livrare în pasul următor."
+          detail="Alegeți adresa și metoda de livrare în pasul următor."
           icon={
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -103,9 +103,9 @@ export default function StepDeliveryMethod() {
           method="pickup"
           selected={selected === "pickup"}
           onSelect={() => setSelected("pickup")}
-          title="Ridicare Personală"
-          description="Ridici comanda din magazinul nostru."
-          detail="Adresa magazinului: Str. Plevnei nr. 3, Sighetu Marmatiei. Program: L–V 8:00–18:00"
+          title="Ridicare din depozit"
+          description="Ridicați comanda din depozitul nostru."
+          detail="Str. Plevnei nr. 3, Sighetu Marmației. Program: luni–vineri 08:00–17:00, sâmbătă 08:00–13:00"
           icon={
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path

@@ -173,7 +173,7 @@ export default function LoginCard({ redirectTo }: LoginCardProps) {
             href={forgotHref}
             className="text-sm text-[#F27A1A] hover:text-[#D4600E] transition-colors"
           >
-            Ai uitat parola?
+            Ați uitat parola?
           </Link>
         </div>
 

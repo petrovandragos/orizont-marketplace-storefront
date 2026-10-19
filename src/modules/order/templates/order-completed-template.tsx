@@ -76,7 +76,7 @@ export default function OrderCompletedTemplate({
           <div>
             <h1 className="text-2xl font-bold text-[#1D1D1F]">Comanda dumneavoastră a fost plasată.</h1>
             <p className="text-sm text-gray-500 mt-1">
-              Vei primi o confirmare pe email la{" "}
+              Veți primi o confirmare pe e-mail la{" "}
               <span className="font-medium text-[#1D1D1F]">{order.email}</span>
             </p>
           </div>

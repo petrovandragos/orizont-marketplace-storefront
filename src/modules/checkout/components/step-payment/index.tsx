@@ -208,7 +208,7 @@ export default function StepPayment({ cart, availablePaymentMethods }: StepPayme
         <PaymentCard
           label="Plată cu cardul"
           description="Plată securizată prin EuPlătesc.ro — Visa, Mastercard, Maestro"
-          smallText="Vei fi redirecționat către pagina securizată EuPlătesc pentru a finaliza plata."
+          smallText="Veți fi redirecționat către pagina securizată EuPlătesc pentru a finaliza plata."
           badge={
             <span className="inline-flex items-center gap-x-1 text-[10px] font-semibold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -269,7 +269,7 @@ export default function StepPayment({ cart, availablePaymentMethods }: StepPayme
 
       {/* ── Terms ──────────────────────────────────────────────────────────── */}
       <p className="text-xs text-gray-400 leading-relaxed">
-        Prin plasarea comenzii confirmi că ai citit și ești de acord cu{" "}
+        Prin plasarea comenzii confirmați că ați citit și sunteți de acord cu{" "}
         <a
           href="/termeni-si-conditii"
           target="_blank"
@@ -351,7 +351,7 @@ export default function StepPayment({ cart, availablePaymentMethods }: StepPayme
 
       {selectedMethod === "card" && !isPending && !isRedirecting && (
         <p className="text-[11px] text-center text-gray-400 -mt-2">
-          Vei fi redirecționat automat către pagina securizată EuPlătesc.
+          Veți fi redirecționat automat către pagina securizată EuPlătesc.
         </p>
       )}
     </div>

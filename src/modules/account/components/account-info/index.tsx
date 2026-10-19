@@ -22,7 +22,7 @@ const AccountInfo = ({
   isSuccess,
   isError,
   clearState,
-  errorMessage = "A apărut o eroare, încearcă din nou",
+  errorMessage = "A apărut o eroare, încercați din nou",
   children,
   'data-testid': dataTestid
 }: AccountInfoProps) => {

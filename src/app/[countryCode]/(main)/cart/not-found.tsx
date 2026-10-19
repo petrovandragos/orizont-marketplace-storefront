@@ -17,7 +17,7 @@ export default function NotFound() {
       </div>
       <h1 className="text-2xl font-semibold text-[#1D1D1F]">Coșul nu a fost găsit</h1>
       <p className="text-sm text-gray-500 max-w-sm">
-        Coșul pe care ai încercat să îl accesezi nu există. Șterge cookie-urile și încearcă din nou.
+        Coșul pe care ați încercat să îl accesați nu există. Ștergeți cookie-urile și încercați din nou.
       </p>
       <LocalizedClientLink
         href="/"

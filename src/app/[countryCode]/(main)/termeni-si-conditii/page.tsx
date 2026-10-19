@@ -16,7 +16,7 @@ const SECTIONS = [
   },
   {
     title: "2. Obiectul contractului",
-    content: `Prezentele Termeni și Condiții guvernează relația contractuală dintre Orizont și Clienți cu privire la utilizarea Platformei și achiziționarea Produselor prezentate. Prin accesarea Platformei și/sau plasarea unei comenzi, Clientul acceptă în mod expres și necondiționat prevederile prezentului document.`,
+    content: `Prezenții Termeni și Condiții guvernează relația contractuală dintre Orizont și Clienți cu privire la utilizarea Platformei și achiziționarea Produselor prezentate. Prin accesarea Platformei și/sau plasarea unei comenzi, Clientul acceptă în mod expres și necondiționat prevederile prezentului document.`,
   },
   {
     title: "3. Plasarea comenzilor",
@@ -37,7 +37,7 @@ Plata se poate efectua:
   },
   {
     title: "5. Livrare",
-    content: `Livrarea se efectuează cu mijloacele de transport proprii ale Orizont sau prin firme de curierat partenere. Termenul orientativ de livrare este de 1–3 zile lucrătoare de la confirmarea comenzii, în funcție de disponibilitatea produselor și distanța de livrare.
+    content: `Livrarea se efectuează cu mijloacele de transport proprii ale Orizont sau prin firme de curierat partenere. Termenul de livrare se comunică la confirmarea comenzii și depinde de disponibilitatea produselor și de distanța de livrare.
 
 Riscul privind produsele trece asupra Clientului în momentul predării acestora la adresa de livrare indicată. Clientul este responsabil pentru verificarea cantitativă și calitativă a produselor la momentul recepției.`,
   },
@@ -73,7 +73,7 @@ Răspunderea totală a Orizont față de Client nu poate depăși valoarea comen
   },
   {
     title: "10. Modificarea termenilor",
-    content: `Orizont își rezervă dreptul de a modifica prezentele Termeni și Condiții în orice moment. Modificările vor fi publicate pe Platformă și vor intra în vigoare de la data publicării. Utilizarea în continuare a Platformei după publicarea modificărilor constituie acceptarea acestora.`,
+    content: `Orizont își rezervă dreptul de a modifica prezenții Termeni și Condiții în orice moment. Modificările vor fi publicate pe Platformă și vor intra în vigoare de la data publicării. Utilizarea în continuare a Platformei după publicarea modificărilor constituie acceptarea acestora.`,
   },
   {
     title: "11. Legislație aplicabilă",
@@ -85,33 +85,33 @@ Pentru soluționarea alternativă a litigiilor, Clientul poate apela la platform
 
 export default function TermeniPage() {
   return (
-    <div className="content-container py-12 md:py-16">
+    <div className="content-container pt-8 pb-4 md:pt-12">
       <div className="max-w-3xl mx-auto">
-        <h1 className="display-2 mb-10">
+        <h1 className="display-2 mb-3">
           Termeni și condiții
         </h1>
-        <p className="text-xs text-gray-400 mb-8">
+        <p className="text-sm text-[#6E6E73] mb-10">
           Ultima actualizare: aprilie 2026
         </p>
 
         <div className="flex flex-col gap-y-8">
           {SECTIONS.map(({ title, content }) => (
             <section key={title}>
-              <h2 className="text-sm font-semibold text-[#1D1D1F] mb-2">{title}</h2>
-              <div className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+              <h2 className="text-[19px] font-semibold tracking-[-0.015em] text-[#1D1D1F] mb-2">{title}</h2>
+              <div className="text-[15px] text-[#424245] leading-relaxed whitespace-pre-line">
                 {content}
               </div>
             </section>
           ))}
         </div>
 
-        <div className="mt-10 p-4 bg-[#FFF3E6] rounded-xl border border-orange-100 text-sm text-gray-600">
-          Dacă ai întrebări legate de prezentele Termeni și Condiții, ne poți contacta la{" "}
-          <a href="mailto:comenzi@orizont-srl.ro" className="text-[#F27A1A] font-medium hover:underline">
+        <div className="mt-12 p-5 bg-[#F5F5F7] rounded-[22px] text-[15px] text-[#424245]">
+          Dacă aveți întrebări legate de prezenții Termeni și Condiții, ne puteți contacta la{" "}
+          <a href="mailto:comenzi@orizont-srl.ro" className="text-[#1D1D1F] font-medium hover:underline">
             comenzi@orizont-srl.ro
           </a>{" "}
           sau la numărul{" "}
-          <a href="tel:0730076606" className="text-[#F27A1A] font-medium hover:underline">
+          <a href="tel:0730076606" className="text-[#1D1D1F] font-medium hover:underline">
             0730 076 606
           </a>.
         </div>

@@ -16,7 +16,7 @@ Termenul de 14 zile începe din ziua în care dvs. sau o terță parte desemnat�
     title: "2. Cum exercitați dreptul de retragere",
     content: `Înainte de a returna produsul, contactați-ne pentru a iniția procesul:
 • E-mail: comenzi@orizont-srl.ro (indicați numărul comenzii și motivul)
-• Telefon: 0730 076606 (Contact comenzi)
+• Telefon: 0730 076 606 (Contact comenzi)
 
 Puteți folosi formularul standard de retragere de mai jos sau orice altă declarație neechivocă. Ne veți notifica înainte de expirarea termenului de 14 zile.
 
@@ -25,7 +25,7 @@ După confirmare, returnați produsul la adresa: Str. Plevnei nr. 3, Sighetu Mar
   {
     title: "3. Condiții pentru retur",
     content: `Produsele returnate trebuie să fie:
-• în starea originală, nefolosite și nedeteriotate;
+• în starea originală, nefolosite și nedeteriorate;
 • în ambalajul original (sau ambalaj similar care să asigure protecția);
 • însoțite de documentul de achiziție (factură sau bon fiscal).
 
@@ -53,7 +53,7 @@ Costul returului este suportat de client, cu excepția cazului în care produsul
   {
     title: "6. Produse defecte sau livrate eronat",
     content: `Dacă ați primit un produs defect, deteriorat în transport sau diferit față de cel comandat:
-• Contactați-ne în termen de 48 de ore de la livrare la comenzi@orizont-srl.ro sau 0730 076606.
+• Contactați-ne în termen de 48 de ore de la livrare la comenzi@orizont-srl.ro sau 0730 076 606.
 • Atașați fotografii ale produsului și ambalajului.
 
 În acest caz, Orizont suportă costurile de retur și vă oferă, la alegere: înlocuirea produsului sau rambursarea integrală a sumei plătite.`,
@@ -81,34 +81,34 @@ Semnătura (dacă se trimite pe hârtie) / Data: [data]
 
 export default function PoliticaDeReturPage() {
   return (
-    <div className="content-container py-12 md:py-16">
+    <div className="content-container pt-8 pb-4 md:pt-12">
       <div className="max-w-3xl mx-auto">
-        <h1 className="display-2 mb-10">
+        <h1 className="display-2 mb-3">
           Politica de retur
         </h1>
-        <p className="text-xs text-gray-400 mb-8">
+        <p className="text-sm text-[#6E6E73] mb-10">
           Ultima actualizare: aprilie 2026
         </p>
 
         <div className="flex flex-col gap-y-8">
           {SECTIONS.map(({ title, content }) => (
             <section key={title}>
-              <h2 className="text-sm font-semibold text-[#1D1D1F] mb-2">{title}</h2>
-              <div className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+              <h2 className="text-[19px] font-semibold tracking-[-0.015em] text-[#1D1D1F] mb-2">{title}</h2>
+              <div className="text-[15px] text-[#424245] leading-relaxed whitespace-pre-line">
                 {content}
               </div>
             </section>
           ))}
         </div>
 
-        <div className="mt-10 p-4 bg-[#FFF3E6] rounded-xl border border-orange-100 text-sm text-gray-600">
+        <div className="mt-12 p-5 bg-[#F5F5F7] rounded-[22px] text-[15px] text-[#424245]">
           Pentru orice returnare sau reclamație, contactați-ne la{" "}
-          <a href="mailto:comenzi@orizont-srl.ro" className="text-[#F27A1A] font-medium hover:underline">
+          <a href="mailto:comenzi@orizont-srl.ro" className="text-[#1D1D1F] font-medium hover:underline">
             comenzi@orizont-srl.ro
           </a>{" "}
           sau{" "}
-          <a href="tel:0730076606" className="text-[#F27A1A] font-medium hover:underline">
-            0730 076606
+          <a href="tel:0730076606" className="text-[#1D1D1F] font-medium hover:underline">
+            0730 076 606
           </a>.
         </div>
       </div>

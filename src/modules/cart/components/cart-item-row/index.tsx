@@ -103,7 +103,7 @@ const CartItemRow = ({ item }: CartItemRowProps) => {
           <button
             onClick={handleRemove}
             disabled={isPending}
-            aria-label="Șterge produsul"
+            aria-label="Ștergeți produsul"
             className="flex-shrink-0 p-1.5 text-gray-300 hover:text-red-500 transition-colors rounded-lg hover:bg-red-50 disabled:cursor-not-allowed"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

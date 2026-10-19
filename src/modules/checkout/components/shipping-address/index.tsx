@@ -110,7 +110,7 @@ const ShippingAddress = ({
       {customer && (addressesInRegion?.length || 0) > 0 && (
         <Container className="mb-6 flex flex-col gap-y-4 p-5">
           <p className="text-small-regular">
-            {`Bună, ${customer.first_name}! Dorești să folosești una din adresele salvate?`}
+            {`Bună ziua, ${customer.first_name}! Doriți să folosiți una dintre adresele salvate?`}
           </p>
           <AddressSelect
             addresses={customer.addresses}

@@ -90,7 +90,7 @@ const Register = ({ setCurrentView }: Props) => {
         </div>
         <ErrorMessage error={message} data-testid="register-error" />
         <span className="text-center text-gray-400 text-[11px] mt-6 leading-relaxed">
-          Prin crearea unui cont, ești de acord cu{" "}
+          Prin crearea unui cont, sunteți de acord cu{" "}
           <LocalizedClientLink
             href="/politica-de-confidentialitate"
             className="underline hover:text-gray-600"
@@ -115,7 +115,7 @@ const Register = ({ setCurrentView }: Props) => {
         </SubmitButton>
       </form>
       <span className="text-center text-gray-500 text-sm font-medium mt-8">
-        Ai deja un cont?{" "}
+        Aveți deja un cont?{" "}
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
           className="text-[#F27A1A] font-bold underline underline-offset-4 hover:text-[#D4600E] transition-colors"

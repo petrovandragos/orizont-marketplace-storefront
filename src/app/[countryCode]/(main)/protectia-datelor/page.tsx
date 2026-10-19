@@ -12,7 +12,7 @@ const SECTIONS = [
 
 Ne puteți contacta la:
 • E-mail: comenzi@orizont-srl.ro
-• Telefon: 0730 076606`,
+• Telefon: 0730 076 606`,
   },
   {
     title: "2. Ce date colectăm",
@@ -91,34 +91,34 @@ Recomandăm să ne contactați direct înainte de a formula o plângere — rezo
 
 export default function ProtectiaDatelorPage() {
   return (
-    <div className="content-container py-12 md:py-16">
+    <div className="content-container pt-8 pb-4 md:pt-12">
       <div className="max-w-3xl mx-auto">
-        <h1 className="display-2 mb-10">
+        <h1 className="display-2 mb-3">
           Protecția datelor
         </h1>
-        <p className="text-xs text-gray-400 mb-8">
-          Politică de confidențialitate · Ultima actualizare: aprilie 2026
+        <p className="text-sm text-[#6E6E73] mb-10">
+          Politică de confidențialitate. Ultima actualizare: aprilie 2026
         </p>
 
         <div className="flex flex-col gap-y-8">
           {SECTIONS.map(({ title, content }) => (
             <section key={title}>
-              <h2 className="text-sm font-semibold text-[#1D1D1F] mb-2">{title}</h2>
-              <div className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+              <h2 className="text-[19px] font-semibold tracking-[-0.015em] text-[#1D1D1F] mb-2">{title}</h2>
+              <div className="text-[15px] text-[#424245] leading-relaxed whitespace-pre-line">
                 {content}
               </div>
             </section>
           ))}
         </div>
 
-        <div className="mt-10 p-4 bg-[#FFF3E6] rounded-xl border border-orange-100 text-sm text-gray-600">
+        <div className="mt-12 p-5 bg-[#F5F5F7] rounded-[22px] text-[15px] text-[#424245]">
           Întrebări? Contactați-ne la{" "}
-          <a href="mailto:comenzi@orizont-srl.ro" className="text-[#F27A1A] font-medium hover:underline">
+          <a href="mailto:comenzi@orizont-srl.ro" className="text-[#1D1D1F] font-medium hover:underline">
             comenzi@orizont-srl.ro
           </a>{" "}
           sau{" "}
-          <a href="tel:0730076606" className="text-[#F27A1A] font-medium hover:underline">
-            0730 076606
+          <a href="tel:0730076606" className="text-[#1D1D1F] font-medium hover:underline">
+            0730 076 606
           </a>.
         </div>
       </div>

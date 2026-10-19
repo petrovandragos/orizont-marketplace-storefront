@@ -74,7 +74,7 @@ export const updateCustomer = async (body: HttpTypes.StoreUpdateCustomer) => {
 export async function signup(_currentState: unknown, formData: FormData) {
   const turnstileToken = formData.get("turnstile_token") as string
   if (!(await verifyTurnstile(turnstileToken))) {
-    return "Verificarea de securitate a eșuat. Te rugăm să încerci din nou."
+    return "Verificarea de securitate a eșuat. Vă rugăm să încercați din nou."
   }
 
   const password = formData.get("password") as string
@@ -124,7 +124,7 @@ export async function signup(_currentState: unknown, formData: FormData) {
 export async function login(_currentState: unknown, formData: FormData) {
   const turnstileToken = formData.get("turnstile_token") as string
   if (!(await verifyTurnstile(turnstileToken))) {
-    return "Verificarea de securitate a eșuat. Te rugăm să încerci din nou."
+    return "Verificarea de securitate a eșuat. Vă rugăm să încercați din nou."
   }
 
   const email = formData.get("email") as string

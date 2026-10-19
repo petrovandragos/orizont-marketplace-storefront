@@ -72,7 +72,7 @@ export default function LivrarePage() {
                     </svg>
                   ),
                   title: "Termen de livrare",
-                  desc: "De obicei 1–3 zile lucrătoare, în funcție de disponibilitatea produselor și distanța de livrare.",
+                  desc: "Depinde de disponibilitatea produselor și de distanță. Vă confirmăm data livrării odată cu oferta.",
                 },
                 {
                   icon: (
@@ -94,37 +94,18 @@ export default function LivrarePage() {
                 },
               ].map(({ icon, title, desc }) => (
                 <div key={title} className="bg-[#F5F5F7] rounded-[22px] p-5 flex flex-col gap-y-2">
-                  <div className="w-9 h-9 rounded-lg bg-[#FFF3E6] flex items-center justify-center">
+                  <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center">
                     {icon}
                   </div>
-                  <h3 className="text-sm font-semibold text-[#1D1D1F]">{title}</h3>
+                  <h3 className="text-[17px] font-semibold text-[#1D1D1F]">{title}</h3>
                   <p className="text-[15px] text-[#6E6E73] leading-relaxed">{desc}</p>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Schedule */}
-          <section>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-[#1D1D1F] mb-4">Program de livrare</h2>
-            <div className="bg-[#F5F5F7] rounded-[22px] overflow-hidden">
-              {[
-                { day: "Luni – Vineri", hours: "07:00 – 18:00", open: true },
-                { day: "Sâmbătă", hours: "08:00 – 14:00", open: true },
-                { day: "Duminică", hours: "Închis", open: false },
-              ].map(({ day, hours, open }) => (
-                <div key={day} className="flex items-center justify-between px-5 py-3.5 border-b border-black/[0.06] last:border-b-0">
-                  <span className="text-sm text-gray-600">{day}</span>
-                  <span className={`text-sm font-semibold ${open ? "text-[#1D1D1F]" : "text-[#D32F2F]"}`}>
-                    {hours}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </section>
-
           {/* CTA */}
-          <div className="bg-[#FFF3E6] rounded-xl p-5 flex items-start gap-x-3">
+          <div className="bg-[#FFF3E6] rounded-[22px] p-5 flex items-start gap-x-3">
             <svg className="w-5 h-5 text-[#F27A1A] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>

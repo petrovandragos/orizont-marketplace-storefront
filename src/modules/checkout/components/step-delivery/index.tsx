@@ -105,7 +105,7 @@ function LocalitateSelect({
         className="h-10 px-3 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A] focus:border-transparent disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed"
       >
         <option value="">
-          {disabled ? "Selectați mai întâi județul" : "Selectează localitatea"}
+          {disabled ? "Selectați mai întâi județul" : "Selectați localitatea"}
         </option>
         {localities.map((loc) => (
           <option key={loc} value={loc}>{loc}</option>
