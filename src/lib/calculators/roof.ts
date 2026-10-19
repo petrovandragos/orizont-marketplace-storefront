@@ -254,5 +254,6 @@ export function unitLabel(unit: string, q: number) {
   if (unit === "palet") return q === 1 ? "palet" : "paleți"
   if (unit === "foaie") return q === 1 ? "foaie" : "foi"
   if (unit === "panou") return q === 1 ? "panou" : "panouri"
+  if (unit === "doză") return q === 1 ? "doză" : "doze"
   return unit
 }

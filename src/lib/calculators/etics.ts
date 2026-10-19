@@ -1,54 +1,50 @@
 /** Termosistem (izolarea fațadei): cantități din suprafața netă a fațadei. */
 
+export type InsulationKind = "eps" | "vata"
+
 export type InsulationOption = {
   id: string
+  kind: InsulationKind
   name: string
-  /** grosimi disponibile, cm */
   thicknesses: number[]
-  /** m² într-un pachet, pe grosime (cm → m²) */
-  packM2: Record<number, number>
-  /** produsul de pe site (handle), pentru link */
+  /** m² într-un pachet, după grosime (cm) */
+  packM2: (thicknessCm: number) => number
   handle?: string
-  adhesive: AdhesiveOption
-  /** dibluri pe m² în câmp curent */
-  dowelsPerM2: number
+  note?: string
 }
 
 export type AdhesiveOption = {
-  name: string
-  handle?: string
-  bagKg: number
-  /** kg/m² la lipirea plăcilor */
-  bondKgM2: number
-  /** kg/m² la șpăcluire și înglobarea plasei */
-  meshKgM2: number
-}
-
-export type FinishOption = {
   id: string
   name: string
   handle?: string
-  kgM2: number
-  bucketKg: number
-  primer?: { name: string; kgM2: number; bucketKg: number; handle?: string }
+  bagKg: number
+  /** kg/m² la lipirea plăcilor, pe tip de izolație (lipsă = nu e pentru acel tip) */
+  bond: Partial<Record<InsulationKind, number>>
+  /** kg/m² la șpăcluire și înglobarea plasei */
+  mesh: number
+  /** kg/m² strat de amorsare pe vată, dacă producătorul îl cere */
+  woolPrime?: number
 }
+
+export type FinishOption = { id: string; name: string; handle?: string; kgM2: number; bagKg: number; unit: "sac" | "găleată" }
 
 export type EticsRules = {
   boardWaste: number
   meshRollM2: number
-  /** suprapunerea plăsii (procent adăugat) */
-  meshOverlap: number
-  profileLength: number
+  meshM2PerM2: number
+  meshHandle?: string
+  dowelsPerM2: number
+  /** lungimea diblului = grosimea izolației + atât, mm */
+  dowelAddMm: number
   dowelLengths: number[]
-  /** cât intră diblul în zid + stratul de adeziv, cm */
-  dowelAnchorCm: number
+  profileLength: number
+  primerLM2: number
 }
 
 export type EticsInput = {
   perimeter: number
   height: number
   openings: number
-  /** perimetrul golurilor (ferestre, uși), pentru colțare la glafuri */
   openingsPerimeter: number
   corners: number
   thickness: number
@@ -56,16 +52,18 @@ export type EticsInput = {
 
 export type EticsLine = { key: string; name: string; quantity: number; unit: string; note?: string; handle?: string }
 
-const r2 = (n: number) => Math.round(n * 100) / 100
+const r1 = (n: number) => Math.round(n * 10) / 10
+const c1 = (n: number) => String(r1(n)).replace(".", ",")
 
-export function pickDowel(thicknessCm: number, rules: EticsRules) {
-  const need = (thicknessCm + rules.dowelAnchorCm) * 10
-  return rules.dowelLengths.find((l) => l >= need) ?? rules.dowelLengths[rules.dowelLengths.length - 1]
+export function dowelLength(thicknessCm: number, rules: EticsRules) {
+  const need = thicknessCm * 10 + rules.dowelAddMm
+  return rules.dowelLengths.find((l) => l >= need) ?? Math.ceil(need / 10) * 10
 }
 
 export function calculateEtics(
   input: EticsInput,
   ins: InsulationOption,
+  adh: AdhesiveOption,
   finish: FinishOption | null,
   rules: EticsRules
 ) {
@@ -74,39 +72,40 @@ export function calculateEtics(
   const lines: EticsLine[] = []
 
   const boardM2 = area * (1 + rules.boardWaste)
-  const pack = ins.packM2[input.thickness]
-  lines.push(
-    pack
-      ? { key: "placi", name: `${ins.name} ${input.thickness} cm`, quantity: Math.ceil(boardM2 / pack), unit: "pachet", note: `${r2(boardM2)} m², ${pack} m²/pachet`, handle: ins.handle }
-      : { key: "placi", name: `${ins.name} ${input.thickness} cm`, quantity: Math.ceil(boardM2), unit: "m²", handle: ins.handle }
-  )
+  const pack = ins.packM2(input.thickness)
+  lines.push({
+    key: "placi", name: `${ins.name}, ${input.thickness} cm`, quantity: Math.ceil(boardM2 / pack - 1e-9), unit: "pachet",
+    note: `${c1(boardM2)} m² cu 5% rezervă, ${c1(pack)} m² într-un pachet`, handle: ins.handle,
+  })
 
-  const bondKg = area * ins.adhesive.bondKgM2
-  const meshKg = area * ins.adhesive.meshKgM2
-  lines.push({ key: "adeziv", name: ins.adhesive.name, quantity: Math.ceil((bondKg + meshKg) / ins.adhesive.bagKg), unit: "sac",
-    note: `${Math.round(bondKg)} kg lipire + ${Math.round(meshKg)} kg șpăcluire, sac ${ins.adhesive.bagKg} kg`, handle: ins.adhesive.handle })
+  const bond = adh.bond[ins.kind] ?? 0
+  const prime = ins.kind === "vata" ? adh.woolPrime ?? 0 : 0
+  const kg = area * (bond + adh.mesh + prime)
+  lines.push({
+    key: "adeziv", name: adh.name, quantity: Math.ceil(kg / adh.bagKg - 1e-9), unit: "sac",
+    note: `${Math.round(area * bond)} kg lipire + ${Math.round(area * adh.mesh)} kg șpăcluire${prime ? ` + ${Math.round(area * prime)} kg amorsare vată` : ""}, saci de ${adh.bagKg} kg`,
+    handle: adh.handle,
+  })
 
-  const meshM2 = area * (1 + rules.meshOverlap)
-  lines.push({ key: "plasa", name: "Plasă din fibră de sticlă", quantity: Math.ceil(meshM2 / rules.meshRollM2), unit: "rolă", note: `${r2(meshM2)} m², rolă ${rules.meshRollM2} m²` })
+  const meshM2 = area * rules.meshM2PerM2
+  lines.push({ key: "plasa", name: "Plasă de armare din fibră de sticlă", quantity: Math.ceil(meshM2 / rules.meshRollM2 - 1e-9), unit: "rolă",
+    note: `${c1(meshM2)} m² cu suprapunere de 10 cm, role de ${rules.meshRollM2} m²`, handle: rules.meshHandle })
 
-  const dowel = pickDowel(input.thickness, rules)
-  const dowels = Math.ceil((area * ins.dowelsPerM2) / 50) * 50
-  lines.push({ key: "dibluri", name: `Dibluri pentru termoizolație ${dowel} mm`, quantity: dowels, unit: "buc", note: `${ins.dowelsPerM2} buc/m²` })
+  const dl = dowelLength(input.thickness, rules)
+  lines.push({ key: "dibluri", name: `Dibluri pentru termoizolație, minimum ${dl} mm`, quantity: Math.ceil((area * rules.dowelsPerM2) / 50) * 50, unit: "buc",
+    note: `${rules.dowelsPerM2} buc/m²; la BCA sau pe tencuială veche, lungimea crește` })
 
-  const starter = Math.ceil(input.perimeter / rules.profileLength)
-  lines.push({ key: "soclu", name: `Profil de soclu ${input.thickness} cm`, quantity: starter, unit: "buc", note: `${r2(input.perimeter)} m, bare de ${rules.profileLength} m` })
+  lines.push({ key: "soclu", name: `Profil de soclu pentru ${input.thickness} cm`, quantity: Math.ceil(input.perimeter / rules.profileLength - 1e-9), unit: "buc",
+    note: `${c1(input.perimeter)} m, bare de ${String(rules.profileLength).replace(".", ",")} m` })
 
   const cornerM = input.corners * input.height + input.openingsPerimeter
-  if (cornerM > 0) lines.push({ key: "coltar", name: "Profil colțar cu plasă", quantity: Math.ceil(cornerM / rules.profileLength), unit: "buc", note: `${r2(cornerM)} m` })
+  if (cornerM > 0) lines.push({ key: "coltar", name: "Profil colțar cu plasă", quantity: Math.ceil(cornerM / rules.profileLength - 1e-9), unit: "buc", note: `${c1(cornerM)} m la colțuri și glafuri` })
 
   if (finish) {
-    if (finish.primer) {
-      const pk = area * finish.primer.kgM2
-      lines.push({ key: "grund", name: finish.primer.name, quantity: Math.ceil(pk / finish.primer.bucketKg), unit: "găleată", note: `${Math.round(pk)} kg`, handle: finish.primer.handle })
-    }
+    lines.push({ key: "grund", name: "Grund pentru tencuiala decorativă", quantity: Math.ceil(area * rules.primerLM2), unit: "l", note: `aprox. ${String(rules.primerLM2).replace(".", ",")} l/m²` })
     const fk = area * finish.kgM2
-    lines.push({ key: "tencuiala", name: finish.name, quantity: Math.ceil(fk / finish.bucketKg), unit: "găleată", note: `${Math.round(fk)} kg, ${finish.kgM2} kg/m²`, handle: finish.handle })
+    lines.push({ key: "tencuiala", name: finish.name, quantity: Math.ceil(fk / finish.bagKg - 1e-9), unit: finish.unit, note: `${Math.round(fk)} kg, ${String(finish.kgM2).replace(".", ",")} kg/m²`, handle: finish.handle })
   }
 
-  return { gross: r2(gross), area: r2(area), lines, dowel }
+  return { gross: r1(gross), area: r1(area), lines, dowel: dl }
 }

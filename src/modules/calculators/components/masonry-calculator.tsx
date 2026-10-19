@@ -28,10 +28,14 @@ export default function MasonryCalculator() {
   const valid = length > 0 && height > 0 && openings >= 0 && !!unit
   const res = useMemo(() => (valid ? calculateMasonry({ length, height, openings, waste: 0.05 }, unit) : null), [valid, length, height, openings, unit])
 
+  const b = unit?.binder
+  const binderUnit = b?.unit === "doză" ? "doză" : "sac"
   const lines: Line[] = res
     ? [
-        { name: unit.name, quantity: res.pieces, unit: "buc", note: `${unit.perM2} buc/m² + 5% rezervă${res.pallets ? `, aprox. ${res.pallets} ${res.pallets === 1 ? "palet" : "paleți"}` : ""}`, href: unit.handle ? `/products/${unit.handle}` : undefined },
-        { name: unit.binder.name, quantity: res.bags, unit: "sac", note: `${fmt(res.binderTotal, 0)} ${unit.binder.unit} (${unit.binder.perM2} ${unit.binder.unit}/m²), sac ${unit.binder.bag} ${unit.binder.bagUnit}${unit.binder.yieldNote ? `, ${unit.binder.yieldNote}` : ""}`, href: unit.binder.handle ? `/products/${unit.binder.handle}` : undefined },
+        { name: unit.name, quantity: res.pieces, unit: "buc", note: `${fmt(unit.perM2, 1)} buc/m² + 5% rezervă${res.pallets ? `, aprox. ${res.pallets} ${res.pallets === 1 ? "palet" : "paleți"}` : ""}`, href: unit.handle ? `/products/${unit.handle}` : undefined },
+        ...(b
+          ? [{ name: b.name, quantity: res.bags, unit: binderUnit, note: b.unit === "l" ? `${fmt(res.binderTotal, 0)} l mortar; ${b.note}` : b.note, href: b.handle ? `/products/${b.handle}` : undefined }]
+          : []),
       ]
     : []
 
@@ -51,7 +55,7 @@ export default function MasonryCalculator() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {MASONRY_UNITS.filter((u) => u.group === group).map((u) => (
               <Choice key={u.id} selected={unitId === u.id} onClick={() => setUnitId(u.id)} title={u.name}
-                subtitle={`${u.size} mm · perete ${u.wallCm} cm · ${u.perM2} buc/m²`} icon={<BrickIcon active={unitId === u.id} />} />
+                subtitle={`${u.size} mm · perete ${fmt(u.wallCm, 1)} cm · ${fmt(u.perM2, 1)} buc/m²`} icon={<BrickIcon active={unitId === u.id} />} />
             ))}
           </div>
         </Step>
@@ -76,6 +80,7 @@ export default function MasonryCalculator() {
           <p className="text-sm text-red-600">Completați dimensiunile ca să vedem calculul.</p>
         )}
         {res && <ResultTable title="Materiale" lines={lines} />}
+        {res && unit.note && <p className="text-sm text-gray-700 bg-[#FFF3E6] border border-[#F27A1A]/30 rounded-xl p-3">{unit.note}</p>}
         {res && <SendToQuote calculator="zidărie" summary={`${fmt(res.area, 1)} m² perete, ${unit.name}`} lines={lines} />}
         <Disclaimer />
       </aside>

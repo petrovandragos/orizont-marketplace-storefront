@@ -22,7 +22,7 @@ function RoofIcon({ type, active }: { type: RoofType; active: boolean }) {
       {type === "patru-ape" && (
         <>
           <polygon points="6,27 20,11 44,11 58,27" fill={c} />
-          <polyline points="20,11 26,27 M44,11 38,27" fill="none" stroke="#fff" strokeOpacity=".5" strokeWidth="1.2" />
+          <path d="M20 11 L26 27 M44 11 L38 27" fill="none" stroke="#fff" strokeOpacity=".5" strokeWidth="1.2" />
         </>
       )}
     </svg>

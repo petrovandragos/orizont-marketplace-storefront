@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 import { calculateEtics } from "@lib/calculators/etics"
 import { fmt } from "@lib/calculators/roof"
-import { ETICS_FINISHES, ETICS_INSULATION, ETICS_RULES } from "@lib/calculators/data"
+import { ETICS_ADHESIVES, ETICS_FINISHES, ETICS_INSULATION, ETICS_RULES } from "@lib/calculators/data"
 import { Choice, Disclaimer, NumberField, ResultTable, SendToQuote, Step, Stepper, Line } from "./ui"
 
 function WallIcon({ wool, active }: { wool: boolean; active: boolean }) {
@@ -21,6 +21,9 @@ export default function EticsCalculator() {
   const [insId, setInsId] = useState(ETICS_INSULATION[0].id)
   const ins = ETICS_INSULATION.find((i) => i.id === insId)!
   const [thickness, setThickness] = useState(ins.thicknesses.includes(10) ? 10 : ins.thicknesses[0])
+  const adhesives = ETICS_ADHESIVES.filter((a) => a.bond[ins.kind] !== undefined)
+  const [adhId, setAdhId] = useState(ETICS_ADHESIVES[0].id)
+  const adh = adhesives.find((a) => a.id === adhId) ?? adhesives[0]
   const [finishId, setFinishId] = useState<string>(ETICS_FINISHES[0]?.id ?? "fara")
   const [perimeter, setPerimeter] = useState(40)
   const [height, setHeight] = useState(6)
@@ -32,8 +35,8 @@ export default function EticsCalculator() {
   const thick = ins.thicknesses.includes(thickness) ? thickness : ins.thicknesses[0]
   const valid = perimeter > 0 && height > 0 && openings >= 0
   const res = useMemo(
-    () => (valid ? calculateEtics({ perimeter, height, openings, openingsPerimeter: openingsPerimeter || 0, corners, thickness: thick }, ins, finish, ETICS_RULES) : null),
-    [valid, perimeter, height, openings, openingsPerimeter, corners, thick, ins, finish]
+    () => (valid ? calculateEtics({ perimeter, height, openings, openingsPerimeter: openingsPerimeter || 0, corners, thickness: thick }, ins, adh, finish, ETICS_RULES) : null),
+    [valid, perimeter, height, openings, openingsPerimeter, corners, thick, ins, adh, finish]
   )
   const lines: Line[] = res ? res.lines.map((l) => ({ name: l.name, quantity: l.quantity, unit: l.unit, note: l.note, href: l.handle ? `/products/${l.handle}` : undefined })) : []
 
@@ -43,8 +46,9 @@ export default function EticsCalculator() {
         <Step n={1} title="Materialul izolant">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {ETICS_INSULATION.map((i) => (
-              <Choice key={i.id} selected={insId === i.id} onClick={() => setInsId(i.id)} title={i.name}
-                subtitle={`${i.adhesive.name}, ${i.dowelsPerM2} dibluri/m²`} icon={<WallIcon wool={/vat/i.test(i.id)} active={insId === i.id} />} />
+              <Choice key={i.id} selected={insId === i.id} onClick={() => { setInsId(i.id); if (!i.thicknesses.includes(thickness)) setThickness(i.thicknesses[0]) }} title={i.name}
+                subtitle={i.kind === "eps" ? "Ușor, cel mai folosit la case" : `Incombustibilă, permeabilă la vapori${i.note ? ` · ${i.note}` : ""}`}
+                icon={<WallIcon wool={i.kind === "vata"} active={insId === i.id} />} />
             ))}
           </div>
           <div className="mt-4">
@@ -60,7 +64,16 @@ export default function EticsCalculator() {
           </div>
         </Step>
 
-        <Step n={2} title="Dimensiunile fațadei" hint="Perimetrul e suma lungimilor tuturor pereților exteriori. Scădem suprafața ferestrelor și ușilor.">
+        <Step n={2} title="Adezivul" hint="Același adeziv se folosește la lipirea plăcilor și la șpăcluirea cu plasă.">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            {adhesives.map((a) => (
+              <Choice key={a.id} selected={adh.id === a.id} onClick={() => setAdhId(a.id)} title={a.name}
+                subtitle={`lipire ${fmt(a.bond[ins.kind] ?? 0, 1)} kg/m² · șpăcluire ${fmt(a.mesh, 1)} kg/m²`} />
+            ))}
+          </div>
+        </Step>
+
+        <Step n={3} title="Dimensiunile fațadei" hint="Perimetrul e suma lungimilor tuturor pereților exteriori. Scădem suprafața ferestrelor și ușilor.">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <NumberField id="e-per" label="Perimetrul casei" value={perimeter} onChange={setPerimeter} unit="m" />
             <NumberField id="e-h" label="Înălțimea de izolat" value={height} onChange={setHeight} unit="m" hint="De la soclu până la streașină" />
@@ -70,10 +83,10 @@ export default function EticsCalculator() {
           </div>
         </Step>
 
-        <Step n={3} title="Finisajul">
+        <Step n={4} title="Finisajul">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {ETICS_FINISHES.map((f) => (
-              <Choice key={f.id} selected={finishId === f.id} onClick={() => setFinishId(f.id)} title={f.name} subtitle={`${f.kgM2} kg/m²`} />
+              <Choice key={f.id} selected={finishId === f.id} onClick={() => setFinishId(f.id)} title={f.name} subtitle={`${fmt(f.kgM2, 1)} kg/m², ${f.unit === "sac" ? "saci" : "găleți"} de ${f.bagKg} kg`} />
             ))}
             <Choice selected={finishId === "fara"} onClick={() => setFinishId("fara")} title="Fără tencuială" subtitle="Doar sistemul de izolare" />
           </div>

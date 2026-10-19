@@ -11,7 +11,9 @@ export type MasonryUnit = {
   wallCm: number
   perM2: number
   perPallet?: number
-  binder: { name: string; handle?: string; perM2: number; unit: "l" | "kg"; bag: number; bagUnit: "l" | "kg"; yieldNote?: string }
+  /** liant: perM2 în unitatea `unit`; bag = cât dă un sac, în aceeași unitate */
+  binder?: { name: string; handle?: string; perM2: number; unit: "l" | "sac" | "doză"; bag: number; note: string }
+  note?: string
 }
 
 export type MasonryInput = { length: number; height: number; openings: number; waste: number }
@@ -22,8 +24,8 @@ export function calculateMasonry(input: MasonryInput, unit: MasonryUnit) {
   const area = Math.max(0, input.length * input.height - input.openings)
   const pieces = Math.ceil(area * unit.perM2 * (1 + input.waste))
   const pallets = unit.perPallet ? Math.ceil(pieces / unit.perPallet) : undefined
-  const binderTotal = area * unit.binder.perM2
-  const bags = Math.ceil(binderTotal / unit.binder.bag)
+  const binderTotal = unit.binder ? area * unit.binder.perM2 : 0
+  const bags = unit.binder ? Math.ceil(binderTotal / unit.binder.bag - 1e-9) : 0
   return {
     area: r2(area),
     volume: r2(area * unit.wallCm / 100),
