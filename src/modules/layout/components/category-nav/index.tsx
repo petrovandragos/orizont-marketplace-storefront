@@ -4,6 +4,7 @@ import { useState, useRef } from "react"
 import { usePathname } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { CalculatorGlyph } from "@modules/calculators/components/icons"
 
 type Props = {
   categories: HttpTypes.StoreProductCategory[]
@@ -76,6 +77,19 @@ export default function CategoryNav({ categories }: Props) {
                 </li>
               )
             })}
+            <li className="flex-shrink-0 ml-auto pl-3" onMouseEnter={() => setActiveSlug(null)}>
+              <LocalizedClientLink
+                href="/calculatoare"
+                className={`my-1.5 flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-semibold whitespace-nowrap transition-colors ${
+                  pathname.includes("/calculatoare")
+                    ? "bg-[#F27A1A] text-white"
+                    : "bg-[#FFF3E6] text-[#D4600E] hover:bg-[#F27A1A] hover:text-white"
+                }`}
+              >
+                <CalculatorGlyph />
+                Calculatoare materiale
+              </LocalizedClientLink>
+            </li>
           </ul>
         </div>
       </nav>

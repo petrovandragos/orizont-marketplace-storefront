@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 
 import Hero from "@modules/home/components/hero"
+import CalculatorsSection from "@modules/home/components/calculators-section"
 import CategoriesSection from "@modules/home/components/categories-section"
 import PopularProducts from "@modules/home/components/popular-products"
 import { getRegion } from "@lib/data/regions"
@@ -79,6 +80,7 @@ export default async function Home(props: {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd()) }}
       />
       <Hero />
+      <CalculatorsSection />
       <CategoriesSection categories={categories} />
       <PopularProducts region={region} />
     </>

@@ -3,19 +3,22 @@ export const CALCULATORS = [
     slug: "acoperis",
     title: "Calculator tablă acoperiș",
     short: "Tablă acoperiș",
+    tagline: "Foi, lungimi și accesorii",
     text: "Câte foi de țiglă metalică sau tablă cutată vă trebuie, pe ce lungimi, plus coamă, borduri, folie și jgheaburi.",
   },
   {
     slug: "termosistem",
     title: "Calculator termosistem",
     short: "Termosistem",
+    tagline: "Izolație, adeziv, plasă, dibluri",
     text: "Polistiren sau vată bazaltică, adeziv, plasă, dibluri, profile și tencuială pentru izolarea fațadei.",
   },
   {
     slug: "zidarie",
     title: "Calculator zidărie",
     short: "Zidărie",
-    text: "Câte cărămizi, blocuri BCA sau bolțari și câți saci de mortar sau adeziv pentru pereții casei.",
+    tagline: "Bucăți, paleți și mortar",
+    text: "Câte cărămizi sau blocuri BCA, câți paleți și cât mortar sau adeziv pentru pereții casei.",
   },
 ] as const
 
