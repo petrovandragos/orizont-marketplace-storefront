@@ -32,15 +32,15 @@ module.exports = {
         grey: {
           0: "#FFFFFF",
           5: "#F9FAFB",
-          10: "#F5F5F5",
+          10: "#F5F5F7",
           20: "#E5E7EB",
           30: "#D1D5DB",
           40: "#9CA3AF",
           50: "#6B7280",
           60: "#4B5563",
           70: "#374151",
-          80: "#333333",
-          90: "#1A1A1A",
+          80: "#424245",
+          90: "#1D1D1F",
         },
       },
       borderRadius: {
@@ -68,8 +68,8 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          "var(--font-inter)",
-          "Inter",
+          "var(--font-geist)",
+          "Geist",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",
