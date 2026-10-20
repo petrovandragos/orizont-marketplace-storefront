@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { calculateRoof, fmt, RoofType, SheetModel, FaceResult, unitLabel } from "@lib/calculators/roof"
+import { calculateRoof, fmt, fmtLen, RoofType, SheetModel, FaceResult, unitLabel, sheetOptions } from "@lib/calculators/roof"
 import { ROOF_MODELS, ROOF_RULES } from "@lib/calculators/data"
 import { Choice, Disclaimer, NumberField, ResultTable, SendToQuote, Step, Stepper, Line } from "./ui"
 
@@ -98,7 +98,7 @@ function FaceSketch({ face, label }: { face: FaceResult; label: string }) {
           const w = (c.x1 - c.x0) * scale
           const hpx = c.needed * vScale
           if (hpx < 28) return null
-          const txt = c.pieces.length > 1 ? `${c.pieces.length}×${fmt(c.pieces[0])}` : fmt(c.pieces[0])
+          const txt = c.pieces.length > 1 ? `${c.pieces.length}×${fmtLen(c.pieces[0])}` : fmtLen(c.pieces[0])
           return w >= 30 ? (
             <text key={i} x={x} y={y0 - hpx / 2} textAnchor="middle" dominantBaseline="middle" fontSize="11" fontWeight="700" fill="#7C2D12"
               transform={`rotate(-90 ${x} ${y0 - hpx / 2})`}>{txt} m</text>
@@ -135,18 +135,22 @@ export default function RoofCalculator() {
   const [width, setWidth] = useState(8)
   const [slope, setSlope] = useState(5)
   const [chimneys, setChimneys] = useState(1)
+  const [sheetOpt, setSheetOpt] = useState("auto")
 
   const model = ROOF_MODELS.find((m) => m.id === modelId) as SheetModel
   const valid = length > 0 && slope > 0 && (type !== "patru-ape" || width > 0) && !!model
+  // variantele de lungime a foii, după panta cea mai lungă (la toate formele, panta = C)
+  const options = useMemo(() => (valid && model ? sheetOptions(model, slope) : []), [valid, model, slope])
+  const option = options.find((o) => o.id === sheetOpt) ?? options[0]
   const result = useMemo(
-    () => (valid ? calculateRoof({ type, length, width, slope, chimneys }, model, ROOF_RULES) : null),
-    [valid, type, length, width, slope, chimneys, model]
+    () => (valid ? calculateRoof({ type, length, width, slope, chimneys, sheet: option?.choice }, model, ROOF_RULES) : null),
+    [valid, type, length, width, slope, chimneys, model, option]
   )
 
   const sheetLines: Line[] = result
     ? model.kind === "panel"
       ? [{ name: model.name, quantity: result.panels ?? 0, unit: "panou", note: `${fmt(result.orderedArea)} m² acoperiți`, href: model.handle ? `/products/${model.handle}` : undefined }]
-      : result.sheets.map((s) => ({ name: `${model.name}, foaie de ${fmt(s.length)} m`, quantity: s.count, unit: "foaie", href: model.handle ? `/products/${model.handle}` : undefined }))
+      : result.sheets.map((s) => ({ name: `${model.name}, foaie de ${fmtLen(s.length)} m`, quantity: s.count, unit: "foaie", href: model.handle ? `/products/${model.handle}` : undefined }))
     : []
   const accLines: Line[] = result ? result.accessories.map((a) => ({ name: a.name, quantity: a.quantity, unit: a.unit, note: a.note })) : []
   const typeTitle = TYPES.find((t) => t.id === type)!.title
@@ -194,7 +198,17 @@ export default function RoofCalculator() {
         </Step>
 
         {result && model.kind !== "panel" && (
-          <Step n={4} title="Schița acoperișului" hint="Fiecare coloană e o foaie de tablă, cu lungimea scrisă pe ea. Liniile punctate arată unde se îmbină foile pe pante lungi.">
+          <Step n={4} title="Foile și schița acoperișului" hint="Alegeți lungimea foilor. În schiță, fiecare coloană e o foaie de tablă, cu lungimea scrisă pe ea; liniile punctate arată unde se îmbină foile.">
+            {options.length > 1 && (
+              <div className="mb-7">
+                <span className="text-sm font-medium text-[#1D1D1F]">Lungimea foilor</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-2">
+                  {options.map((o) => (
+                    <Choice key={o.id} selected={option?.id === o.id} onClick={() => setSheetOpt(o.id)} title={o.title} subtitle={o.subtitle} />
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="flex flex-col gap-6">
               {uniqueFaces(result.faces).map(({ face, count }) => (
                 <FaceSketch key={face.name} face={face} label={count > 1 ? `${face.name.replace(/ \d$/, "")} (de ${count} ori)` : face.name} />
@@ -225,7 +239,7 @@ export default function RoofCalculator() {
 
         {result && <ResultTable title="Tablă" lines={sheetLines} />}
         {result && <ResultTable title="Accesorii" lines={accLines} />}
-        {result && <SendToQuote calculator="acoperiș" summary={`acoperiș în ${typeTitle.toLowerCase()}, ${model.name}, A ${fmt(length)} m${type === "patru-ape" ? `, B ${fmt(width)} m` : ""}, pantă ${fmt(slope)} m`} lines={[...sheetLines, ...accLines]} />}
+        {result && <SendToQuote calculator="acoperiș" summary={`acoperiș în ${typeTitle.toLowerCase()}, ${model.name}, A ${fmt(length)} m${type === "patru-ape" ? `, B ${fmt(width)} m` : ""}, pantă ${fmt(slope)} m${option && option.id !== "auto" ? `, lungimea foilor: ${option.title.toLowerCase()} (${option.subtitle})` : ""}`} lines={[...sheetLines, ...accLines]} />}
         <Disclaimer />
       </aside>
     </div>

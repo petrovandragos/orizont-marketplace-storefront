@@ -61,7 +61,19 @@ export type RoofInput = {
   /** lungimea pantei, de la streașină la coamă, m */
   slope: number
   chimneys: number
+  /** alegerea clientului pentru lungimea foilor (lipsă = o foaie pe toată panta) */
+  sheet?: SheetChoice
 }
+
+export type SheetChoice = {
+  /** foaia cea mai lungă acceptată, m (pentru transport sau manevrare) */
+  maxLength?: number
+  /** la țigla metalică: cu cât poate fi foaia mai scurtă decât panta, m (sus o acoperă coama) */
+  ridgeTolerance?: number
+}
+
+/** Cât poate lipsi sus, sub coamă, când foaia se ia cu un pas mai scurtă (de confirmat cu montatorii). */
+export const RIDGE_TOLERANCE = 0.1
 
 export function roofFaces(input: RoofInput): Face[] {
   const { type, length: L, width: l, slope: H } = input
@@ -104,12 +116,15 @@ function maxHeightIn(face: Face, x0: number, x1: number) {
 }
 
 /** Lungimea comandată pentru o lungime necesară, după regulile modelului. */
-export function orderLength(model: SheetModel, needed: number) {
+export function orderLength(model: SheetModel, needed: number, tolerance = 0) {
   const min = model.minLength ?? 0
   let len = Math.max(needed, min)
   if (model.module) {
     const add = model.moduleAdd ?? 0
-    const n = Math.max(1, Math.ceil((len - add - 1e-9) / model.module))
+    let n = Math.max(1, Math.ceil((len - add - 1e-9) / model.module))
+    // cu un pas mai scurtă, dacă lipsa de sus o acoperă coama
+    const shorter = (n - 1) * model.module + add
+    if (tolerance > 0 && n > 1 && shorter >= min - 1e-9 && shorter >= needed - tolerance - 1e-9) n -= 1
     len = n * model.module + add
   } else {
     len = Math.ceil(len * 100 - 1e-6) / 100 // la centimetru
@@ -118,18 +133,74 @@ export function orderLength(model: SheetModel, needed: number) {
 }
 
 /** Împarte o coloană în foi, dacă panta e mai lungă decât foaia maximă. */
-export function splitColumn(model: SheetModel, needed: number): number[] {
-  const max = model.maxLength ?? Infinity
-  if (needed <= max) return [orderLength(model, needed)]
-  const overlap = model.overlap ?? 0.15
-  const usefulPerPiece = max - overlap
-  const count = Math.ceil((needed - overlap) / usefulPerPiece)
-  // foi egale, fiecare cu suprapunerea inclusă
-  const each = (needed + overlap * (count - 1)) / count
-  return Array.from({ length: count }, () => orderLength(model, each))
+/** Lungimea maximă a foii: a modelului, sau mai mică dacă a ales-o clientul (la țiglă, pe pas întreg). */
+export function maxSheetLength(model: SheetModel, choice?: SheetChoice) {
+  let max = model.maxLength ?? Infinity
+  if (choice?.maxLength && choice.maxLength < max) {
+    max = choice.maxLength
+    if (model.module) {
+      const add = model.moduleAdd ?? 0
+      max = Math.max(1, Math.floor((max - add + 1e-9) / model.module)) * model.module + add
+    }
+    max = Math.max(max, model.minLength ?? 0)
+  }
+  return round3(max)
 }
 
-export function layoutFace(face: Face, model: SheetModel): FaceResult {
+export function splitColumn(model: SheetModel, needed: number, choice?: SheetChoice): number[] {
+  const max = maxSheetLength(model, choice)
+  const tol = model.module ? choice?.ridgeTolerance ?? 0 : 0
+  const single = orderLength(model, needed, tol)
+  if (single <= max + 1e-9) return [single]
+  const overlap = model.overlap ?? 0.15
+  const usefulPerPiece = max - overlap
+  const count = Math.ceil((needed - overlap) / usefulPerPiece - 1e-9)
+  // foi egale, fiecare cu suprapunerea inclusă
+  const each = (needed + overlap * (count - 1)) / count
+  return Array.from({ length: count }, () => Math.min(orderLength(model, each), max))
+}
+
+/** Variantele de lungime a foii pe care le arătăm clientului, după panta cea mai lungă. */
+/** Lungimea unei foi, mereu cu două zecimale: 4,90 m. */
+export const fmtLen = (n: number) => n.toLocaleString("ro-RO", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+export function sheetOptions(model: SheetModel, longest: number) {
+  const out: { id: string; title: string; subtitle: string; choice?: SheetChoice }[] = []
+  if (model.kind !== "cut" || !(longest > 0)) return out
+  const full = splitColumn(model, longest)
+  out.push({
+    id: "auto",
+    title: full.length === 1 ? `O foaie de ${fmtLen(full[0])} m` : `${full.length} foi de ${fmtLen(full[0])} m`,
+    subtitle: full.length === 1
+      ? model.module ? `pe toată panta, rotunjită în sus la pasul de ${fmt(model.module * 100, 0)} cm` : "pe toată panta"
+      : `foaia cea mai lungă pentru acest model e de ${fmt(model.maxLength ?? 0)} m`,
+  })
+  if (model.module && full.length === 1) {
+    const short = orderLength(model, longest, RIDGE_TOLERANCE)
+    if (short < full[0] - 1e-9) {
+      out.push({
+        id: "coama",
+        title: `O foaie de ${fmtLen(short)} m`,
+        subtitle: `cu ${fmt((longest - short) * 100, 0)} cm mai scurtă decât panta, o acoperă coama`,
+        choice: { ridgeTolerance: RIDGE_TOLERANCE },
+      })
+    }
+  }
+  const overlap = model.overlap ?? 0.15
+  for (let k = full.length + 1; k <= full.length + 2; k++) {
+    const each = orderLength(model, (longest + overlap * (k - 1)) / k)
+    if (each < (model.minLength ?? 0) + 0.3) break
+    out.push({
+      id: `foi-${k}`,
+      title: `${k} foi de ${fmtLen(each)} m`,
+      subtitle: `mai ușor de transportat, se suprapun ${fmt(overlap * 100, 0)} cm`,
+      choice: { maxLength: each },
+    })
+  }
+  return out
+}
+
+export function layoutFace(face: Face, model: SheetModel, choice?: SheetChoice): FaceResult {
   const area = ((face.bottom + face.top) / 2) * face.height
   const W = model.usefulWidth ?? 1
   const count = Math.max(1, Math.ceil(face.bottom / W - 1e-9))
@@ -139,7 +210,7 @@ export function layoutFace(face: Face, model: SheetModel): FaceResult {
     const x1 = Math.min((i + 1) * W, face.bottom)
     const needed = maxHeightIn(face, x0, x1)
     if (needed < 0.05) continue
-    columns.push({ x0, x1, needed: round3(needed), pieces: splitColumn(model, needed) })
+    columns.push({ x0, x1, needed: round3(needed), pieces: splitColumn(model, needed, choice) })
   }
   return { ...face, area: round3(area), columns }
 }
@@ -185,7 +256,7 @@ export function calculateRoof(
   model: SheetModel,
   rules: AccessoryRules
 ): RoofResult {
-  const faces = roofFaces(input).map((f) => layoutFace(f, model))
+  const faces = roofFaces(input).map((f) => layoutFace(f, model, input.sheet))
   const roofArea = round3(faces.reduce((s, f) => s + f.area, 0))
 
   // ── muchii
