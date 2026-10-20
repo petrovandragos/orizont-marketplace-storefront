@@ -28,7 +28,7 @@ const PdpClientSection = ({ product, selectedVariant, onVariantChange }: Props) 
     <div className="flex flex-col md:flex-row md:gap-x-10 lg:gap-x-16 gap-y-8 md:items-start">
 
       {/* LEFT — Image gallery (50%) */}
-      <div className="w-full md:w-[55%] md:sticky md:top-28">
+      <div className="w-full md:w-[55%] md:sticky md:top-32">
         <PdpGallery
           key={selectedVariant?.id ?? "default"}
           images={displayImages}

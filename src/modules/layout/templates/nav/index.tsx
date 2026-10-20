@@ -38,7 +38,7 @@ export default async function Nav() {
 
         {/* ── Row 2: Main header ── */}
         <header className="relative z-10">
-          <div className="content-container flex items-center gap-x-3 md:gap-x-6 h-14">
+          <div className="content-container flex items-center gap-x-3 md:gap-x-6 h-16 md:h-[72px]">
 
             {/* Mobile: Hamburger — hidden on md+ */}
             <div className="flex md:hidden flex-shrink-0">
@@ -61,7 +61,7 @@ export default async function Nav() {
                   alt="Orizont Logo"
                   width={211}
                   height={55}
-                  className="h-7 md:h-8 w-auto object-contain"
+                  className="h-9 md:h-11 w-auto object-contain"
                   priority
                   unoptimized
                 />

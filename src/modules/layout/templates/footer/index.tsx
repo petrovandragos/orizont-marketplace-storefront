@@ -37,7 +37,7 @@ export default function Footer() {
           {/* Firma */}
           <div className="col-span-2 lg:col-span-4 flex flex-col gap-y-4">
             <LocalizedClientLink href="/" className="inline-block w-fit">
-              <Image src="/logo.png" alt="Orizont" width={211} height={55} className="h-7 w-auto object-contain" unoptimized />
+              <Image src="/logo.png" alt="Orizont" width={211} height={55} className="h-9 w-auto object-contain" unoptimized />
             </LocalizedClientLink>
             <p className="text-xs leading-relaxed max-w-[300px]">
               Depozit de materiale de construcții cu o gamă completă de produse

@@ -117,6 +117,8 @@ export const ETICS_ADHESIVES: AdhesiveOption[] = [
 export const ETICS_FINISHES: FinishOption[] = [
   // RÖFIX 713 NATURA, granulație 0–1,5 mm: 2,3 kg/m², sac 25 kg (hasit.ro)
   { id: "rofix713", name: "RÖFIX 713 NATURA, tencuială decorativă 1,5 mm", handle: "rofix-713-natura-tencuiala-decorativa", kgM2: 2.3, bagKg: 25, unit: "sac" },
+  // CERESIT HYDRO FLEX: tencuială decorativă siliconică, granulație 1,5 mm, găleată 25 kg, consum orientativ 2,5 kg/m² (fișa produsului)
+  { id: "hydroflex", name: "CERESIT HYDRO FLEX, tencuială decorativă siliconică 1,5 mm", handle: "ceresit-hydro-flex", kgM2: 2.5, bagKg: 25, unit: "găleată" },
 ]
 
 export const ETICS_RULES: EticsRules = {

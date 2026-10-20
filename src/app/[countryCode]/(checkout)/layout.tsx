@@ -10,7 +10,7 @@ export default function CheckoutLayout({
     <div className="min-h-screen bg-[#F5F5F7] flex flex-col">
       {/* Checkout header */}
       <header className="bg-white/80 backdrop-blur-xl border-b border-black/[0.08]">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Back to cart */}
           <LocalizedClientLink
             href="/cart"
@@ -31,11 +31,11 @@ export default function CheckoutLayout({
               alt="Orizont Logo"
               width={211}
               height={55}
-              className="h-7 w-auto object-contain"
+              className="h-9 w-auto object-contain"
               unoptimized
             />
-            <span className="hidden sm:inline text-xs font-medium text-gray-400 uppercase tracking-widest mt-0.5">
-              Checkout
+            <span className="hidden sm:inline text-sm text-gray-500 mt-0.5">
+              Finalizare comandă
             </span>
           </LocalizedClientLink>
 

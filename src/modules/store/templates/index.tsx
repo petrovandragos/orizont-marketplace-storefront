@@ -130,7 +130,7 @@ const StoreTemplate = async ({
       </div>
 
       <div className="flex flex-col small:flex-row small:items-start gap-x-12 pt-4">
-        <aside className="small:sticky small:top-28 w-full small:w-[260px] shrink-0 bg-[#F5F5F7] rounded-[22px] p-5 mb-8 small:mb-0">
+        <aside className="small:sticky small:top-32 w-full small:w-[260px] shrink-0 bg-[#F5F5F7] rounded-[22px] p-5 mb-8 small:mb-0">
           <RefinementList
             sortBy={sort}
             categories={rootCategories}

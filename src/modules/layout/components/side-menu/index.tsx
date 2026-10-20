@@ -111,7 +111,7 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                         alt="Orizont Logo"
                         width={211}
                         height={55}
-                        className="h-7 w-auto object-contain"
+                        className="h-9 w-auto object-contain"
                         unoptimized
                       />
                     </LocalizedClientLink>

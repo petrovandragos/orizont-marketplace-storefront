@@ -22,7 +22,7 @@ export default function SearchResultsTemplate({
 
   return (
     <div className="flex flex-col small:flex-row small:items-start gap-x-10 pt-6 pb-4 small:pt-8 content-container">
-      <aside className="w-full small:w-[240px] shrink-0 bg-[#F5F5F7] rounded-[22px] p-5 mb-8 small:mb-0 small:sticky small:top-28">
+      <aside className="w-full small:w-[240px] shrink-0 bg-[#F5F5F7] rounded-[22px] p-5 mb-8 small:mb-0 small:sticky small:top-32">
         <RefinementList sortBy={sort} />
       </aside>
 

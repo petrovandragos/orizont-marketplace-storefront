@@ -223,7 +223,7 @@ export default function RoofCalculator() {
         )}
       </div>
 
-      <aside className="bg-white border border-[#D2D2D7] rounded-[26px] p-5 md:p-7 lg:sticky lg:top-32 flex flex-col gap-5">
+      <aside className="bg-white border border-[#D2D2D7] rounded-[26px] p-5 md:p-7 lg:sticky lg:top-36 flex flex-col gap-5">
         <div>
           <p className="text-sm text-gray-500">Acoperiș în {typeTitle.toLowerCase()}</p>
           {result ? (

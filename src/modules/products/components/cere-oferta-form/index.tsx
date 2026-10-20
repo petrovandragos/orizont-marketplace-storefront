@@ -94,7 +94,7 @@ export default function CereOfertaForm({ product, selectedVariantId }: Props) {
   }
 
   return (
-    <div id="cere-oferta" ref={containerRef} className="flex flex-col gap-y-2 scroll-mt-28">
+    <div id="cere-oferta" ref={containerRef} className="flex flex-col gap-y-2 scroll-mt-32">
       {/* Toggle button */}
       <button
         type="button"

@@ -69,7 +69,7 @@ export default function MasonryCalculator() {
         </Step>
       </div>
 
-      <aside className="bg-white border border-[#D2D2D7] rounded-[26px] p-5 md:p-7 lg:sticky lg:top-32 flex flex-col gap-5">
+      <aside className="bg-white border border-[#D2D2D7] rounded-[26px] p-5 md:p-7 lg:sticky lg:top-36 flex flex-col gap-5">
         {res ? (
           <div className="grid grid-cols-3 gap-2">
             <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{fmt(res.area, 1)}</b><span className="text-xs text-[#6E6E73]">m² perete</span></div>

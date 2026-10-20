@@ -34,7 +34,7 @@ export default async function CerereOfertaPage(props: { searchParams: Promise<{ 
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] gap-6 lg:gap-8 mt-10 items-start">
         <ListQuoteForm initialList={initialList} />
 
-        <aside className="bg-white border border-[#D2D2D7] rounded-[26px] p-6 md:p-7 lg:sticky lg:top-32">
+        <aside className="bg-white border border-[#D2D2D7] rounded-[26px] p-6 md:p-7 lg:sticky lg:top-36">
           <h2 className="text-[21px] font-semibold tracking-[-0.02em] text-[#1D1D1F] mb-5">Cum funcționează</h2>
           <ol className="flex flex-col gap-y-4">
             {STEPS.map((step, i) => (
