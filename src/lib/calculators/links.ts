@@ -20,6 +20,36 @@ export const CALCULATORS = [
     tagline: "Bucăți, paleți și mortar",
     text: "Câte cărămizi sau blocuri BCA, câți paleți și cât mortar sau adeziv pentru pereții casei.",
   },
+  {
+    slug: "fundatie",
+    title: "Calculator fundație și beton",
+    short: "Fundație și beton",
+    tagline: "Beton, ciment, armătură",
+    text: "Câți metri cubi de beton, câți saci de ciment, câte bare de oțel-beton și câtă plasă sudată.",
+  },
+  {
+    slug: "gresie-faianta",
+    title: "Calculator gresie și faianță",
+    short: "Gresie și faianță",
+    tagline: "Cutii, adeziv, chit, hidroizolație",
+    text: "Câte cutii de gresie și faianță, câți saci de adeziv, cât chit de rosturi și câtă hidroizolație.",
+  },
+] as const
+
+/** Instrumentele pentru alegerea acoperișului (nu calculează cantități). */
+export const ROOF_TOOLS = [
+  {
+    slug: "vizualizator-acoperis",
+    title: "Vizualizator acoperiș",
+    short: "Vizualizator",
+    text: "Alegeți învelitoarea și culorile și vedeți pe loc cum arată casa, ziua sau seara.",
+  },
+  {
+    slug: "comparator-invelitori",
+    title: "Comparator învelitori",
+    short: "Comparator",
+    text: "Tablă sau țiglă? Greutate, pantă minimă, garanție, zgomot și buget, una lângă alta.",
+  },
 ] as const
 
 /** În ce categorii arătăm banda „Calculați necesarul”. */
@@ -41,5 +71,8 @@ export const CATEGORY_CALCULATOR: Record<string, (typeof CALCULATORS)[number]["s
   BCA: "zidarie",
   "Boltari-beton": "zidarie",
   Mortare: "zidarie",
-  "Ciment-var-lianti": "zidarie",
+  "Ciment-var-lianti": "fundatie",
+  "armaturi-otel-beton": "fundatie",
+  "Adeziv-pentru-ceramice": "gresie-faianta",
+  Chituri: "gresie-faianta",
 }

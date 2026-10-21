@@ -13,6 +13,7 @@ import PriceDisplay from "@modules/common/components/price-display"
 import StockBadge from "@modules/products/components/stock-badge"
 import { useCartDrawer } from "@modules/cart/context/cart-drawer-context"
 import CereOfertaForm from "@modules/products/components/cere-oferta-form"
+import AddToQuoteButton from "@modules/quote/components/add-to-quote-button"
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -255,6 +256,15 @@ const PdpActions = ({ product, onVariantChange }: PdpActionsProps) => {
 
       {/* Cere Ofertă */}
       <CereOfertaForm product={product} selectedVariantId={selectedVariant?.id} />
+
+      {/* Lista de ofertă: produsul se trimite împreună cu altele, într-o singură cerere */}
+      <AddToQuoteButton
+        size="pdp"
+        handle={product.handle ?? ""}
+        title={product.title ?? ""}
+        thumbnail={product.thumbnail ?? null}
+        unit={pricingUnit}
+      />
 
     </div>
   )

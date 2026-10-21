@@ -5,6 +5,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import PriceDisplay from "@modules/common/components/price-display"
 import StockBadge, { getVariantQuantity } from "@modules/products/components/stock-badge"
 import AddToCartButton from "@modules/products/components/add-to-cart-button"
+import AddToQuoteButton from "@modules/quote/components/add-to-quote-button"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { getPricingUnit } from "@lib/util/format-price"
 
@@ -127,12 +128,12 @@ const ProductCard = ({ product, region }: ProductCardProps) => {
               <span className="text-sm text-[#6E6E73]">Preț la cerere</span>
             </div>
             <div className="pt-1">
-              <LocalizedClientLink
-                href={`/products/${product.handle}?oferta=1#cere-oferta`}
-                className="w-full flex items-center justify-center h-10 px-4 rounded-full text-sm font-medium bg-white border border-[#D2D2D7] text-[#1D1D1F] hover:border-[#1D1D1F] transition-colors duration-150"
-              >
-                Cereți ofertă
-              </LocalizedClientLink>
+              <AddToQuoteButton
+                handle={product.handle ?? ""}
+                title={product.title ?? ""}
+                thumbnail={product.thumbnail ?? null}
+                unit={pricingUnit}
+              />
             </div>
           </>
         )}

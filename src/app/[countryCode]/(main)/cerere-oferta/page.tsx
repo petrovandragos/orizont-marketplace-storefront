@@ -27,8 +27,8 @@ export default async function CerereOfertaPage(props: { searchParams: Promise<{ 
 
       <h1 className="display-2">Cereți o ofertă</h1>
       <p className="lead mt-3 max-w-[52ch]">
-        Aveți o listă de materiale pentru o casă, un acoperiș sau o renovare? Transmiteți-ne-o, iar
-        noi vă pregătim oferta pentru întreaga cantitate, cu livrare.
+        Adăugați în listă produsele din catalog și rezultatele calculatoarelor sau scrieți-ne direct
+        materialele de care aveți nevoie. Vă pregătim oferta pentru întreaga cantitate, cu livrare.
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] gap-6 lg:gap-8 mt-10 items-start">

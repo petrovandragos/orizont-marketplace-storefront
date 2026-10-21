@@ -4,6 +4,7 @@ import { ReactNode } from "react"
 import { useRouter } from "next/navigation"
 import { unitLabel, fmt } from "@lib/calculators/roof"
 import { track } from "@lib/util/analytics"
+import { addCalc } from "@lib/quote-list"
 
 export type Line = { name: string; quantity: number; unit: string; note?: string; href?: string }
 
@@ -70,6 +71,25 @@ export function NumberField({
   )
 }
 
+/** Opțiuni scurte, pe un rând (ex. diametre, grosimi). */
+export function Chips<T extends string | number>({ label, value, options, onChange, format }: {
+  label: string; value: T; options: readonly T[]; onChange: (v: T) => void; format: (v: T) => string
+}) {
+  return (
+    <div className="flex flex-col gap-y-1.5">
+      <span className="text-sm font-medium text-[#1D1D1F]">{label}</span>
+      <div className="flex flex-wrap gap-2">
+        {options.map((o) => (
+          <button key={String(o)} type="button" aria-pressed={value === o} onClick={() => onChange(o)}
+            className={`h-10 px-4 rounded-full text-sm font-semibold border ${value === o ? "bg-[#1D1D1F] text-white border-[#1D1D1F]" : "bg-white text-[#424245] border-transparent hover:border-[#D2D2D7]"}`}>
+            {format(o)}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export function Stepper({ label, value, onChange, min = 0, max = 20 }: { label: string; value: number; onChange: (v: number) => void; min?: number; max?: number }) {
   return (
     <div className="flex flex-col gap-y-1.5">
@@ -109,24 +129,32 @@ export function ResultTable({ title, lines }: { title: string; lines: Line[] }) 
   )
 }
 
-/** Trimite lista calculată în formularul de ofertă, deja completată. */
+/** Adaugă rezultatul în lista de ofertă (înlocuind un calcul anterior al aceluiași calculator) și deschide lista. */
 export function SendToQuote({ calculator, summary, lines }: { calculator: string; summary: string; lines: Line[] }) {
   const router = useRouter()
-  const text = [
-    `Calculator ${calculator}: ${summary}`,
-    ...lines.map((l) => `- ${l.name}: ${fmt(l.quantity)} ${unitLabel(l.unit, l.quantity)}${l.note ? ` (${l.note})` : ""}`),
-  ].join("\n")
 
   return (
     <button
       type="button"
       onClick={() => {
         track("calculator_oferta", { calculator })
-        router.push(`/cerere-oferta?lista=${encodeURIComponent(text.slice(0, 1800))}`)
+        addCalc({
+          id: calculator,
+          title: `Calculator ${calculator}`,
+          summary,
+          lines: lines.map((l) => ({
+            name: l.name,
+            amount: `${fmt(l.quantity)} ${unitLabel(l.unit, l.quantity)}`,
+            note: l.note,
+            href: l.href,
+          })),
+          href: window.location.pathname,
+        })
+        router.push("/cerere-oferta")
       }}
       className="w-full btn-pill"
     >
-      Cereți ofertă pentru această listă
+      Adăugați în lista de ofertă
     </button>
   )
 }

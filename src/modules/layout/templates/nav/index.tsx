@@ -13,6 +13,7 @@ import TopBar from "@modules/layout/components/top-bar"
 import SearchBar from "@modules/layout/components/search-bar"
 import CategoryNav from "@modules/layout/components/category-nav"
 import HeaderCartButton from "@modules/layout/components/header-cart-button"
+import QuoteListNav from "@modules/quote/components/quote-list-nav"
 import NavAccountDropdown from "@modules/layout/components/nav-account-dropdown"
 import SideMenu from "@modules/layout/components/side-menu"
 
@@ -75,12 +76,7 @@ export default async function Nav() {
             {/* Right actions */}
             <div className="flex items-center gap-x-5 ml-auto md:ml-0 flex-shrink-0">
               {/* Cere ofertă — desktop (pe telefon e în meniu) */}
-              <LocalizedClientLink
-                href="/cerere-oferta"
-                className="hidden md:inline-flex btn-pill-sm"
-              >
-                Cereți ofertă
-              </LocalizedClientLink>
+              <QuoteListNav />
 
               {/* Account dropdown — desktop only */}
               <NavAccountDropdown customer={customer} />

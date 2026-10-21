@@ -413,5 +413,7 @@ export function unitLabel(unit: string, q: number) {
   if (unit === "foaie") return q === 1 ? "foaie" : "foi"
   if (unit === "panou") return q === 1 ? "panou" : "panouri"
   if (unit === "doză") return q === 1 ? "doză" : "doze"
+  if (unit === "cutie") return q === 1 ? "cutie" : "cutii"
+  if (unit === "bidon") return q === 1 ? "bidon" : "bidoane"
   return unit
 }

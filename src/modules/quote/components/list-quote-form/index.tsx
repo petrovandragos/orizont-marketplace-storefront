@@ -4,6 +4,8 @@ import { useRef, useState } from "react"
 import { Turnstile } from "@marsidev/react-turnstile"
 import { submitQuoteRequest } from "@lib/data/quote-requests"
 import { track } from "@lib/util/analytics"
+import { clearQuoteList, quoteCount, quoteListText, useQuoteList } from "@lib/quote-list"
+import QuoteListItems from "@modules/quote/components/quote-list-items"
 
 const inputClass =
   "w-full h-12 px-4 rounded-xl border border-transparent text-base bg-white focus:outline-none focus:ring-2 focus:ring-[#F27A1A]/40 focus:border-[#F27A1A] transition-colors"
@@ -29,6 +31,8 @@ export default function ListQuoteForm({ initialList = "" }: { initialList?: stri
   const [error, setError] = useState<string | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<any>(null)
+  const quoteList = useQuoteList()
+  const hasItems = quoteCount(quoteList) > 0
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,13 +42,19 @@ export default function ListQuoteForm({ initialList = "" }: { initialList?: stri
       return
     }
 
+    const text = quoteListText(quoteList, list)
+    if (!text.trim()) {
+      setError("Vă rugăm să adăugați produse în listă sau să scrieți materialele de care aveți nevoie.")
+      return
+    }
+
     setSubmitting(true)
     setError(null)
 
     const result = await submitQuoteRequest({
       product_id: "lista-materiale",
       variant_id: null,
-      product_title: `[Listă materiale] ${list.trim()}`,
+      product_title: `[Listă materiale] ${text}`,
       quantity: 1,
       delivery_type: delivery,
       full_name: name.trim(),
@@ -59,7 +69,8 @@ export default function ListQuoteForm({ initialList = "" }: { initialList?: stri
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     } else {
-      track("cerere_oferta", { tip: "lista" })
+      track("cerere_oferta", { tip: "lista", elemente: quoteCount(quoteList) })
+      clearQuoteList()
       setSuccess(true)
       window.scrollTo({ top: 0, behavior: "smooth" })
     }
@@ -87,6 +98,8 @@ export default function ListQuoteForm({ initialList = "" }: { initialList?: stri
       onSubmit={handleSubmit}
       className="bg-[#F5F5F7] rounded-[26px] p-5 md:p-8 flex flex-col gap-y-5"
     >
+      {hasItems && <QuoteListItems list={quoteList} />}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex flex-col gap-y-1.5">
           <label htmlFor="lq-name" className="text-sm font-medium text-[#1D1D1F]">
@@ -114,9 +127,13 @@ export default function ListQuoteForm({ initialList = "" }: { initialList?: stri
 
       <div className="flex flex-col gap-y-1.5">
         <label htmlFor="lq-list" className="text-sm font-medium text-[#1D1D1F]">
-          Lista de materiale și cantitățile <span className="text-red-500">*</span>
+          {hasItems ? (
+            <>Alte materiale sau observații <span className="font-normal text-[#6E6E73]">(opțional)</span></>
+          ) : (
+            <>Lista de materiale și cantitățile <span className="text-red-500">*</span></>
+          )}
         </label>
-        <textarea id="lq-list" value={list} onChange={(e) => setList(e.target.value)} required rows={7}
+        <textarea id="lq-list" value={list} onChange={(e) => setList(e.target.value)} required={!hasItems} rows={hasItems ? 3 : 7}
           placeholder={"Ex:\n20 saci ciment 40 kg\n3 paleți Porotherm 25\nplasă sudată 6 mm, 10 buc"}
           className={`${inputClass} h-auto py-3 resize-y leading-relaxed`} />
         <p className="text-[13px] text-[#6E6E73]">
