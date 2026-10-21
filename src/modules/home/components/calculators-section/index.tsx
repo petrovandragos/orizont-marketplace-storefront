@@ -3,7 +3,7 @@ import Chevron from "@modules/common/components/open-status/chevron"
 import { CALCULATORS } from "@lib/calculators/links"
 import { CALCULATOR_ART } from "@modules/calculators/components/icons"
 
-const TITLES: Record<string, string> = { acoperis: "Tablă pentru acoperiș", termosistem: "Termosistem", zidarie: "Zidărie" }
+const TITLES: Record<string, string> = { acoperis: "Acoperiș din tablă sau țiglă", termosistem: "Termosistem", zidarie: "Zidărie" }
 
 /** Banda cu cele trei calculatoare de materiale. */
 export default function CalculatorsSection() {

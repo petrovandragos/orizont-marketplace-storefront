@@ -147,8 +147,11 @@ export default function RoofCalculator() {
     [valid, type, length, width, slope, chimneys, model, option]
   )
 
+  const isTile = model?.kind === "tile"
   const sheetLines: Line[] = result
-    ? model.kind === "panel"
+    ? isTile
+      ? [{ name: model.name, quantity: result.tiles ?? 0, unit: "buc", note: `${fmt(model.perM2 ?? 0, 2)} buc/m² + ${result.wastePercent}% rezervă la tăieri${result.tilePallets ? `, aprox. ${result.tilePallets} ${result.tilePallets === 1 ? "palet" : "paleți"}` : ""}${result.tileWeightKg ? `, aprox. ${fmt(result.tileWeightKg / 1000, 1)} t` : ""}`, href: model.handle ? `/products/${model.handle}` : undefined }]
+      : model.kind === "panel"
       ? [{ name: model.name, quantity: result.panels ?? 0, unit: "panou", note: `${fmt(result.orderedArea)} m² acoperiți`, href: model.handle ? `/products/${model.handle}` : undefined }]
       : result.sheets.map((s) => ({ name: `${model.name}, foaie de ${fmtLen(s.length)} m`, quantity: s.count, unit: "foaie", href: model.handle ? `/products/${model.handle}` : undefined }))
     : []
@@ -167,7 +170,7 @@ export default function RoofCalculator() {
           </div>
         </Step>
 
-        <Step n={2} title="Modelul de tablă" hint="Alegeți tipul și modelul. Lățimea utilă e cea care acoperă efectiv, fără suprapunere.">
+        <Step n={2} title="Învelitoarea" hint="Alegeți tipul și modelul: tablă, țiglă metalică, țiglă ceramică sau de beton.">
           <div className="flex flex-wrap gap-2 mb-3">
             {groups.map((g) => (
               <button key={g} type="button" aria-pressed={group === g}
@@ -180,7 +183,7 @@ export default function RoofCalculator() {
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2.5">
             {ROOF_MODELS.filter((m) => m.group === group).map((m) => (
               <Choice key={m.id} selected={modelId === m.id} onClick={() => setModelId(m.id)} title={m.name}
-                subtitle={m.kind === "panel" ? `${fmt(m.panelArea ?? 0, 3)} m² / panou` : `lățime utilă ${fmt((m.usefulWidth ?? 0) * 1000, 0)} mm${m.module ? ` · modul ${fmt(m.module * 1000, 0)} mm` : ""}`} />
+                subtitle={m.kind === "tile" ? `${fmt(m.perM2 ?? 0, 2)} buc/m²${m.minPitch ? ` · panta minimă ${m.minPitch}°` : ""}` : m.kind === "panel" ? `${fmt(m.panelArea ?? 0, 3)} m² / panou` : `lățime utilă ${fmt((m.usefulWidth ?? 0) * 1000, 0)} mm${m.module ? ` · modul ${fmt(m.module * 1000, 0)} mm` : ""}`} />
             ))}
           </div>
         </Step>
@@ -197,7 +200,7 @@ export default function RoofCalculator() {
           </div>
         </Step>
 
-        {result && model.kind !== "panel" && (
+        {result && model.kind === "cut" && (
           <Step n={4} title="Foile și schița acoperișului" hint="Alegeți lungimea foilor. În schiță, fiecare coloană e o foaie de tablă, cu lungimea scrisă pe ea; liniile punctate arată unde se îmbină foile.">
             {options.length > 1 && (
               <div className="mb-7">
@@ -229,15 +232,19 @@ export default function RoofCalculator() {
           {result ? (
             <div className="grid grid-cols-3 gap-2 mt-2">
               <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{fmt(result.roofArea, 1)}</b><span className="text-xs text-[#6E6E73]">m² acoperiș</span></div>
-              <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{model.kind === "panel" ? result.panels : result.sheetCount}</b><span className="text-xs text-[#6E6E73]">{model.kind === "panel" ? unitLabel("panou", result.panels ?? 0) : unitLabel("foaie", result.sheetCount)}</span></div>
-              <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{fmt(result.orderedArea, 1)}</b><span className="text-xs text-[#6E6E73]">m² tablă</span></div>
+              <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{isTile ? fmt(result.tiles ?? 0, 0) : model.kind === "panel" ? result.panels : result.sheetCount}</b><span className="text-xs text-[#6E6E73]">{isTile ? "țigle" : model.kind === "panel" ? unitLabel("panou", result.panels ?? 0) : unitLabel("foaie", result.sheetCount)}</span></div>
+              {isTile ? (
+                <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{result.tilePallets ?? "–"}</b><span className="text-xs text-[#6E6E73]">{result.tilePallets === 1 ? "palet" : "paleți"}</span></div>
+              ) : (
+                <div className="bg-[#F5F5F7] rounded-2xl p-3.5"><b className="block text-2xl font-semibold tracking-[-0.02em]">{fmt(result.orderedArea, 1)}</b><span className="text-xs text-[#6E6E73]">m² tablă</span></div>
+              )}
             </div>
           ) : (
             <p className="text-sm text-red-600 mt-2">Completați dimensiunile ca să vedem calculul.</p>
           )}
         </div>
 
-        {result && <ResultTable title="Tablă" lines={sheetLines} />}
+        {result && <ResultTable title={isTile ? "Țiglă" : "Tablă"} lines={sheetLines} />}
         {result && <ResultTable title="Accesorii" lines={accLines} />}
         {result && <SendToQuote calculator="acoperiș" summary={`acoperiș în ${typeTitle.toLowerCase()}, ${model.name}, A ${fmt(length)} m${type === "patru-ape" ? `, B ${fmt(width)} m` : ""}, pantă ${fmt(slope)} m${option && option.id !== "auto" ? `, lungimea foilor: ${option.title.toLowerCase()} (${option.subtitle})` : ""}`} lines={[...sheetLines, ...accLines]} />}
         <Disclaimer />

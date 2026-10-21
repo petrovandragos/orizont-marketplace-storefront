@@ -14,7 +14,7 @@
 
 export type RoofType = "o-apa" | "doua-ape" | "patru-ape"
 
-export type SheetKind = "cut" | "panel"
+export type SheetKind = "cut" | "panel" | "tile"
 
 export type SheetModel = {
   id: string
@@ -37,6 +37,16 @@ export type SheetModel = {
   panelArea?: number
   /** m² într-un pachet (dacă se vinde la pachet) */
   panelsPerPack?: number
+  /** pentru kind = "tile" (țiglă ceramică sau de beton): bucăți pe m² */
+  perM2?: number
+  /** distanța dintre șipci, m (lipsă = după montator) */
+  lath?: number
+  perPallet?: number
+  kgPerPiece?: number
+  /** panta minimă, grade */
+  minPitch?: number
+  /** are țigle de margine pentru fronton (altfel: bordură metalică sub țiglă) */
+  sideTiles?: boolean
   /** pentru afișare: unde am găsit datele */
   source?: string
 }
@@ -235,6 +245,10 @@ export type RoofResult = {
   orderedArea: number
   /** pentru panouri */
   panels?: number
+  /** pentru țiglă ceramică / de beton */
+  tiles?: number
+  tilePallets?: number
+  tileWeightKg?: number
   wastePercent: number
   edges: { eaves: number; ridge: number; hips: number; gables: number; wallTop: number }
   accessories: AccessoryLine[]
@@ -249,6 +263,19 @@ export type AccessoryRules = {
   /** câți metri de jgheab deservește un burlan */
   gutterPerDownpipe: number
   panelWaste: number
+  /** țiglă: rezervă la tăieri, la o apă / două ape și la patru ape */
+  tileWaste: number
+  tileWasteHips: number
+  /** țiglă: coame pe metru de coamă și muchie */
+  ridgeTilesPerM: number
+  /** țiglă: o țiglă de ventilație la atâția m² */
+  ventTileEveryM2: number
+  /** țiglă: distanța dintre căpriori, pentru contrașipci, m */
+  rafterSpacing: number
+  /** țiglă: opritoare de zăpadă pe metru de streașină, un rând */
+  snowGuardsPerM: number
+  /** bandă de coamă: metri într-o rolă */
+  ridgeBandRollM: number
 }
 
 export function calculateRoof(
@@ -256,7 +283,7 @@ export function calculateRoof(
   model: SheetModel,
   rules: AccessoryRules
 ): RoofResult {
-  const faces = roofFaces(input).map((f) => layoutFace(f, model, input.sheet))
+  const faces = roofFaces(input).map((f) => (model.kind === "cut" ? layoutFace(f, model, input.sheet) : { ...f, area: round3(((f.bottom + f.top) / 2) * f.height), columns: [] }))
   const roofArea = round3(faces.reduce((s, f) => s + f.area, 0))
 
   // ── muchii
@@ -280,6 +307,9 @@ export function calculateRoof(
   let sheetCount = 0
   let orderedArea = 0
   let panels: number | undefined
+  if (model.kind === "tile") {
+    return calculateTileRoof(input, model, rules, faces, roofArea, { eaves, ridge, hips, gables, wallTop })
+  }
   if (model.kind === "panel") {
     const per = model.panelArea ?? 1
     panels = Math.ceil((roofArea * (1 + rules.panelWaste)) / per)
@@ -310,6 +340,63 @@ export function calculateRoof(
   if (input.chimneys > 0) acc.push({ key: "cos", name: "Bandă etanșare coș de fum", quantity: input.chimneys, unit: "rolă" })
 
   return { faces, roofArea, sheets, sheetCount, orderedArea, panels, wastePercent, edges: { eaves: round3(eaves), ridge: round3(ridge), hips: round3(hips), gables: round3(gables), wallTop: round3(wallTop) }, accessories: acc }
+}
+
+/** Acoperiș din țiglă ceramică sau de beton: bucăți pe m², coame, țigle speciale, șipci. */
+function calculateTileRoof(
+  input: RoofInput,
+  model: SheetModel,
+  rules: AccessoryRules,
+  faces: FaceResult[],
+  roofArea: number,
+  e: { eaves: number; ridge: number; hips: number; gables: number; wallTop: number }
+): RoofResult {
+  const { type } = input
+  const waste = type === "patru-ape" ? rules.tileWasteHips : rules.tileWaste
+  const per = model.perM2 ?? 10
+  const tiles = Math.ceil(roofArea * per * (1 + waste) - 1e-9)
+  const pallets = model.perPallet ? Math.ceil(tiles / model.perPallet - 1e-9) : undefined
+  const weight = model.kgPerPiece ? Math.round(tiles * model.kgPerPiece) : undefined
+  const ridgeLen = e.ridge + e.hips
+  const acc: AccessoryLine[] = []
+
+  if (ridgeLen > 0) {
+    acc.push({ key: "coama", name: "Coamă (țiglă de coamă)", quantity: Math.ceil(ridgeLen * rules.ridgeTilesPerM - 1e-9), unit: "buc", note: `${fmt(ridgeLen)} m de coamă${e.hips ? " și muchii" : ""}, ${fmt(rules.ridgeTilesPerM, 1)} buc/m` })
+    if (type === "doua-ape") acc.push({ key: "capat-coama", name: "Capăt de coamă", quantity: 2, unit: "buc" })
+    if (type === "patru-ape") {
+      acc.push({ key: "inceput-coama", name: "Început de coamă (la baza muchiilor)", quantity: 4, unit: "buc" })
+      if (e.ridge > 0.05) acc.push({ key: "ramificatie", name: "Ramificație de coamă (în Y)", quantity: 2, unit: "buc" })
+    }
+    acc.push({ key: "banda-coama", name: "Bandă de coamă (aerisire)", quantity: Math.ceil(ridgeLen / rules.ridgeBandRollM - 1e-9), unit: "rolă", note: `role de ${fmt(rules.ridgeBandRollM)} m` })
+  }
+  if (e.gables > 0) {
+    if (model.sideTiles && model.lath) {
+      acc.push({ key: "margine", name: "Țiglă de margine (stânga și dreapta)", quantity: Math.ceil(e.gables / model.lath - 1e-9), unit: "buc", note: `${fmt(e.gables)} m de fronton, o țiglă pe rând de șipcă` })
+    } else {
+      acc.push({ key: "bordura", name: "Bordură de fronton sub țiglă", quantity: Math.ceil(e.gables / rules.trimUsefulLength - 1e-9), unit: "buc", note: `${fmt(e.gables)} m de fronton` })
+    }
+  }
+  if (e.wallTop > 0) acc.push({ key: "bordura-perete", name: "Bordură la perete (sus)", quantity: Math.ceil(e.wallTop / rules.trimUsefulLength - 1e-9), unit: "buc", note: `${fmt(e.wallTop)} m` })
+  acc.push({ key: "ventilatie", name: "Țiglă de ventilație", quantity: Math.max(2, Math.ceil(roofArea / rules.ventTileEveryM2 - 1e-9)), unit: "buc", note: `una la ${fmt(rules.ventTileEveryM2, 0)} m²` })
+  acc.push({ key: "folie", name: "Folie anticondens (minimum 120 g/m²)", quantity: Math.ceil((roofArea * (1 + rules.membraneExtra)) / rules.membraneRollM2 - 1e-9), unit: "rolă", note: `${fmt(roofArea * (1 + rules.membraneExtra))} m² cu suprapuneri` })
+  if (model.lath) {
+    acc.push({ key: "sipci", name: "Șipci (minimum 30×50 mm)", quantity: Math.ceil((roofArea / model.lath) * 1.05), unit: "m", note: `la ${fmt(model.lath * 100, 1)} cm distanță, cu 5% rezervă` })
+  } else {
+    acc.push({ key: "sipci", name: "Șipci (minimum 30×50 mm)", quantity: Math.ceil(roofArea / 0.3 * 1.05), unit: "m", note: "distanța o stabilește montatorul; calculat la 30 cm" })
+  }
+  acc.push({ key: "contrasipci", name: "Contrașipci (50×50 mm)", quantity: Math.ceil(roofArea / rules.rafterSpacing), unit: "m", note: `pe fiecare căprior, la ${fmt(rules.rafterSpacing * 100, 0)} cm` })
+  acc.push({ key: "zapada", name: "Opritor de zăpadă", quantity: Math.ceil(e.eaves * rules.snowGuardsPerM - 1e-9), unit: "buc", note: `un rând la streașină, ${fmt(rules.snowGuardsPerM, 0)} buc/m` })
+  acc.push({ key: "jgheab", name: "Jgheab", quantity: Math.ceil(e.eaves), unit: "m" })
+  const downpipes = type === "patru-ape" ? Math.max(4, Math.ceil(e.eaves / rules.gutterPerDownpipe)) : Math.max(type === "doua-ape" ? 2 : 1, Math.ceil(e.eaves / rules.gutterPerDownpipe))
+  acc.push({ key: "burlan", name: "Burlane", quantity: downpipes, unit: "buc", note: "lungimea depinde de înălțimea casei" })
+  if (input.chimneys > 0) acc.push({ key: "cos", name: "Bandă etanșare coș de fum", quantity: input.chimneys, unit: "rolă" })
+
+  return {
+    faces, roofArea, sheets: [], sheetCount: 0, orderedArea: roofArea, wastePercent: Math.round(waste * 100),
+    tiles, tilePallets: pallets, tileWeightKg: weight,
+    edges: { eaves: round3(e.eaves), ridge: round3(e.ridge), hips: round3(e.hips), gables: round3(e.gables), wallTop: round3(e.wallTop) },
+    accessories: acc,
+  }
 }
 
 export function fmt(n: number, digits = 2) {

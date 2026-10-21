@@ -1,10 +1,10 @@
 export const CALCULATORS = [
   {
     slug: "acoperis",
-    title: "Calculator tablă acoperiș",
-    short: "Tablă acoperiș",
-    tagline: "Foi, lungimi și accesorii",
-    text: "Câte foi de țiglă metalică sau tablă cutată vă trebuie, pe ce lungimi, plus coamă, borduri, folie și jgheaburi.",
+    title: "Calculator acoperiș",
+    short: "Acoperiș",
+    tagline: "Tablă sau țiglă, cu accesorii",
+    text: "Câte foi de tablă sau câte țigle ceramice ori de beton vă trebuie, plus coame, folie, șipci și jgheaburi.",
   },
   {
     slug: "termosistem",
@@ -28,6 +28,7 @@ export const CATEGORY_CALCULATOR: Record<string, (typeof CALCULATORS)[number]["s
   "invelitori-din-tabla": "acoperis",
   "accesorii-acoperis": "acoperis",
   "jgheaburi-si-burlane": "acoperis",
+  "tigla-ceramica-si-de-beton": "acoperis",
   termoizolatii: "termosistem",
   Polistiren: "termosistem",
   "Vata-bazaltica": "termosistem",

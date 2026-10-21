@@ -14,6 +14,19 @@
  *   - suprapunerea la tabla cutată și Retro Duo (aici: 150 mm, ca la țiglă)
  *   - lungimea utilă a pieselor de coamă și bordură (aici: 2 m − 10 cm)
  *   - mărimea rolei de folie (aici: 75 m²)
+ *
+ * Țiglă ceramică și de beton: datele din fișele produselor din magazin
+ * (bucăți pe m², distanța dintre șipci, bucăți pe palet, greutate, panta
+ * minimă), de la Leier, swissporTON și Bramac. Reguli de montaj din
+ * „Ghid de montaj țiglă ceramică și de beton” (Leier, 2025):
+ *   - o țiglă de ventilație la 10 m²; țigle de margine: una pe rând de șipcă;
+ *   - opritoare de zăpadă: 2 buc/m; folie minimum 120 g/m², suprafață + 15%;
+ *   - șipci minimum 30×50 mm, contrașipci 50×50 mm;
+ *   - coamă la țigla de beton: 2,7 buc/m (folosit și la ceramică, de confirmat).
+ * De confirmat: Rapido (doar „de la 8,1 buc/m²” la producător, distanța dintre
+ * șipci luată 40 cm), Bramac Romana (10 buc/m², ca restul formatului 420×330),
+ * distanța dintre șipci la Bramac (33 cm), rezerva la tăieri (3%, 8% la patru
+ * ape) și distanța dintre căpriori (90 cm).
  */
 import type { AccessoryRules, SheetModel } from "./roof"
 
@@ -26,6 +39,13 @@ const tile = (id: string, name: string, useful: number, maxLength = 7, handle?: 
 const cut = (id: string, name: string, useful: number, handle: string, src: string, maxLength = 13.5): SheetModel => ({
   id, name, group: "Tablă cutată", kind: "cut", usefulWidth: useful, minLength: 0.5, maxLength, overlap: 0.15, handle, source: src,
 })
+
+type TileData = { perM2: number; lath?: number; perPallet?: number; kg?: number; minPitch?: number; side?: boolean }
+const ceramic = (id: string, name: string, handle: string, d: TileData, group = "Țiglă ceramică"): SheetModel => ({
+  id, name, group, kind: "tile", handle, perM2: d.perM2, lath: d.lath, perPallet: d.perPallet,
+  kgPerPiece: d.kg, minPitch: d.minPitch, sideTiles: d.side ?? false, source: `https://orizont-srl.ro/products/${handle}`,
+})
+const concrete = (id: string, name: string, handle: string, d: TileData) => ceramic(id, name, handle, { lath: 0.33, side: true, ...d }, "Țiglă de beton")
 
 const novatik = (id: string, name: string, perM2: number, handle: string): SheetModel => ({
   id, name, group: "Novatik", kind: "panel", panelArea: Math.round((1 / perM2) * 10000) / 10000, handle, source: "https://novatik.ro/media",
@@ -67,6 +87,32 @@ export const ROOF_MODELS: SheetModel[] = [
   novatik("metal-classic", "Novatik Metal Classic", 2.15, "tigla-metalica-pentru-acoperis-novatik-metal-classic"),
   novatik("metal-wood", "Novatik Metal Wood", 2.08, "sindrila-metalica-pentru-acoperis-novatik-metal-wood"),
   novatik("metal-slate", "Novatik Metal Slate", 2.21, "panouri-metalice-pentru-acoperis-novatik-metal-slate"),
+
+  // ── Țiglă ceramică: Leier (fișele produselor; țigle de margine conform ghidului Leier)
+  ceramic("leier-francia", "Leier Francia", "tigla-ceramica-leier-francia", { perM2: 9.9, lath: 0.41, perPallet: 240, kg: 4.34, minPitch: 18, side: true }),
+  ceramic("leier-baltica", "Leier Baltica", "tigla-ceramica-leier-baltica", { perM2: 9.8, lath: 0.42, perPallet: 240, kg: 4.32, minPitch: 18, side: true }),
+  ceramic("leier-bavaria-duo", "Leier Bavaria Duo", "tigla-ceramica-leier-bavaria-duo", { perM2: 12.25, lath: 0.33, perPallet: 240, kg: 4, minPitch: 24, side: true }),
+  ceramic("leier-marsilia", "Leier Marsilia", "tigla-ceramica-leier-marsilia", { perM2: 15.5, lath: 0.322, perPallet: 360, kg: 2.8, minPitch: 20, side: true }),
+  ceramic("leier-portugheza", "Leier Portugheza", "tigla-ceramica-leier-portugheza", { perM2: 16, lath: 0.323, perPallet: 300, kg: 2.8, minPitch: 20, side: true }),
+  ceramic("leier-valahia", "Leier Valahia", "tigla-ceramica-leier-valahia", { perM2: 16.4, lath: 0.32, perPallet: 360, kg: 2.4, minPitch: 24 }),
+  ceramic("leier-bavaria", "Leier Bavaria (solzi)", "tigla-ceramica-leier-bavaria", { perM2: 34, lath: 0.16, perPallet: 520, kg: 1.75, minPitch: 24 }),
+  ceramic("leier-andalusia-300", "Leier Andalusia 300 mm", "tigla-ceramica-leier-andalusia", { perM2: 48, perPallet: 400, kg: 1.34, minPitch: 18 }),
+  ceramic("leier-andalusia-350", "Leier Andalusia 350 mm", "tigla-ceramica-leier-andalusia-350-mm", { perM2: 38, perPallet: 240, kg: 1.83, minPitch: 18 }),
+  // ── Țiglă ceramică: swissporTON (valorile medii din fișe; panta minimă cu folie impermeabilă)
+  ceramic("sw-balance", "swissporTON Balance", "tigla-ceramica-balance", { perM2: 8.7, lath: 0.419, perPallet: 192, kg: 4.9, minPitch: 10, side: true }),
+  ceramic("sw-nomina", "swissporTON Nomina", "tigla-ceramica-nomina", { perM2: 8.9, lath: 0.402, perPallet: 192, kg: 5.1, minPitch: 10, side: true }),
+  ceramic("sw-genevo", "swissporTON Genevo", "tigla-ceramica-genevo", { perM2: 8.9, lath: 0.402, perPallet: 192, kg: 5.1, minPitch: 10, side: true }),
+  ceramic("sw-rapido", "swissporTON Rapido", "tigla-ceramica-rapido", { perM2: 8.1, lath: 0.4, kg: 5.2, side: true }),
+  ceramic("sw-nivelo", "swissporTON Nivelo", "tigla-ceramica-nivelo", { perM2: 11.2, lath: 0.362, perPallet: 256, kg: 3.98, minPitch: 10, side: true }),
+  ceramic("sw-profil", "swissporTON Profil", "tigla-ceramica-profil", { perM2: 19.5, lath: 0.285, perPallet: 324, kg: 2.5, minPitch: 10, side: true }),
+  ceramic("sw-solzi", "swissporTON Solzi Classic", "tigla-ceramica-solzi-classic", { perM2: 36, lath: 0.155, perPallet: 480, kg: 1.8, minPitch: 10 }),
+  // ── Țiglă de beton: Bramac, format 420×330 mm (fișele produselor)
+  concrete("bramac-donau", "Bramac Donau", "bramac-donau-tigla-11", { perM2: 10, kg: 4.4, minPitch: 15 }),
+  concrete("bramac-adria", "Bramac Adria", "bramac-adria-tigla-11", { perM2: 10, kg: 4.6, minPitch: 15 }),
+  concrete("bramac-natura-plus", "Bramac Natura Plus", "bramac-natura-plus-tigla-11", { perM2: 10, kg: 4.25, minPitch: 15 }),
+  concrete("bramac-romana", "Bramac Romana", "bramac-romana-tigla-11", { perM2: 10 }),
+  concrete("bramac-viva", "Bramac Viva", "bramac-viva-tigla-11", { perM2: 11, lath: 0.31, kg: 4.55, minPitch: 25 }),
+  concrete("bramac-textura", "Bramac TeXtura", "bramac-textura-tigla-11", { perM2: 11, lath: 0.31, kg: 4.6, minPitch: 25 }),
 ]
 
 export const ROOF_RULES: AccessoryRules = {
@@ -76,6 +122,13 @@ export const ROOF_RULES: AccessoryRules = {
   membraneExtra: 0.15, // suprapuneri și racorduri
   gutterPerDownpipe: 10,
   panelWaste: 0.07, // Novatik: tăieri la margini și coame
+  tileWaste: 0.03, // de confirmat
+  tileWasteHips: 0.08, // tăieri pe muchii la patru ape (de confirmat)
+  ridgeTilesPerM: 2.7, // Leier, țiglă de beton: 2,7 buc/m
+  ventTileEveryM2: 10, // Leier: 1 buc la 10 m²
+  rafterSpacing: 0.9, // de confirmat
+  snowGuardsPerM: 2, // Leier: 2 buc/m
+  ridgeBandRollM: 5, // banda de coamă Bilka
 }
 
 /** Banda de coamă Bilka: o rolă de 5 m (catalog Bilka). */
