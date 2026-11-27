@@ -8,22 +8,18 @@ import { HttpTypes } from "@medusajs/types"
 import { addToCart, retrieveCart } from "@lib/data/cart"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { getPricingUnit } from "@lib/util/format-price"
+import {
+  isOptionValueAvailable,
+  primaryOptionId,
+  selectionAfterOptionChange,
+  variantOptionMap,
+} from "@lib/util/variant-options"
 import { getVariantQuantity } from "@modules/products/components/stock-badge"
 import PriceDisplay from "@modules/common/components/price-display"
 import StockBadge from "@modules/products/components/stock-badge"
 import { useCartDrawer } from "@modules/cart/context/cart-drawer-context"
 import CereOfertaForm from "@modules/products/components/cere-oferta-form"
 import AddToQuoteButton from "@modules/quote/components/add-to-quote-button"
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-
-const optionsAsKeymap = (
-  variantOptions: HttpTypes.StoreProductVariant["options"]
-): Record<string, string> =>
-  variantOptions?.reduce((acc: Record<string, string>, vo: any) => {
-    acc[vo.option_id] = vo.value
-    return acc
-  }, {}) ?? {}
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
@@ -39,19 +35,64 @@ const PdpActions = ({ product, onVariantChange }: PdpActionsProps) => {
   const { openDrawer } = useCartDrawer()
 
   // ── Variant selection ───────────────────────────────────────────────────────
-  const [options, setOptions] = useState<Record<string, string | undefined>>({})
+  const [options, setOptions] = useState<Record<string, string>>({})
+  const [optionNotice, setOptionNotice] = useState<string | null>(null)
+
+  const optionIds = useMemo(
+    () => (product.options ?? []).map((option) => option.id),
+    [product.options]
+  )
+  const anchorOptionId = useMemo(
+    () => primaryOptionId(product.options ?? []),
+    [product.options]
+  )
+  const variantMaps = useMemo(
+    () => (product.variants ?? []).map((variant) => variantOptionMap(variant.options)),
+    [product.variants]
+  )
+  // Sparse matrices only matter once two options can combine.
+  const combinationAware = optionIds.length > 1
 
   // Pre-select if single variant
   useEffect(() => {
     if (product.variants?.length === 1) {
-      setOptions(optionsAsKeymap(product.variants[0].options))
+      setOptions(variantOptionMap(product.variants[0].options))
     }
   }, [product.variants])
+
+  useEffect(() => {
+    setOptionNotice(null)
+  }, [product.id])
+
+  const selectOptionValue = (optionId: string, value: string) => {
+    const next = selectionAfterOptionChange(
+      variantMaps,
+      optionIds,
+      anchorOptionId,
+      options,
+      optionId,
+      value,
+      combinationAware
+    )
+    if (next === options) return
+
+    const cleared = optionIds
+      .filter((id) => id !== optionId && options[id] && options[id] !== next[id])
+      .map((id) => options[id])
+
+    setOptions(next)
+    if (cleared.length > 0) {
+      const verb = cleared.length > 1 ? "nu sunt disponibile" : "nu este disponibil"
+      setOptionNotice(`${cleared.join(", ")} ${verb} pentru ${value}.`)
+    } else {
+      setOptionNotice(null)
+    }
+  }
 
   const selectedVariant = useMemo(() => {
     if (!product.variants?.length) return undefined
     return product.variants.find((v) =>
-      isEqual(optionsAsKeymap(v.options), options)
+      isEqual(variantOptionMap(v.options), options)
     ) as (HttpTypes.StoreProductVariant & { inventory_quantity?: number; manage_inventory?: boolean; allow_backorder?: boolean }) | undefined
   }, [product.variants, options])
 
@@ -125,22 +166,50 @@ const PdpActions = ({ product, onVariantChange }: PdpActionsProps) => {
             <div key={option.id} className="flex flex-col gap-y-2">
               <span className="text-sm font-semibold text-[#1D1D1F]">{option.title}</span>
               <div className="flex flex-wrap gap-2">
-                {(option.values ?? []).map((v) => (
-                  <button
-                    key={v.value}
-                    onClick={() => setOptions((prev) => ({ ...prev, [option.id]: v.value }))}
-                    className={`h-10 px-4 rounded-full text-sm font-medium border transition-all duration-150 ${
-                      options[option.id] === v.value
-                        ? "bg-white text-[#1D1D1F] border-[#1D1D1F] border-2"
-                        : "bg-white text-[#424245] border-[#D2D2D7] hover:border-[#86868B]"
-                    }`}
-                  >
-                    {v.value}
-                  </button>
-                ))}
+                {(option.values ?? []).map((v) => {
+                  const value = v.value ?? ""
+                  const unavailable =
+                    combinationAware &&
+                    !isOptionValueAvailable(
+                      variantMaps,
+                      optionIds,
+                      anchorOptionId,
+                      options,
+                      option.id,
+                      value,
+                      true
+                    )
+                  const selected = !unavailable && options[option.id] === value
+
+                  return (
+                    <button
+                      key={v.id ?? value}
+                      type="button"
+                      disabled={unavailable}
+                      aria-pressed={selected}
+                      aria-label={unavailable ? `${value}, indisponibil` : value}
+                      title={unavailable ? "Indisponibil" : undefined}
+                      onClick={() => selectOptionValue(option.id, value)}
+                      className={`h-10 px-4 rounded-full text-sm font-medium border transition-all duration-150 ${
+                        unavailable
+                          ? "bg-white text-[#86868B] border-[#D2D2D7] line-through opacity-60 cursor-not-allowed"
+                          : selected
+                            ? "bg-white text-[#1D1D1F] border-[#1D1D1F] border-2"
+                            : "bg-white text-[#424245] border-[#D2D2D7] hover:border-[#86868B]"
+                      }`}
+                    >
+                      {value}
+                    </button>
+                  )
+                })}
               </div>
             </div>
           ))}
+          {optionNotice && (
+            <p className="text-[13px] leading-snug text-[#6E6E73]" role="status">
+              {optionNotice}
+            </p>
+          )}
         </div>
       )}
 
