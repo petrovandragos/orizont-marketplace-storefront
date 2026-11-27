@@ -1,38 +1,41 @@
 "use server"
 
+import { cache } from "react"
 import { sdk } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
 import { HttpTypes } from "@medusajs/types"
-import { getCacheOptions } from "./cookies"
+import { catalogCache } from "./public-cache"
 
-export const listRegions = async () => {
-  const next = {
-    ...(await getCacheOptions("regions")),
-  }
+const REGION_CACHE = {
+  next: { revalidate: 3600, tags: ["regions"] },
+}
 
+const fetchRegions = cache(async () => {
   return sdk.client
     .fetch<{ regions: HttpTypes.StoreRegion[] }>(`/store/regions`, {
       method: "GET",
-      next,
-      cache: "force-cache",
+      ...REGION_CACHE,
     })
     .then(({ regions }) => regions)
     .catch(medusaError)
+})
+
+export const listRegions = async () => {
+  return fetchRegions()
 }
 
-export const retrieveRegion = async (id: string) => {
-  const next = {
-    ...(await getCacheOptions(["regions", id].join("-"))),
-  }
-
+const fetchRegion = cache(async (id: string) => {
   return sdk.client
     .fetch<{ region: HttpTypes.StoreRegion }>(`/store/regions/${id}`, {
       method: "GET",
-      next,
-      cache: "force-cache",
+      next: catalogCache(["regions", `regions-${id}`]),
     })
     .then(({ region }) => region)
     .catch(medusaError)
+})
+
+export const retrieveRegion = async (id: string) => {
+  return fetchRegion(id)
 }
 
 const regionMap = new Map<string, HttpTypes.StoreRegion>()

@@ -2,6 +2,9 @@ import { redirect } from "next/navigation"
 import { retrieveCustomer } from "@lib/data/customer"
 import ContSidebar from "@modules/account/components/cont-sidebar"
 
+// Account pages include the signed-in customer. Keep them fully dynamic.
+export const dynamic = "force-dynamic"
+
 type Props = {
   children: React.ReactNode
   params: Promise<{ countryCode: string }>

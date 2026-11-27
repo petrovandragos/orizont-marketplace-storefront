@@ -1,9 +1,9 @@
 import "server-only"
 import { cookies as nextCookies } from "next/headers"
 
-export const getAuthHeaders = async (): Promise<
-  { authorization: string } | {}
-> => {
+export type AuthHeaders = { authorization: string } | Record<string, never>
+
+export const getAuthHeaders = async (): Promise<AuthHeaders> => {
   try {
     const cookies = await nextCookies()
     const token = cookies.get("_medusa_jwt")?.value
@@ -16,6 +16,16 @@ export const getAuthHeaders = async (): Promise<
   } catch {
     return {}
   }
+}
+
+/**
+ * `getAuthHeaders()` returns `{}` for guests. An empty object is truthy, so
+ * `if (!authHeaders)` never skips the request. Use this guard instead.
+ */
+export function hasAuthHeader(
+  headers: AuthHeaders
+): headers is { authorization: string } {
+  return "authorization" in headers && headers.authorization.length > 0
 }
 
 export const getCacheTag = async (tag: string): Promise<string> => {

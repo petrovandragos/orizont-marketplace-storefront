@@ -2,12 +2,13 @@
 
 import { transferCart } from "@lib/data/customer"
 import { ExclamationCircleSolid } from "@medusajs/icons"
-import { StoreCart, StoreCustomer } from "@medusajs/types"
+import { StoreCart } from "@medusajs/types"
+import { SessionCustomer } from "@modules/layout/components/storefront-session"
 import { Button } from "@medusajs/ui"
 import { useState } from "react"
 
 function CartMismatchBanner(props: {
-  customer: StoreCustomer
+  customer: SessionCustomer
   cart: StoreCart
 }) {
   const { customer, cart } = props

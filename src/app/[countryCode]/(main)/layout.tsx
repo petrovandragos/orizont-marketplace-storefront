@@ -1,47 +1,31 @@
 import { Metadata } from "next"
 
-import { listCartOptions, retrieveCart } from "@lib/data/cart"
-import { retrieveCustomer } from "@lib/data/customer"
 import { getBaseURL } from "@lib/util/env"
-import { StoreCartShippingOption } from "@medusajs/types"
-import CartMismatchBanner from "@modules/layout/components/cart-mismatch-banner"
 import CartDrawerWrapper from "@modules/layout/components/cart-drawer-wrapper"
+import StorefrontPersonalization from "@modules/layout/components/storefront-personalization"
+import MobileContactBar from "@modules/layout/components/mobile-contact-bar"
 import Footer from "@modules/layout/templates/footer"
 import Nav from "@modules/layout/templates/nav"
-import MobileContactBar from "@modules/layout/components/mobile-contact-bar"
-import FreeShippingPriceNudge from "@modules/shipping/components/free-shipping-price-nudge"
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
 }
 
-export default async function PageLayout(props: { children: React.ReactNode }) {
-  const customer = await retrieveCustomer()
-  const cart = await retrieveCart()
-  let shippingOptions: StoreCartShippingOption[] = []
+// Public pages under this layout are ISR. Account, cart, and checkout opt back
+// into dynamic rendering because they read the customer or cart cookies.
+export const revalidate = 120
 
-  if (cart) {
-    const { shipping_options } = await listCartOptions()
+export function generateStaticParams() {
+  return [{ countryCode: "ro" }]
+}
 
-    shippingOptions = shipping_options
-  }
-
+export default function PageLayout(props: { children: React.ReactNode }) {
   return (
     <CartDrawerWrapper>
       <div className="flex flex-col min-h-screen bg-white">
         <Nav />
 
-        {customer && cart && (
-          <CartMismatchBanner customer={customer} cart={cart} />
-        )}
-
-        {cart && (
-          <FreeShippingPriceNudge
-            variant="popup"
-            cart={cart}
-            shippingOptions={shippingOptions}
-          />
-        )}
+        <StorefrontPersonalization />
 
         <div className="flex-1">
           {props.children}

@@ -1,6 +1,4 @@
 import { Metadata } from "next"
-
-export const dynamic = "force-dynamic"
 import { notFound } from "next/navigation"
 
 import { getCollectionByHandle, listCollections } from "@lib/data/collections"
@@ -20,8 +18,9 @@ type Props = {
 export const PRODUCT_LIMIT = 12
 
 export async function generateStaticParams() {
+  try {
   const { collections } = await listCollections({
-    fields: "*products",
+    fields: "id,handle,title",
   })
 
   if (!collections) {
@@ -49,7 +48,15 @@ export async function generateStaticParams() {
     )
     .flat()
 
-  return staticParams
+  return staticParams ?? []
+  } catch (error) {
+    console.error(
+      `Failed to generate static paths for collection pages: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }.`
+    )
+    return []
+  }
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {

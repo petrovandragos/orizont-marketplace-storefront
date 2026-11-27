@@ -645,10 +645,16 @@ export async function updateRegion(countryCode: string, currentPath: string) {
   }
 
   const regionCacheTag = await getCacheTag("regions")
-  revalidateTag(regionCacheTag)
+  if (regionCacheTag) {
+    revalidateTag(regionCacheTag)
+  }
+  revalidateTag("regions")
 
   const productsCacheTag = await getCacheTag("products")
-  revalidateTag(productsCacheTag)
+  if (productsCacheTag) {
+    revalidateTag(productsCacheTag)
+  }
+  revalidateTag("products")
 
   redirect(currentPath)
 }

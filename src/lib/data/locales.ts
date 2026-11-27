@@ -1,28 +1,19 @@
 "use server"
 
-import { sdk } from "@lib/config"
-import { getCacheOptions } from "./cookies"
-
 export type Locale = {
   code: string
   name: string
 }
 
 /**
- * Fetches available locales from the backend.
- * Returns null if the endpoint returns 404 (locales not configured).
+ * The Medusa backend for this store does not expose `/store/locales`
+ * (the storefront is Romanian-only). Calling it from the nav 404s on every
+ * document and, via `getCacheOptions()`, reads cookies — which forces
+ * `Cache-Control: private, no-store` on public pages.
+ *
+ * The language switcher already hides itself when this returns null.
+ * Restore a cached fetch (no cookies) if the endpoint is added later.
  */
 export const listLocales = async (): Promise<Locale[] | null> => {
-  const next = {
-    ...(await getCacheOptions("locales")),
-  }
-
-  return sdk.client
-    .fetch<{ locales: Locale[] }>(`/store/locales`, {
-      method: "GET",
-      next,
-      cache: "force-cache",
-    })
-    .then(({ locales }) => locales)
-    .catch(() => null)
+  return null
 }

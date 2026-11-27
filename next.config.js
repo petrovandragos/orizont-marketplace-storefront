@@ -9,6 +9,37 @@ const S3_HOSTNAME = process.env.MEDUSA_CLOUD_S3_HOSTNAME
 const S3_PATHNAME = process.env.MEDUSA_CLOUD_S3_PATHNAME
 const BACKEND_HOSTNAME = process.env.MEDUSA_BACKEND_HOSTNAME
 
+function hostFrom(url) {
+  if (!url) return null
+  try {
+    const parsed = new URL(url)
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null
+    return { protocol: parsed.protocol.replace(":", ""), hostname: parsed.hostname }
+  } catch {
+    return null
+  }
+}
+
+// Hero banners are served from the Medusa static host (admin.orizont-srl.ro/static/…).
+// next/image refuses remote URLs that are not listed here.
+const imageHosts = [
+  hostFrom(process.env.MEDUSA_BACKEND_URL),
+  BACKEND_HOSTNAME ? { protocol: "https", hostname: BACKEND_HOSTNAME } : null,
+  { protocol: "https", hostname: "admin.orizont-srl.ro" },
+].filter(Boolean)
+
+const uniqueImageHosts = []
+for (const host of imageHosts) {
+  if (
+    !uniqueImageHosts.some(
+      (existing) =>
+        existing.protocol === host.protocol && existing.hostname === host.hostname
+    )
+  ) {
+    uniqueImageHosts.push(host)
+  }
+}
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -31,7 +62,7 @@ const nextConfig = {
         protocol: "http",
         hostname: "localhost",
       },
-      ...(BACKEND_HOSTNAME ? [{ protocol: "https", hostname: BACKEND_HOSTNAME }] : []),
+      ...uniqueImageHosts,
       {
         protocol: "https",
         hostname: "medusa-public-images.s3.eu-west-1.amazonaws.com",
