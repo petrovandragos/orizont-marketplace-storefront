@@ -59,16 +59,19 @@ export const updateLocale = async (localeCode: string): Promise<string> => {
   if (productsCacheTag) {
     revalidateTag(productsCacheTag)
   }
+  revalidateTag("products")
 
   const categoriesCacheTag = await getCacheTag("categories")
   if (categoriesCacheTag) {
     revalidateTag(categoriesCacheTag)
   }
+  revalidateTag("categories")
 
   const collectionsCacheTag = await getCacheTag("collections")
   if (collectionsCacheTag) {
     revalidateTag(collectionsCacheTag)
   }
+  revalidateTag("collections")
 
   return localeCode
 }

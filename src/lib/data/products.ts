@@ -4,7 +4,7 @@ import { sdk } from "@lib/config"
 import { sortProducts } from "@lib/util/sort-products"
 import { HttpTypes } from "@medusajs/types"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import { getAuthHeaders } from "./cookies"
+import { catalogCache } from "./public-cache"
 import { getRegion, retrieveRegion } from "./regions"
 
 export const listProducts = async ({
@@ -45,10 +45,10 @@ export const listProducts = async ({
     }
   }
 
-  const headers = {
-    ...(await getAuthHeaders()),
-  }
-
+  // Anonymous region prices only. Sending the customer JWT here would either
+  // make the response uncacheable or store one shopper's prices in the shared
+  // catalog cache. Customer-group price lists, if added later, need their own
+  // private path.
   return sdk.client
     .fetch<{ products: HttpTypes.StoreProduct[]; count: number }>(
       `/store/products`,
@@ -62,8 +62,7 @@ export const listProducts = async ({
             "*variants.calculated_price,+variants.inventory_quantity,+metadata,+tags,",
           ...queryParams,
         },
-        headers,
-        cache: "no-store",
+        next: catalogCache(["products"]),
       }
     )
     .then(({ products, count }) => {
@@ -78,6 +77,55 @@ export const listProducts = async ({
         queryParams,
       }
     })
+}
+
+/**
+ * Loads every page of a catalog query. Category and store filters (brand,
+ * price, stock, sort) are applied in memory, so they need the working set —
+ * but the pages are requested together and then served from the shared
+ * catalog cache instead of a sequential `no-store` walk on every HTML request.
+ */
+export const listAllProducts = async ({
+  countryCode,
+  queryParams,
+  pageSize = 100,
+  maxPages = 20,
+}: {
+  countryCode: string
+  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductListParams
+  pageSize?: number
+  maxPages?: number
+}): Promise<HttpTypes.StoreProduct[]> => {
+  const pageQuery = { ...queryParams, limit: pageSize }
+  const first = await listProducts({
+    pageParam: 1,
+    queryParams: pageQuery,
+    countryCode,
+  })
+  const { products, count } = first.response
+  const pageCount = Math.min(
+    maxPages,
+    Math.max(1, Math.ceil(count / pageSize))
+  )
+
+  if (pageCount <= 1) {
+    return products
+  }
+
+  const rest = await Promise.all(
+    Array.from({ length: pageCount - 1 }, (_, index) =>
+      listProducts({
+        pageParam: index + 2,
+        queryParams: pageQuery,
+        countryCode,
+      }).catch(() => ({
+        response: { products: [] as HttpTypes.StoreProduct[], count: 0 },
+        nextPage: null,
+      }))
+    )
+  )
+
+  return [...products, ...rest.flatMap((page) => page.response.products)]
 }
 
 /**

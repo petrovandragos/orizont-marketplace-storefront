@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import { unstable_noStore as noStore } from "next/cache"
 
 import Hero from "@modules/home/components/hero"
 import HeroVitrina from "@modules/home/components/hero-vitrina"
@@ -73,6 +74,8 @@ export default async function Home(props: {
   ])
 
   if (!region) {
+    // Don't cache an empty homepage when the backend is unreachable at build time.
+    noStore()
     return null
   }
 

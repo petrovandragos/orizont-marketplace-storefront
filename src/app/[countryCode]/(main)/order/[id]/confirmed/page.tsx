@@ -1,8 +1,10 @@
+import { Metadata } from "next"
+import { notFound } from "next/navigation"
 import { retrieveOrder } from "@lib/data/orders"
 import { retrieveCustomer } from "@lib/data/customer"
 import OrderCompletedTemplate from "@modules/order/templates/order-completed-template"
-import { Metadata } from "next"
-import { notFound } from "next/navigation"
+
+export const dynamic = "force-dynamic"
 
 type Props = {
   params: Promise<{ id: string }>

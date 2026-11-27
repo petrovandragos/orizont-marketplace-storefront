@@ -1,8 +1,8 @@
 "use client"
 
 import { useRef, useState, useCallback } from "react"
-import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { useStorefrontSession } from "@modules/layout/components/storefront-session"
 
 const ACCOUNT_LINKS = [
   {
@@ -39,11 +39,8 @@ const ACCOUNT_LINKS = [
   },
 ]
 
-type Props = {
-  customer: HttpTypes.StoreCustomer | null
-}
-
-export default function NavAccountDropdown({ customer }: Props) {
+export default function NavAccountDropdown() {
+  const { customer } = useStorefrontSession()
   const [open, setOpen] = useState(false)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 

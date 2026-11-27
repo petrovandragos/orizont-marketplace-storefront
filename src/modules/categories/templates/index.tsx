@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { notFound } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
 
@@ -7,7 +8,8 @@ import { CALCULATOR_ART } from "@modules/calculators/components/icons"
 import ProductCard from "@modules/products/components/product-card"
 import FilterSidebar from "@modules/categories/components/filter-sidebar"
 import SortAndCountBar from "@modules/categories/components/sort-and-count-bar"
-import { listProducts } from "@lib/data/products"
+import { listAllProducts } from "@lib/data/products"
+import { getRegion } from "@lib/data/regions"
 import { sortProducts } from "@lib/util/sort-products"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { getProductPrice } from "@lib/util/get-product-price"
@@ -35,16 +37,7 @@ function resolveSort(raw?: string): SortOptions {
 
 // ── Template ──────────────────────────────────────────────────────────────────
 
-export default async function CategoryTemplate({
-  category,
-  sortBy,
-  page,
-  countryCode,
-  minPrice,
-  maxPrice,
-  brands,
-  inStock,
-}: {
+type CategoryTemplateProps = {
   category: HttpTypes.StoreProductCategory
   sortBy?: string
   page?: string
@@ -53,35 +46,145 @@ export default async function CategoryTemplate({
   maxPrice?: string
   brands?: string
   inStock?: string
-}) {
-  if (!category || !countryCode) notFound()
+}
 
-  // ── Fetch ALL products for this category (paginate past 100) ───────────────
-  const FETCH_LIMIT = 100
-  const allProducts: HttpTypes.StoreProduct[] = []
-  let fetchPage = 1
-  let hasMore = true
-  while (hasMore) {
-    const { response: { products: batch }, nextPage } = await listProducts({
-      pageParam: fetchPage,
+export default function CategoryTemplate(props: CategoryTemplateProps) {
+  if (!props.category || !props.countryCode) notFound()
+
+  return (
+    <div className="content-container pt-6 pb-4 md:pt-8">
+      <CategoryIntro category={props.category} />
+      <Suspense fallback={<CategoryCatalogFallback />}>
+        <CategoryCatalog {...props} />
+      </Suspense>
+    </div>
+  )
+}
+
+function CategoryIntro({
+  category,
+}: {
+  category: HttpTypes.StoreProductCategory
+}) {
+  const parents: HttpTypes.StoreProductCategory[] = []
+  const collectParents = (cat: HttpTypes.StoreProductCategory) => {
+    if (cat.parent_category) {
+      collectParents(cat.parent_category)
+      parents.push(cat.parent_category)
+    }
+  }
+  collectParents(category)
+
+  return (
+    <>
+      <nav aria-label="Breadcrumb" className="mb-5">
+        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-[#6E6E73]">
+          <li>
+            <LocalizedClientLink href="/" className="hover:text-[#1D1D1F] hover:underline transition-colors">
+              Acasă
+            </LocalizedClientLink>
+          </li>
+
+          {parents.map((parent) => (
+            <li key={parent.id} className="flex items-center gap-x-1.5">
+              <svg className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+              <LocalizedClientLink
+                href={`/categories/${parent.handle}`}
+                className="hover:text-[#1D1D1F] hover:underline transition-colors"
+              >
+                {parent.name}
+              </LocalizedClientLink>
+            </li>
+          ))}
+
+          <li className="flex items-center gap-x-1.5">
+            <svg className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span className="font-medium text-[#1D1D1F]" aria-current="page">
+              {category.name}
+            </span>
+          </li>
+        </ol>
+      </nav>
+
+      <h1 className="display-2 mb-6">{category.name}</h1>
+
+      {(category.category_children?.length ?? 0) > 0 && (
+        <div className="flex flex-wrap gap-2 mb-8">
+          {category.category_children!.map((child) => (
+            <LocalizedClientLink
+              key={child.id}
+              href={`/categories/${child.handle}`}
+              className="inline-flex items-center h-9 px-4 text-sm text-[#1D1D1F] rounded-full bg-[#F5F5F7] hover:bg-[#E8E8ED] transition-colors"
+            >
+              {child.name}
+            </LocalizedClientLink>
+          ))}
+        </div>
+      )}
+
+      {(() => {
+        const slug = CATEGORY_CALCULATOR[category.handle ?? ""]
+        const calc = CALCULATORS.find((c) => c.slug === slug)
+        if (!calc) return null
+        return (
+          <LocalizedClientLink
+            href={`/calculatoare/${calc.slug}`}
+            className="mb-8 flex flex-col sm:flex-row sm:items-center gap-4 rounded-[22px] bg-[#FFF3E6] px-5 py-4 sm:px-6 hover:bg-[#FFEAD5] transition-colors"
+          >
+            <span className="hidden sm:block w-[72px] h-12 text-[#F27A1A] flex-none">{CALCULATOR_ART[calc.slug]}</span>
+            <span className="flex-1">
+              <span className="block text-[17px] font-semibold tracking-[-0.01em] text-[#1D1D1F]">Calculați necesarul: {calc.short.toLowerCase()}</span>
+              <span className="block text-sm text-[#6E6E73] mt-0.5">{calc.text}</span>
+            </span>
+            <span className="btn-pill-sm self-start sm:self-auto">Deschideți calculatorul</span>
+          </LocalizedClientLink>
+        )
+      })()}
+    </>
+  )
+}
+
+function CategoryCatalogFallback() {
+  return (
+    <div className="flex gap-x-8 xl:gap-x-10 items-start" aria-hidden="true">
+      <div className="hidden lg:block w-60 flex-shrink-0 h-72 rounded-[22px] bg-[#F5F5F7] animate-pulse" />
+      <div className="min-w-0 flex-1">
+        <div className="h-10 mb-5 rounded-full bg-[#F5F5F7] animate-pulse" />
+        <ul className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-4">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <li key={index} className="aspect-[3/4] rounded-[22px] bg-[#F5F5F7] animate-pulse" />
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+async function CategoryCatalog({
+  category,
+  sortBy,
+  page,
+  countryCode,
+  minPrice,
+  maxPrice,
+  brands,
+  inStock,
+}: CategoryTemplateProps) {
+  const [allProducts, region] = await Promise.all([
+    listAllProducts({
+      countryCode,
       queryParams: {
-        limit: FETCH_LIMIT,
         category_id: [category.id],
         fields:
           "*variants.calculated_price,+variants.inventory_quantity,+variants.manage_inventory,+variants.allow_backorder,+metadata",
       },
-      countryCode,
-    }).catch(() => ({ response: { products: [] as HttpTypes.StoreProduct[], count: 0 }, nextPage: null }))
-    allProducts.push(...batch)
-    hasMore = nextPage !== null
-    fetchPage++
-  }
-
-  // ── Region (needed for ProductCard price) ───────────────────────────────────
-  // We obtain the region via the first product's pricing, or fall back to fetching it
-  // ProductCard handles its own region prop — we need to pass it through
-  const { getRegion } = await import("@lib/data/regions")
-  const region = await getRegion(countryCode)
+    }).catch(() => [] as HttpTypes.StoreProduct[]),
+    getRegion(countryCode),
+  ])
 
   if (!region) notFound()
 
@@ -150,96 +253,10 @@ export default async function CategoryTemplate({
   }
   const availableBrands = Object.keys(brandCounts).sort()
 
-  // ── Breadcrumbs ─────────────────────────────────────────────────────────────
-  const parents: HttpTypes.StoreProductCategory[] = []
-  const collectParents = (cat: HttpTypes.StoreProductCategory) => {
-    if (cat.parent_category) {
-      collectParents(cat.parent_category)
-      parents.push(cat.parent_category)
-    }
-  }
-  collectParents(category)
-
-  // ── hasActiveFilters ─────────────────────────────────────────────────────────
   const hasActiveFilters =
     !!minPrice || !!maxPrice || !!brands || inStock === "1"
 
   return (
-    <div className="content-container pt-6 pb-4 md:pt-8">
-
-      {/* ── Breadcrumbs ── */}
-      <nav aria-label="Breadcrumb" className="mb-5">
-        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-[#6E6E73]">
-          <li>
-            <LocalizedClientLink href="/" className="hover:text-[#1D1D1F] hover:underline transition-colors">
-              Acasă
-            </LocalizedClientLink>
-          </li>
-
-          {parents.map((parent) => (
-            <li key={parent.id} className="flex items-center gap-x-1.5">
-              <svg className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-              <LocalizedClientLink
-                href={`/categories/${parent.handle}`}
-                className="hover:text-[#1D1D1F] hover:underline transition-colors"
-              >
-                {parent.name}
-              </LocalizedClientLink>
-            </li>
-          ))}
-
-          <li className="flex items-center gap-x-1.5">
-            <svg className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="font-medium text-[#1D1D1F]" aria-current="page">
-              {category.name}
-            </span>
-          </li>
-        </ol>
-      </nav>
-
-      {/* ── Heading ── */}
-      <h1 className="display-2 mb-6">{category.name}</h1>
-
-      {/* ── Sub-category pills ── */}
-      {(category.category_children?.length ?? 0) > 0 && (
-        <div className="flex flex-wrap gap-2 mb-8">
-          {category.category_children!.map((child) => (
-            <LocalizedClientLink
-              key={child.id}
-              href={`/categories/${child.handle}`}
-              className="inline-flex items-center h-9 px-4 text-sm text-[#1D1D1F] rounded-full bg-[#F5F5F7] hover:bg-[#E8E8ED] transition-colors"
-            >
-              {child.name}
-            </LocalizedClientLink>
-          ))}
-        </div>
-      )}
-
-      {/* ── Banda cu calculatorul potrivit categoriei ── */}
-      {(() => {
-        const slug = CATEGORY_CALCULATOR[category.handle ?? ""]
-        const calc = CALCULATORS.find((c) => c.slug === slug)
-        if (!calc) return null
-        return (
-          <LocalizedClientLink
-            href={`/calculatoare/${calc.slug}`}
-            className="mb-8 flex flex-col sm:flex-row sm:items-center gap-4 rounded-[22px] bg-[#FFF3E6] px-5 py-4 sm:px-6 hover:bg-[#FFEAD5] transition-colors"
-          >
-            <span className="hidden sm:block w-[72px] h-12 text-[#F27A1A] flex-none">{CALCULATOR_ART[calc.slug]}</span>
-            <span className="flex-1">
-              <span className="block text-[17px] font-semibold tracking-[-0.01em] text-[#1D1D1F]">Calculați necesarul: {calc.short.toLowerCase()}</span>
-              <span className="block text-sm text-[#6E6E73] mt-0.5">{calc.text}</span>
-            </span>
-            <span className="btn-pill-sm self-start sm:self-auto">Deschideți calculatorul</span>
-          </LocalizedClientLink>
-        )
-      })()}
-
-      {/* ── Main layout: sidebar + content ── */}
       <div className="flex gap-x-8 xl:gap-x-10 items-start">
 
         {/* Desktop filter sidebar */}
@@ -299,7 +316,6 @@ export default async function CategoryTemplate({
           )}
         </div>
       </div>
-    </div>
   )
 }
 

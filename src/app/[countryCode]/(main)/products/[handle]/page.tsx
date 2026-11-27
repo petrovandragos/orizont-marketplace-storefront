@@ -1,12 +1,23 @@
+import { cache } from "react"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
-import { HttpTypes } from "@medusajs/types"
 import { toMetaDescription } from "@lib/util/meta-description"
 
-export const dynamic = 'force-dynamic'
+const PRODUCT_FIELDS =
+  "*variants.calculated_price,+variants.inventory_quantity,+variants.manage_inventory,+variants.allow_backorder,+variants.metadata,+metadata,+tags,*categories"
+
+// One catalog read per request, shared by generateMetadata and the page.
+// Previously each called listProducts with `cache: "no-store"` and different fields.
+const getProductByHandle = cache(async (countryCode: string, handle: string) => {
+  const { response } = await listProducts({
+    countryCode,
+    queryParams: { handle, fields: PRODUCT_FIELDS },
+  })
+  return response.products[0] ?? null
+})
 
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
@@ -63,13 +74,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     notFound()
   }
 
-  const product = await listProducts({
-    countryCode: params.countryCode,
-    queryParams: {
-      handle,
-      fields: "+metadata,*categories",
-    },
-  }).then(({ response }) => response.products[0])
+  const product = await getProductByHandle(params.countryCode, handle)
 
   if (!product) {
     notFound()
@@ -103,14 +108,10 @@ export default async function ProductPage(props: Props) {
     notFound()
   }
 
-  const pricedProduct = await listProducts({
-    countryCode: params.countryCode,
-    queryParams: {
-      handle: params.handle,
-      fields:
-        "*variants.calculated_price,+variants.inventory_quantity,+variants.manage_inventory,+variants.allow_backorder,+variants.metadata,+metadata,+tags,*categories",
-    },
-  }).then(({ response }) => response.products[0])
+  const pricedProduct = await getProductByHandle(
+    params.countryCode,
+    params.handle
+  )
 
   if (!pricedProduct) {
     notFound()

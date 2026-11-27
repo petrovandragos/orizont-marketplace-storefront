@@ -3,6 +3,8 @@ import { redirect } from "next/navigation"
 import { retrieveCustomer } from "@lib/data/customer"
 import RegisterCard from "@modules/account/components/register-card"
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "Înregistrare",
   description: "Creați un cont Orizont pentru o experiență completă de cumpărături.",

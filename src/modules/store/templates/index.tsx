@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { listCategories } from "@lib/data/categories"
 import { listProducts } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
@@ -18,7 +19,62 @@ function resolveSort(raw?: string): SortOptions {
   return "created_at"
 }
 
-const StoreTemplate = async ({
+const StoreTemplate = ({
+  sortBy,
+  page,
+  countryCode,
+  selectedCategories,
+  brands,
+}: {
+  sortBy?: SortOptions
+  page?: string
+  countryCode: string
+  selectedCategories?: string
+  brands?: string
+}) => {
+  return (
+    <div
+      className="flex flex-col gap-y-8 small:gap-y-10 pt-6 pb-4 small:pt-8 content-container"
+      data-testid="category-container"
+    >
+      <div>
+        <nav aria-label="Breadcrumb" className="text-[13px] text-[#6E6E73] mb-4">
+          <LocalizedClientLink href="/" className="hover:text-[#1D1D1F] hover:underline">Acasă</LocalizedClientLink>
+          <span className="mx-1.5 text-gray-300">›</span>
+          <span className="text-[#1D1D1F]">Toate produsele</span>
+        </nav>
+        <h1 className="display-2" data-testid="store-page-title">Toate produsele</h1>
+        <p className="lead mt-3 max-w-[52ch]">
+          Catalogul complet de materiale de construcții, instalații, finisaje și scule din depozitul nostru.
+        </p>
+      </div>
+      <Suspense fallback={<StoreCatalogFallback />}>
+        <StoreCatalog
+          sortBy={sortBy}
+          page={page}
+          countryCode={countryCode}
+          selectedCategories={selectedCategories}
+          brands={brands}
+        />
+      </Suspense>
+    </div>
+  )
+}
+
+function StoreCatalogFallback() {
+  return (
+    <div className="flex flex-col small:flex-row small:items-start gap-x-12 pt-4" aria-hidden="true">
+      <div className="hidden small:block w-[260px] shrink-0 h-64 rounded-[22px] bg-[#F5F5F7] animate-pulse" />
+      <ul className="grid grid-cols-2 w-full small:grid-cols-3 gap-2.5 sm:gap-4">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <li key={index} className="aspect-[3/4] rounded-[22px] bg-[#F5F5F7] animate-pulse" />
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+const StoreCatalog = async ({
   sortBy,
   page,
   countryCode,
@@ -113,22 +169,6 @@ const StoreTemplate = async ({
   const availableBrands = Object.keys(brandCounts).sort()
 
   return (
-    <div
-      className="flex flex-col gap-y-8 small:gap-y-10 pt-6 pb-4 small:pt-8 content-container"
-      data-testid="category-container"
-    >
-      <div>
-        <nav aria-label="Breadcrumb" className="text-[13px] text-[#6E6E73] mb-4">
-          <LocalizedClientLink href="/" className="hover:text-[#1D1D1F] hover:underline">Acasă</LocalizedClientLink>
-          <span className="mx-1.5 text-gray-300">›</span>
-          <span className="text-[#1D1D1F]">Toate produsele</span>
-        </nav>
-        <h1 className="display-2" data-testid="store-page-title">Toate produsele</h1>
-        <p className="lead mt-3 max-w-[52ch]">
-          Catalogul complet de materiale de construcții, instalații, finisaje și scule din depozitul nostru.
-        </p>
-      </div>
-
       <div className="flex flex-col small:flex-row small:items-start gap-x-12 pt-4">
         <aside className="small:sticky small:top-32 w-full small:w-[260px] shrink-0 bg-[#F5F5F7] rounded-[22px] p-5 mb-8 small:mb-0">
           <RefinementList
@@ -184,7 +224,6 @@ const StoreTemplate = async ({
           )}
         </div>
       </div>
-    </div>
   )
 }
 

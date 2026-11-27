@@ -1,10 +1,6 @@
-import { Suspense } from "react"
-
 import { listRegions } from "@lib/data/regions"
-import { listLocales } from "@lib/data/locales"
-import { getLocale } from "@lib/data/locale-actions"
-import { retrieveCustomer } from "@lib/data/customer"
 import { listCategories } from "@lib/data/categories"
+import { unstable_noStore as noStore } from "next/cache"
 import { StoreRegion } from "@medusajs/types"
 
 import Image from "next/image"
@@ -18,13 +14,19 @@ import NavAccountDropdown from "@modules/layout/components/nav-account-dropdown"
 import SideMenu from "@modules/layout/components/side-menu"
 
 export default async function Nav() {
-  const [regions, locales, currentLocale, customer, categories] = await Promise.all([
-    listRegions().then((r: StoreRegion[]) => r),
-    listLocales(),
-    getLocale(),
-    retrieveCustomer().catch(() => null),
-    listCategories().catch(() => []),
-  ])
+  let regions: StoreRegion[] = []
+  let categories: Awaited<ReturnType<typeof listCategories>> = []
+
+  try {
+    // A failed catalog read must not be frozen into the shared HTML cache
+    // (an empty menu served for the whole revalidate window).
+    ;[regions, categories] = await Promise.all([
+      listRegions(),
+      listCategories(),
+    ])
+  } catch {
+    noStore()
+  }
 
   return (
     <div>
@@ -45,8 +47,8 @@ export default async function Nav() {
             <div className="flex md:hidden flex-shrink-0">
               <SideMenu
                 regions={regions}
-                locales={locales}
-                currentLocale={currentLocale}
+                locales={null}
+                currentLocale={null}
                 categories={categories}
               />
             </div>
@@ -79,22 +81,10 @@ export default async function Nav() {
               <QuoteListNav />
 
               {/* Account dropdown — desktop only */}
-              <NavAccountDropdown customer={customer} />
+              <NavAccountDropdown />
 
-              {/* Cart dropdown — always visible */}
-              <Suspense
-                fallback={
-                  <div className="relative flex items-center text-[#424245]">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75}
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                      />
-                    </svg>
-                  </div>
-                }
-              >
-                <HeaderCartButton />
-              </Suspense>
+              {/* Cart dropdown — count loads from the private session, not the HTML cache */}
+              <HeaderCartButton />
             </div>
           </div>
 

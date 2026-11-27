@@ -1,5 +1,7 @@
 "use server"
 
+import { catalogCache } from "./public-cache"
+
 export type BannerSlide = {
   id: string
   title: string
@@ -18,7 +20,7 @@ export async function listBanners(): Promise<BannerSlide[]> {
       headers: {
         "x-publishable-api-key": publishableKey,
       },
-      next: { revalidate: 60 },
+      next: catalogCache(["banners"]),
     })
 
     if (!res.ok) return []

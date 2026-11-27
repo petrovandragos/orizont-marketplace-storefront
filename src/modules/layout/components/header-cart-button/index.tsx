@@ -1,10 +1,10 @@
-import { retrieveCart } from "@lib/data/cart"
+"use client"
+
+import { useStorefrontSession } from "@modules/layout/components/storefront-session"
 import NavCartDropdown from "@modules/layout/components/nav-cart-dropdown"
 
-const HeaderCartButton = async () => {
-  const cart = await retrieveCart().catch(() => null)
-  const itemCount =
-    cart?.items?.reduce((total, item) => total + item.quantity, 0) ?? 0
+const HeaderCartButton = () => {
+  const { cart, itemCount } = useStorefrontSession()
 
   return <NavCartDropdown cart={cart} itemCount={itemCount} />
 }

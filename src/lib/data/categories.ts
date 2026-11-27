@@ -1,7 +1,9 @@
+import { cache } from "react"
 import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
+import { catalogCache } from "./public-cache"
 
-export const listCategories = async (query?: Record<string, any>) => {
+async function fetchCategories(query?: Record<string, any>) {
   const limit = query?.limit || 200
 
   return sdk.client
@@ -17,15 +19,22 @@ export const listCategories = async (query?: Record<string, any>) => {
           limit,
           ...query,
         },
-        next: { revalidate: 60 },
+        next: catalogCache(["categories"]),
       }
     )
     .then(({ product_categories }) => product_categories)
 }
 
-export const getCategoryByHandle = async (categoryHandle: string[]) => {
-  const handle = `${categoryHandle.join("/")}`
+const fetchCategoriesCached = cache(async (key: string) => {
+  const query = key ? (JSON.parse(key) as Record<string, any>) : undefined
+  return fetchCategories(query)
+})
 
+export const listCategories = async (query?: Record<string, any>) => {
+  return fetchCategoriesCached(query ? JSON.stringify(query) : "")
+}
+
+const fetchCategoryByHandle = cache(async (handle: string) => {
   return sdk.client
     .fetch<HttpTypes.StoreProductCategoryListResponse>(
       `/store/product-categories`,
@@ -35,8 +44,12 @@ export const getCategoryByHandle = async (categoryHandle: string[]) => {
           fields: "*category_children",
           handle,
         },
-        next: { revalidate: 60 },
+        next: catalogCache(["categories"]),
       }
     )
     .then(({ product_categories }) => product_categories[0])
+})
+
+export const getCategoryByHandle = async (categoryHandle: string[]) => {
+  return fetchCategoryByHandle(`${categoryHandle.join("/")}`)
 }

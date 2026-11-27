@@ -20,6 +20,7 @@ type Props = {
 }
 
 export async function generateStaticParams() {
+  try {
   const product_categories = await listCategories()
 
   if (!product_categories) {
@@ -43,7 +44,15 @@ export async function generateStaticParams() {
     )
     .flat()
 
-  return staticParams
+  return staticParams ?? []
+  } catch (error) {
+    console.error(
+      `Failed to generate static paths for category pages: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }.`
+    )
+    return []
+  }
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {

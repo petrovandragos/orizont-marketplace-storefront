@@ -5,6 +5,9 @@ import CheckoutAuthChoice from "@modules/checkout/components/checkout-auth-choic
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+// Checkout reads the cart and the customer. Never cache this document.
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "Finalizare comandă",
   description: "Finalizați comanda de materiale de construcții.",

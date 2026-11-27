@@ -3,6 +3,9 @@ import { retrieveCustomer } from "@lib/data/customer"
 import CartTemplate from "@modules/cart/templates"
 import { Metadata } from "next"
 
+// Cart contents are private and must never land in the shared page cache.
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "Coșul de cumpărături",
   description: "Verificați produsele din coș și finalizați comanda.",

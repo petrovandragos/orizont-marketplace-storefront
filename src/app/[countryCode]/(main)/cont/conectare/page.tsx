@@ -3,6 +3,8 @@ import { redirect } from "next/navigation"
 import { retrieveCustomer } from "@lib/data/customer"
 import LoginCard from "@modules/account/components/login-card"
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "Conectare",
   description: "Conectați-vă în contul Orizont.",

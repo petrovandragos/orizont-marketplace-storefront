@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import Image from "next/image"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 export type BannerSlide = {
@@ -56,7 +57,17 @@ const HeroCarousel = ({ slides }: Props) => {
               className="relative min-w-full h-full block overflow-hidden"
               aria-label={slide.title}
             >
-              <div className="w-full h-full bg-center bg-no-repeat bg-cover" style={{ backgroundImage: `url(${slide.image})` }} />
+              {slide.image ? (
+                <Image
+                  src={slide.image}
+                  alt=""
+                  fill
+                  // Below the vitrină hero, which already preloads its first photo.
+                  // priority here would compete with that LCP image.
+                  sizes="(min-width: 1320px) 1272px, 100vw"
+                  className="object-cover object-center"
+                />
+              ) : null}
             </LocalizedClientLink>
           ))}
         </div>

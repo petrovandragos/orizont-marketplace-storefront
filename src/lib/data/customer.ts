@@ -10,6 +10,7 @@ import {
   getCacheOptions,
   getCacheTag,
   getCartId,
+  hasAuthHeader,
   removeAuthToken,
   removeCartId,
   setAuthToken,
@@ -27,33 +28,32 @@ async function verifyTurnstile(token: string): Promise<boolean> {
   return data.success === true
 }
 
-export const retrieveCustomer =
-  async (): Promise<HttpTypes.StoreCustomer | null> => {
-    const authHeaders = await getAuthHeaders()
+export const retrieveCustomer = async (
+  fields = "*orders,*addresses"
+): Promise<HttpTypes.StoreCustomer | null> => {
+  const authHeaders = await getAuthHeaders()
 
-    if (!authHeaders) return null
+  // Guests have no JWT. `{}` is truthy, so this must check the header itself.
+  // Otherwise every public page calls `/store/customers/me` and fails.
+  if (!hasAuthHeader(authHeaders)) return null
 
-    const headers = {
-      ...authHeaders,
-    }
-
-    const next = {
-      ...(await getCacheOptions("customers")),
-    }
-
-    return await sdk.client
-      .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/customers/me`, {
-        method: "GET",
-        query: {
-          fields: "*orders,*addresses",
-        },
-        headers,
-        next,
-        cache: "force-cache",
-      })
-      .then(({ customer }) => customer)
-      .catch(() => null)
+  const next = {
+    ...(await getCacheOptions("customers")),
   }
+
+  return await sdk.client
+    .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/customers/me`, {
+      method: "GET",
+      query: {
+        fields,
+      },
+      headers: authHeaders,
+      next,
+      cache: "force-cache",
+    })
+    .then(({ customer }) => customer)
+    .catch(() => null)
+}
 
 export const updateCustomer = async (body: HttpTypes.StoreUpdateCustomer) => {
   const headers = {
